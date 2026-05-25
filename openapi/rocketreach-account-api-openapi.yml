@@ -1,0 +1,359 @@
+openapi: 3.1.0
+info:
+  title: RocketReach Account API
+  version: 1.0.0
+  description: Retrieve and manage RocketReach API account details, lookup quotas, plan usage, billing email, and webhook
+    configuration.
+  contact:
+    name: RocketReach Support
+    email: api@rocketreach.co
+  license:
+    name: Proprietary
+  termsOfService: https://rocketreach.co/legal/terms-of-use
+servers:
+- url: https://api.rocketreach.co/api/v2
+  description: RocketReach v2 API
+- url: https://api.rocketreach.co/v1/api
+  description: RocketReach v1 API
+security:
+- RocketReachAPIKey: []
+paths:
+  /account/:
+    get:
+      operationId: get_account
+      description: Retrieve & Manage Account Details
+      summary: RocketReach API Account
+      tags:
+      - Account
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserModel'
+          description: Success. Returns the account object.
+        '400':
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+      x-code-samples:
+      - lang: Python
+        source: "\n                        result = rr.account.get()\n                        if result.is_success:\n    \
+          \                        account = result.account\n                        "
+  /account/key/:
+    post:
+      operationId: create_new_api_key
+      description: Create New API Key
+      summary: Get a RocketReach API Account
+      tags:
+      - Account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIKey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/APIKey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/APIKey'
+        required: true
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKey'
+          description: Success. Returns the new API key.
+        '400':
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+  /universal/account/:
+    get:
+      operationId: get_universal_account
+      description: Retrieve & Manage Account Details
+      summary: ⭐ RocketReach Universal API Account
+      tags:
+      - Account
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversalCreditsUserModelWithExtraAttributes'
+          description: Success. Returns the account object.
+        '400':
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+components:
+  securitySchemes:
+    RocketReachAPIKey:
+      type: apiKey
+      name: Api-Key
+      in: header
+      description: RocketReach account API key. You can locate your API Key from the "My API Key" section of the [API account
+        page](https://rocketreach.co/account?section=nav_gen_api). Requests to the API are authenticated using the Api-Key
+        request header. Older clients may use an `api_key` query parameter, but this behavior is deprecated.
+  schemas:
+    CreditUsage:
+      type: object
+      properties:
+        credit_type:
+          type: string
+        allocated:
+          type: integer
+          description: Value will be 'inf' if infinity
+        used:
+          type: integer
+        remaining:
+          type: integer
+          description: Value will be 'inf' if infinity
+    RateLimit:
+      type: object
+      properties:
+        action:
+          type: string
+          description: The credit action being rate limited
+        duration:
+          type: string
+          description: The duration of the rate limit window
+        limit:
+          type:
+          - integer
+          - 'null'
+          description: The maximum number of requests allowed
+        used:
+          type: integer
+          description: The number of requests used in the current window
+        remaining:
+          type:
+          - integer
+          - 'null'
+          description: The number of requests remaining in the current window
+    StateEnum:
+      enum:
+      - anonymous
+      - test_user
+      - registered
+      type: string
+    UserModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique user ID
+          example: 123456
+        first_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          description: First name of the user
+          example: Mark
+        last_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          description: Last name of the user
+          example: Cuban
+        email:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: Email for the user
+          example: name@example.com
+        state:
+          allOf:
+          - $ref: '#/components/schemas/StateEnum'
+          readOnly: true
+        credit_usage:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditUsage'
+          readOnly: true
+        rate_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+          readOnly: true
+    APIKey:
+      type: object
+      properties:
+        api_key:
+          type: string
+          description: The API key for your account. You can also find your API key [here](https://rocketreach.co/account?section=nav_gen_api).
+    Plan:
+      type: object
+      properties:
+        id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: RocketReach internal unique plan ID
+        name:
+          type: string
+          maxLength: 64
+          description: Name of the plan
+        lookup_limit:
+          type: integer
+          description: Maximum number of lookups for the plan
+        export_limit:
+          type: integer
+          description: Maximum number of exports for the plan
+    UniversalCreditUsage:
+      type: object
+      properties:
+        credits_allocated:
+          type: integer
+          description: Total credits allocated to the user
+          example: 100
+        credits_used:
+          type: integer
+          description: Total credits used by the user
+          example: 50
+        credits_remaining:
+          type: integer
+          description: Total credits remaining for the user
+          example: 50
+        last_synced:
+          type: string
+          format: date-time
+          description: Timestamp of the last sync of the user credit usage data
+          example: '2023-10-01T12:00:00Z'
+    UniversalCreditUsageByAction:
+      type: object
+      properties:
+        credit_action:
+          type: string
+          description: The credit action being tracked. One of `PersonSearch`, `CompanySearch`, `ProfessionalEmailEnrichment`,
+            `PersonalEmailEnrichment`, `PhoneEnrichment`, `PersonEnrichment`, `CompanyEnrichment`, `HealthcareEnrichment`
+          example: PersonSearch
+        attempted_count:
+          type: integer
+          description: Number of attempted credit actions
+          example: 50
+        succeeded_count:
+          type: integer
+          description: Number of successful credit actions
+          example: 50
+        credits_used:
+          type: integer
+          description: Total credits used by this credit action
+          example: 50
+        last_synced:
+          type: string
+          format: date-time
+          description: Timestamp of the last sync of the user credit usage by action data
+          example: '2023-10-01T12:00:00Z'
+    UniversalCreditsUserModelWithExtraAttributes:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique user ID
+          example: 123456
+        first_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          description: First name of the user
+          example: Mark
+        last_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          description: Last name of the user
+          example: Cuban
+        email:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: Email for the user
+          example: name@example.com
+        state:
+          allOf:
+          - $ref: '#/components/schemas/StateEnum'
+          readOnly: true
+        plan:
+          $ref: '#/components/schemas/Plan'
+          description: Object representing the user's plan
+        api_key:
+          type: string
+          readOnly: true
+          description: API Key for the user
+        api_key_domain:
+          type:
+          - string
+          - 'null'
+          maxLength: 256
+        daily_api_num_calls:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: -2147483648
+          description: Number of API calls made today by the user
+          example: 5
+        daily_api_limit:
+          type: string
+          readOnly: true
+          description: Maximum number of daily API calls for the user
+          example: 10
+        credit_usage:
+          allOf:
+          - $ref: '#/components/schemas/UniversalCreditUsage'
+          readOnly: true
+          description: Objects representing the user's credit usage
+        credit_usage_by_action:
+          type: array
+          items:
+            $ref: '#/components/schemas/UniversalCreditUsageByAction'
+          readOnly: true
+          description: Objects representing the user's credit usage by credit_action type
+        rate_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+          readOnly: true
+          description: Objects representing the user's rate limits by request type
+tags: []

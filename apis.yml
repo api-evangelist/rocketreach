@@ -1,0 +1,222 @@
+aid: rocketreach
+name: RocketReach
+url: https://raw.githubusercontent.com/api-evangelist/rocketreach/refs/heads/main/apis.yml
+description: RocketReach is a Seattle-based B2B contact data and sales intelligence provider that maintains a
+  database of 700M+ professional profiles and 60M+ companies and exposes it through a REST API for email,
+  phone, and social-handle discovery plus company firmographics. The platform is used for sales prospecting,
+  recruiting, marketing enrichment, and CRM hydration, with results returned as structured profile and
+  company objects and optional webhook delivery for asynchronous lookups.
+tags:
+- B2B
+- Contact Data
+- Email Lookup
+- Phone Lookup
+- Sales Intelligence
+- Lead Generation
+- People Search
+- Company Search
+- Data Enrichment
+- Prospecting
+- Recruiting
+- Webhooks
+kind: contract
+position: Provider
+access: 3rd-Party
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+specificationVersion: '0.20'
+created: '2026-05-25'
+modified: '2026-05-25'
+apis:
+- aid: rocketreach:rocketreach-people-lookup-api
+  name: RocketReach People Lookup API
+  tags:
+  - Contact Data
+  - Email Lookup
+  - People
+  - Enrichment
+  - Webhooks
+  humanURL: https://docs.rocketreach.co/reference/people-lookup-api
+  properties:
+  - url: https://docs.rocketreach.co/reference/people-lookup-api
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/bulk-person-lookup-person-lookup-api
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/create_universal_person_lookup
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/create_universal_person_bulk_lookup
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/create_person_and_company_lookup
+    type: Documentation
+  - url: openapi/rocketreach-people-lookup-api-openapi.yml
+    type: OpenAPI
+  description: Look up an individual's email addresses, phone numbers, social handles, and full enriched
+    profile from a name + employer, LinkedIn URL, RocketReach profile id, NPI number, or email. Supports
+    single lookups, bulk lookups (up to 100 queries per request), status polling, combined person+company
+    lookups, and the newer Universal endpoints. Results can be delivered synchronously or via webhook with
+    an RR-Request-ID correlation header.
+- aid: rocketreach:rocketreach-people-search-api
+  name: RocketReach People Search API
+  tags:
+  - People Search
+  - Sales Intelligence
+  - Prospecting
+  humanURL: https://docs.rocketreach.co/reference/people-search-api
+  properties:
+  - url: https://docs.rocketreach.co/reference/people-search-api
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/create_universal_person_search
+    type: Documentation
+  - url: openapi/rocketreach-people-search-api-openapi.yml
+    type: OpenAPI
+  description: Search RocketReach's 700M+ professional profiles using filters such as name, current
+    employer, title, location, skills, industry, and education. Returns paginated lists of profile summaries
+    that can then be passed to the People Lookup API for full contact enrichment.
+- aid: rocketreach:rocketreach-company-lookup-api
+  name: RocketReach Company Lookup API
+  tags:
+  - Company Data
+  - Firmographics
+  - Enrichment
+  humanURL: https://docs.rocketreach.co/reference/company-lookup-api
+  properties:
+  - url: https://docs.rocketreach.co/reference/company-lookup-api
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/create_universal_company_lookup
+    type: Documentation
+  - url: openapi/rocketreach-company-lookup-api-openapi.yml
+    type: OpenAPI
+  description: Retrieve an enriched company profile from a domain, company name, LinkedIn URL, or
+    RocketReach company id. Returns firmographics including headcount, industry, founded year, location,
+    revenue band, technology stack, and key social and contact metadata.
+- aid: rocketreach:rocketreach-company-search-api
+  name: RocketReach Company Search API
+  tags:
+  - Company Search
+  - Firmographics
+  - Sales Intelligence
+  humanURL: https://docs.rocketreach.co/reference/company-search-api
+  properties:
+  - url: https://docs.rocketreach.co/reference/company-search-api
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/create_universal_company_search
+    type: Documentation
+  - url: openapi/rocketreach-company-search-api-openapi.yml
+    type: OpenAPI
+  description: Search RocketReach's company database using firmographic filters such as industry, headcount,
+    revenue, location, and technology stack. Returns paginated company summaries suitable for downstream
+    enrichment via the Company Lookup API.
+- aid: rocketreach:rocketreach-account-api
+  name: RocketReach Account API
+  tags:
+  - Account
+  - Administration
+  - Usage
+  humanURL: https://docs.rocketreach.co/reference/rocketreach-api-account
+  properties:
+  - url: https://docs.rocketreach.co/reference/rocketreach-api-account
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/rocketreach-api-account-newaccount
+    type: Documentation
+  - url: https://docs.rocketreach.co/reference/get_universal_account
+    type: Documentation
+  - url: openapi/rocketreach-account-api-openapi.yml
+    type: OpenAPI
+  description: Retrieve and manage RocketReach API account details, generate new API keys, and inspect
+    plan, lookup credit balance, export credit balance, and Universal Credits usage. Provides both legacy
+    account endpoints and the newer Universal account endpoint.
+common:
+- type: Portal
+  url: https://rocketreach.co
+- type: Website
+  url: https://rocketreach.co
+- type: APIPortal
+  url: https://rocketreach.co/api
+- type: Documentation
+  url: https://docs.rocketreach.co/
+- type: Documentation
+  name: API Reference
+  url: https://docs.rocketreach.co/reference/rocketreach-api
+- type: GettingStarted
+  url: https://docs.rocketreach.co/reference/rocketreach-api
+- type: Documentation
+  name: Universal Credits Overview
+  url: https://docs.rocketreach.co/reference/universal-credits-overview
+- type: Webhooks
+  url: https://docs.rocketreach.co/reference/webhooks
+- type: RateLimits
+  url: https://docs.rocketreach.co/reference/rate-limits
+- type: Errors
+  url: https://docs.rocketreach.co/reference/responses-and-errors
+- type: FAQ
+  url: https://docs.rocketreach.co/reference/faq
+- type: Pricing
+  url: https://rocketreach.co/api
+- type: SignUp
+  url: https://rocketreach.co/signup
+- type: Login
+  url: https://rocketreach.co/login
+- type: Support
+  name: API Support
+  url: mailto:api@rocketreach.co
+- type: Blog
+  url: https://rocketreach.co/blog
+- type: Company
+  url: https://rocketreach.co/about
+- type: Careers
+  url: https://rocketreach.co/careers
+- type: Press
+  url: https://rocketreach.co/press
+- type: TrustCenter
+  url: https://rocketreach.co/security
+- type: PrivacyPolicy
+  url: https://rocketreach.co/legal/privacy-policy
+- type: TermsOfService
+  url: https://rocketreach.co/legal/terms-of-use
+- type: LinkedIn
+  url: https://www.linkedin.com/company/rocketreach
+- type: Twitter
+  url: https://twitter.com/RocketReach
+- type: Facebook
+  url: https://www.facebook.com/rocketreach
+- type: YouTube
+  url: https://www.youtube.com/@rocketreach
+- type: Integrations
+  name: Salesforce Integration
+  url: https://rocketreach.co/integrations/salesforce
+- type: Integrations
+  name: HubSpot Integration
+  url: https://rocketreach.co/integrations/hubspot
+- type: Integrations
+  name: Zapier Integration
+  url: https://rocketreach.co/integrations/zapier
+- type: Integrations
+  name: LinkedIn Chrome Extension
+  url: https://chromewebstore.google.com/detail/rocketreach-find-email-ph/oeglkmmgnoojkmdfkpeofkflckjdjbpe
+- type: Features
+  data:
+  - 700M+ professional profiles and 60M+ companies in the RocketReach database
+  - REST API for People Lookup, People Search, Company Lookup, Company Search, and Account management
+  - Single, bulk (up to 100 queries), and combined person+company lookups
+  - Universal API surface (/api/v2/universal/*) unifying lookup and search across people and companies
+  - Asynchronous lookup results delivered via webhooks with signed payloads and RR-Request-ID correlation
+  - Status polling endpoints for in-progress lookups (/person/checkStatus, /universal/person/check_status)
+  - Cached and fully verified email return modes (return_cached_emails flag; default flips Sept 1, 2026)
+  - Premium, standard, phone, enrich, and bulk lookup types with credit-aware pricing
+  - LinkedIn URL, name+employer, profile id, email, and NPI number resolvers
+  - Tiered rate limits (Essentials, Pro, Ultimate, Custom) plus a 10-req/sec global ceiling with
+    Retry-After headers on 429s
+  - API key authentication via Api-Key header; keys generated and rotated from Account Settings
+  - Salesforce, HubSpot, Outreach, SalesLoft, Zapier, and Chrome extension integrations
+  sources:
+  - https://docs.rocketreach.co/
+  - https://docs.rocketreach.co/reference/rocketreach-api
+  - https://docs.rocketreach.co/reference/rate-limits
+  - https://docs.rocketreach.co/reference/webhooks
+  - https://docs.rocketreach.co/reference/universal-credits-overview
+  updated: '2026-05-25'
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com
