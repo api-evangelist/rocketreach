@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RocketReach Company Search API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company Data API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Company Search API",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rocketreach.co/api/v2/searchCompany",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Api-Key",
+              "value": "{{Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search Companies by Criteria"
+        },
+        {
+          "info": {
+            "name": "⭐ Universal Company Search API",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rocketreach.co/api/v2/universal/company/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Api-Key",
+              "value": "{{Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search Companies by Criteria"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

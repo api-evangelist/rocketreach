@@ -1,0 +1,4777 @@
+{
+  "item": [
+    {
+      "id": "a31e3f7a-e767-4421-8215-9cbfb927f564",
+      "name": "Company Data API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0b3a58d2-6151-4dce-97bf-98f24d02c4a5",
+          "name": "Company Search API",
+          "request": {
+            "name": "Company Search API",
+            "description": {
+              "content": "Search Companies by Criteria",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "searchCompany"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "1",
+                  "description": "Start index of the request results (counting from 1)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "10",
+                  "description": "Maximum number of results to return per page [1-100]"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_tag",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "competitors",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "email_domain",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "employees",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "extended_keyword",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "geo",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "growth",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "industry",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "industry_keywords",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "industry_tags",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "intent",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_primary",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "job_posting_signal",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "keyword",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "link",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "naics_code",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "news_signal",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "news_timestamp",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "phone",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "primary_industry",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "publicly_traded",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "revenue",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "sic_code",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "simplified_keyword",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "techstack",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "total_funding",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "website_category",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "website_url",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Search query object for the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "relevance",
+                  "description": "Specifies the ordering of search results. \"popularity\" matches the default ordering of the Search web app."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "65fa2ce9-17d7-4362-989b-1044fb791ea6",
+              "name": "Success. Companies search request accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "searchCompany"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Start index of the request results (counting from 1)",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of results to return per page [1-100]",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Specifies the ordering of search results. \"popularity\" matches the default ordering of the Search web app.",
+                        "type": "text/plain"
+                      },
+                      "key": "order_by",
+                      "value": "popularity"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 123456,\n    \"name\": \"string\",\n    \"email_domain\": \"string\",\n    \"ticker_symbol\": \"string\",\n    \"industry_str\": \"string\",\n    \"city\": \"string\",\n    \"region\": \"string\",\n    \"country_code\": \"string\"\n  },\n  {\n    \"id\": 123456,\n    \"name\": \"string\",\n    \"email_domain\": \"string\",\n    \"ticker_symbol\": \"string\",\n    \"industry_str\": \"string\",\n    \"city\": \"string\",\n    \"region\": \"string\",\n    \"country_code\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57c956f7-6415-404a-8d0a-72396d0d80e4",
+              "name": "Bad Request. The request is malformed or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "searchCompany"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Start index of the request results (counting from 1)",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of results to return per page [1-100]",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Specifies the ordering of search results. \"popularity\" matches the default ordering of the Search web app.",
+                        "type": "text/plain"
+                      },
+                      "key": "order_by",
+                      "value": "popularity"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "47549ee6-c0db-40d7-9c1b-d7e49e5a2435",
+              "name": "Unauthorized. API Key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "searchCompany"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Start index of the request results (counting from 1)",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of results to return per page [1-100]",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Specifies the ordering of search results. \"popularity\" matches the default ordering of the Search web app.",
+                        "type": "text/plain"
+                      },
+                      "key": "order_by",
+                      "value": "popularity"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f1d51cf7-c65f-487c-90c2-92b8377e02f5",
+              "name": "Forbidden. API Key lacks permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "searchCompany"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Start index of the request results (counting from 1)",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of results to return per page [1-100]",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Specifies the ordering of search results. \"popularity\" matches the default ordering of the Search web app.",
+                        "type": "text/plain"
+                      },
+                      "key": "order_by",
+                      "value": "popularity"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f943f53-de2f-46cf-afde-42bb5d181ee9",
+              "name": "Not Found. The requested resource (e.g., profile) does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "searchCompany"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Start index of the request results (counting from 1)",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of results to return per page [1-100]",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Specifies the ordering of search results. \"popularity\" matches the default ordering of the Search web app.",
+                        "type": "text/plain"
+                      },
+                      "key": "order_by",
+                      "value": "popularity"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f4d3013d-8134-4f78-a9a2-d1fb2ac80ed6",
+              "name": "Too Many Requests. API request limit reached -- slow down requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "searchCompany"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Start index of the request results (counting from 1)",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of results to return per page [1-100]",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Specifies the ordering of search results. \"popularity\" matches the default ordering of the Search web app.",
+                        "type": "text/plain"
+                      },
+                      "key": "order_by",
+                      "value": "popularity"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f333ff48-f754-4d2b-99e3-f25e4ebd3eeb",
+              "name": "Internal Server Error. Unexpected error on RocketReach servers. Try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "searchCompany"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Start index of the request results (counting from 1)",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of results to return per page [1-100]",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Search query object for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Specifies the ordering of search results. \"popularity\" matches the default ordering of the Search web app.",
+                        "type": "text/plain"
+                      },
+                      "key": "order_by",
+                      "value": "popularity"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8af8cd24-174c-499e-84f8-92714c0b13c3",
+          "name": "⭐ Universal Company Search API",
+          "request": {
+            "name": "⭐ Universal Company Search API",
+            "description": {
+              "content": "Search Companies by Criteria",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "universal",
+                "company",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "1",
+                  "description": "Paginate through search results by returning results starting from this value (counting from 1)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Maximum number of search results to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "company_tag",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "competitors",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "email_domain",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "employees",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "extended_keyword",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "geo",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "growth",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "industry",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "industry_keywords",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "industry_tags",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "intent",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_primary",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "job_posting_signal",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "keyword",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "link",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "naics_code",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "news_signal",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "news_timestamp",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "phone",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "primary_industry",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "publicly_traded",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "revenue",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "sic_code",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "simplified_keyword",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "techstack",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "total_funding",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "website_category",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "website_url",
+                  "value": "[\"<string>\",\"<string>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "relevance"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3a2fe107-6ea9-465d-909d-f2e2cf994775",
+              "name": "Success. Companies search request accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Paginate through search results by returning results starting from this value (counting from 1).",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of search results to return per page.",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "relevance"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 722,\n    \"name\": \"string\",\n    \"ticker_symbol\": \"string\",\n    \"industry_str\": \"string\",\n    \"city\": \"string\",\n    \"region\": \"string\",\n    \"country_code\": \"string\",\n    \"linkedin_url\": \"string\",\n    \"logo_url\": \"string\"\n  },\n  {\n    \"id\": 6992,\n    \"name\": \"string\",\n    \"ticker_symbol\": \"string\",\n    \"industry_str\": \"string\",\n    \"city\": \"string\",\n    \"region\": \"string\",\n    \"country_code\": \"string\",\n    \"linkedin_url\": \"string\",\n    \"logo_url\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0d26d44-2c7e-4727-9018-b1c63453976f",
+              "name": "Bad Request. The request is malformed or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Paginate through search results by returning results starting from this value (counting from 1).",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of search results to return per page.",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "relevance"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "12f6cb5e-f8d0-4ac5-a42b-7f97cc64ce3f",
+              "name": "Unauthorized. API Key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Paginate through search results by returning results starting from this value (counting from 1).",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of search results to return per page.",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "relevance"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "86924ffc-fb81-43c0-8d5d-f5d9402ab4be",
+              "name": "Forbidden. API Key lacks permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Paginate through search results by returning results starting from this value (counting from 1).",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of search results to return per page.",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "relevance"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "404ff4bc-448d-485f-833c-79706ebd94dc",
+              "name": "Not Found. The requested resource (e.g., profile) does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Paginate through search results by returning results starting from this value (counting from 1).",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of search results to return per page.",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "relevance"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d93cdb5a-e35d-4ba4-93dc-fb8295dd7221",
+              "name": "Too Many Requests. API request limit reached -- slow down requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Paginate through search results by returning results starting from this value (counting from 1).",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of search results to return per page.",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "relevance"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a5dbdfa8-165e-4833-8a12-ce319b9434a0",
+              "name": "Internal Server Error. Unexpected error on RocketReach servers. Try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Paginate through search results by returning results starting from this value (counting from 1).",
+                        "type": "text/plain"
+                      },
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum number of search results to return per page.",
+                        "type": "text/plain"
+                      },
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "company_tag",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "competitors",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_domain",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "employees",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "extended_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "geo",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "growth",
+                      "value": "[\"5-30::Engineering,six_months\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "id",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_keywords",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "industry_tags",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "intent",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_primary",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "job_posting_signal",
+                      "value": "[\"Accounting Roles::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "link",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "location",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "naics_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_signal",
+                      "value": "[\"Funding::one_month\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "news_timestamp",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "phone",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "primary_industry",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publicly_traded",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "revenue",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sic_code",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "simplified_keyword",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "techstack",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "total_funding",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_category",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "website_url",
+                      "value": "[\"string\",\"string\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "relevance"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rocketreach.co/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f69d52cd-ac69-4aa7-9ea4-e71d0a539a6f",
+    "name": "RocketReach Company Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Search RocketReach's 35M+ company database using filters such as industry, headcount, location, and revenue.\n\nContact Support:\n Name: RocketReach Support\n Email: api@rocketreach.co",
+      "type": "text/plain"
+    }
+  }
+}

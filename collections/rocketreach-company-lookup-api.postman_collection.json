@@ -1,0 +1,1093 @@
+{
+  "item": [
+    {
+      "id": "d2c42c16-e855-4ce9-b63a-4a8e5486f82c",
+      "name": "Company Data API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4cd4cb3c-7243-4811-a038-65f1a8bcd759",
+          "name": "Company Lookup API",
+          "request": {
+            "name": "Company Lookup API",
+            "description": {
+              "content": "Search Companies by Criteria",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "lookup",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "Domain of the desired company to lookup (preferred)."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "RocketReach internal unique company ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "linkedin_url",
+                  "value": "<string>",
+                  "description": "LinkedIn URL of the desired company to lookup."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of the desired company to lookup."
+                },
+                {
+                  "disabled": false,
+                  "key": "ticker",
+                  "value": "<string>",
+                  "description": "Stock ticker of the desired company to lookup."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fe6024b1-8799-45bc-a97f-012a573c99d0",
+              "name": "Success. Returns the profile data for the company lookup.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "lookup",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 123456,\n  \"name\": \"string\",\n  \"domain\": \"string\",\n  \"email_domain\": \"string\",\n  \"website_domain\": \"string\",\n  \"ticker_symbol\": \"string\",\n  \"links\": {\n    \"facebook\": \"string\",\n    \"twitter\": \"string\",\n    \"linkedin\": \"string\"\n  },\n  \"year_founded\": 6490,\n  \"address\": {\n    \"description\": \"string\",\n    \"street\": \"string\",\n    \"city\": \"string\",\n    \"region\": \"string\",\n    \"region_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"country\": \"string\",\n    \"country_code\": \"string\"\n  },\n  \"phone\": \"string\",\n  \"fax\": \"string\",\n  \"num_employees\": 1883,\n  \"revenue\": 3902,\n  \"funding_investors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"industry\": \"string\",\n  \"sic_codes\": [\n    8259,\n    8984\n  ],\n  \"rr_profile_url\": \"string\",\n  \"description\": \"string\",\n  \"industry_keywords\": [\n    \"string\",\n    \"string\"\n  ],\n  \"naics_codes\": [\n    2995,\n    1703\n  ],\n  \"techstack\": [\n    \"string\",\n    \"string\"\n  ],\n  \"industries\": [\n    \"string\",\n    \"string\"\n  ],\n  \"competitors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"departments\": {\n    \"key_0\": 1123,\n    \"key_1\": 7444,\n    \"key_2\": 341\n  },\n  \"company_growth\": [\n    {\n      \"year\": 1669,\n      \"quarter\": 5682,\n      \"values\": [\n        7062,\n        2128\n      ]\n    },\n    {\n      \"year\": 9426,\n      \"quarter\": 9410,\n      \"values\": [\n        9908,\n        4419\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd1e5944-2020-4e35-a4c7-960f9de74c52",
+              "name": "Bad Request. The request is malformed or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "lookup",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "11180f1a-5f73-4f76-af7a-19e960ceb719",
+              "name": "Unauthorized. API Key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "lookup",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d646506d-6977-4085-8ee9-96d1be17f2c8",
+              "name": "Forbidden. API Key lacks permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "lookup",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "81871068-d429-46e6-978d-dfdef69c9006",
+              "name": "Not Found. The requested resource (e.g., profile) does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "lookup",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "705a9f9c-ec84-4979-b0bc-d7aa99a0ead4",
+              "name": "Too Many Requests. API request limit reached -- slow down requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "lookup",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05ff117e-b17d-4256-940f-8485bf25c7df",
+              "name": "Internal Server Error. Unexpected error on RocketReach servers. Try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "lookup",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5b2c012-5cee-4a89-9989-4e42ef98e886",
+          "name": "⭐ Universal Company Lookup API",
+          "request": {
+            "name": "⭐ Universal Company Lookup API",
+            "description": {
+              "content": "Search Companies by Criteria",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "universal",
+                "company",
+                "lookup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "Domain of the desired company to lookup (preferred)."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "RocketReach internal unique company ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "linkedin_url",
+                  "value": "<string>",
+                  "description": "LinkedIn URL of the desired company to lookup."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name of the desired company to lookup."
+                },
+                {
+                  "disabled": false,
+                  "key": "ticker",
+                  "value": "<string>",
+                  "description": "Stock ticker of the desired company to lookup."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "37ce5d5d-048e-44da-bcca-ff60de85105c",
+              "name": "Success. Returns the profile data for the company lookup.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 123456,\n  \"name\": \"string\",\n  \"domain\": \"string\",\n  \"email_domain\": \"string\",\n  \"website_domain\": \"string\",\n  \"ticker_symbol\": \"string\",\n  \"links\": {\n    \"facebook\": \"string\",\n    \"twitter\": \"string\",\n    \"linkedin\": \"string\"\n  },\n  \"year_founded\": 6490,\n  \"address\": {\n    \"description\": \"string\",\n    \"street\": \"string\",\n    \"city\": \"string\",\n    \"region\": \"string\",\n    \"region_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"country\": \"string\",\n    \"country_code\": \"string\"\n  },\n  \"phone\": \"string\",\n  \"fax\": \"string\",\n  \"num_employees\": 1883,\n  \"revenue\": 3902,\n  \"funding_investors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"industry\": \"string\",\n  \"sic_codes\": [\n    8259,\n    8984\n  ],\n  \"rr_profile_url\": \"string\",\n  \"description\": \"string\",\n  \"industry_keywords\": [\n    \"string\",\n    \"string\"\n  ],\n  \"naics_codes\": [\n    2995,\n    1703\n  ],\n  \"techstack\": [\n    \"string\",\n    \"string\"\n  ],\n  \"industries\": [\n    \"string\",\n    \"string\"\n  ],\n  \"competitors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"departments\": {\n    \"key_0\": 1123,\n    \"key_1\": 7444,\n    \"key_2\": 341\n  },\n  \"company_growth\": [\n    {\n      \"year\": 1669,\n      \"quarter\": 5682,\n      \"values\": [\n        7062,\n        2128\n      ]\n    },\n    {\n      \"year\": 9426,\n      \"quarter\": 9410,\n      \"values\": [\n        9908,\n        4419\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1dd77e96-b5ed-4090-8b1f-4fbe241f79a7",
+              "name": "Bad Request. The request is malformed or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6ef6c090-35db-4221-a825-237726e86b41",
+              "name": "Unauthorized. API Key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5e64c72a-b1ff-4110-b358-98088cd250dc",
+              "name": "Forbidden. API Key lacks permission to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cb8e3047-5200-40aa-a9dc-42436e9ed278",
+              "name": "Not Found. The requested resource (e.g., profile) does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b8b366a5-a9aa-4c97-a93c-82ac1ad3c8fd",
+              "name": "Too Many Requests. API request limit reached -- slow down requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "04e4336d-dc2b-48bc-9c53-e6a0f3743cc1",
+              "name": "Internal Server Error. Unexpected error on RocketReach servers. Try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "universal",
+                    "company",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "linkedin_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rocketreach.co/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ae13816b-9592-4d21-b215-2885dd785c69",
+    "name": "RocketReach Company Lookup API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Look up a single company's enriched firmographic profile from domain, name, or LinkedIn URL.\n\nContact Support:\n Name: RocketReach Support\n Email: api@rocketreach.co",
+      "type": "text/plain"
+    }
+  }
+}
