@@ -147,13 +147,13 @@ common:
   url: https://docs.rocketreach.co/reference/webhooks
 - type: RateLimits
   url: https://docs.rocketreach.co/reference/rate-limits
-- type: Errors
+- type: ErrorCodes
   url: https://docs.rocketreach.co/reference/responses-and-errors
 - type: FAQ
   url: https://docs.rocketreach.co/reference/faq
 - type: Pricing
   url: https://rocketreach.co/api
-- type: SignUp
+- type: Signup
   url: https://rocketreach.co/signup
 - type: Login
   url: https://rocketreach.co/login

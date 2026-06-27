@@ -3,13 +3,13 @@
   "feeds": [
     {
       "source": "https://rocketreach.co/blog",
-      "feed_url": "https://rocketreach.co/blog",
-      "title": "RocketReach Blog",
+      "feed_url": "https://rocketreach.co/resources/feed/",
+      "title": "RocketReach Resources",
       "saved": 0,
-      "method": "html",
-      "note": "Blog accessible but most recent post is from February 2026; no posts published after 2026-06-01"
+      "method": "rss",
+      "note": "RSS feed resolves at /resources/feed/; most recent items dated 2026-05-21, all older than prior fetch cutoff 2026-06-07. /blog/feed/ is a comments feed with no items."
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-07T00:00:00Z"
+  "fetched": "2026-06-21T17:00:00Z"
 }
