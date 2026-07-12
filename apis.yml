@@ -127,6 +127,12 @@ apis:
     plan, lookup credit balance, export credit balance, and Universal Credits usage. Provides both legacy
     account endpoints and the newer Universal account endpoint.
 common:
+- type: VulnerabilityDisclosure
+  url: security/rocketreach-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/rocketreach-domain-security.yml
+- type: Authentication
+  url: authentication/rocketreach-authentication.yml
 - type: Portal
   url: https://rocketreach.co
 - type: Website

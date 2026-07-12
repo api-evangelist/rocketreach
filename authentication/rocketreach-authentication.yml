@@ -1,0 +1,25 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/rocketreach-account-api-openapi.yml, openapi/rocketreach-company-lookup-api-openapi.yml,
+  openapi/rocketreach-company-search-api-openapi.yml, openapi/rocketreach-people-lookup-api-openapi.yml,
+  openapi/rocketreach-people-search-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: RocketReachAPIKey
+  type: apiKey
+  in: header
+  parameter: Api-Key
+  description: RocketReach account API key. You can locate your API Key from the "My API Key"
+    section of the [API account page](https://rocketreach.co/account?section=nav_gen_api). Requests
+    to the API are authenticated using the Api-Key request header. Older clients may use an
+    `api_key` query parameter, but this behavior is deprecated.
+  sources:
+  - openapi/rocketreach-account-api-openapi.yml
+  - openapi/rocketreach-company-lookup-api-openapi.yml
+  - openapi/rocketreach-company-search-api-openapi.yml
+  - openapi/rocketreach-people-lookup-api-openapi.yml
+  - openapi/rocketreach-people-search-api-openapi.yml
