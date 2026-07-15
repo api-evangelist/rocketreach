@@ -127,6 +127,8 @@ apis:
     plan, lookup credit balance, export credit balance, and Universal Credits usage. Provides both legacy
     account endpoints and the newer Universal account endpoint.
 common:
+- type: AgenticAccess
+  url: agentic-access/rocketreach-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/rocketreach-vulnerability-disclosure.yml
 - type: DomainSecurity
