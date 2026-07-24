@@ -1,0 +1,1418 @@
+openapi: 3.1.0
+info:
+  title: RocketReach Account Company Data API API
+  version: 1.0.0
+  description: Retrieve and manage RocketReach API account details, lookup quotas, plan usage, billing email, and webhook configuration.
+  contact:
+    name: RocketReach Support
+    email: api@rocketreach.co
+  license:
+    name: Proprietary
+  termsOfService: https://rocketreach.co/legal/terms-of-use
+servers:
+- url: https://api.rocketreach.co/api/v2
+  description: RocketReach v2 API
+- url: https://api.rocketreach.co/v1/api
+  description: RocketReach v1 API
+security:
+- RocketReachAPIKey: []
+tags:
+- name: Company Data API
+paths:
+  /company/lookup/:
+    get:
+      operationId: create_company_lookup
+      description: Search Companies by Criteria
+      summary: Company Lookup API
+      parameters:
+      - in: query
+        name: domain
+        schema:
+          type: string
+          minLength: 1
+        description: Domain of the desired company to lookup (preferred).
+      - in: query
+        name: id
+        schema:
+          type: integer
+        description: RocketReach internal unique company ID
+      - in: query
+        name: linkedin_url
+        schema:
+          type: string
+          pattern: ''
+          minLength: 1
+        description: LinkedIn URL of the desired company to lookup.
+      - in: query
+        name: name
+        schema:
+          type: string
+          minLength: 1
+        description: Name of the desired company to lookup.
+      - in: query
+        name: ticker
+        schema:
+          type: string
+          minLength: 1
+        description: Stock ticker of the desired company to lookup.
+      tags:
+      - Company Data API
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompiledCompanyAPISerializerWithExtendedCompanyAttributes'
+          description: Success. Returns the profile data for the company lookup.
+        '400':
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+  /universal/company/lookup:
+    get:
+      operationId: create_universal_company_lookup
+      description: Search Companies by Criteria
+      summary: ⭐ Universal Company Lookup API
+      parameters:
+      - in: query
+        name: domain
+        schema:
+          type: string
+          minLength: 1
+        description: Domain of the desired company to lookup (preferred).
+      - in: query
+        name: id
+        schema:
+          type: integer
+        description: RocketReach internal unique company ID
+      - in: query
+        name: linkedin_url
+        schema:
+          type: string
+          pattern: ''
+          minLength: 1
+        description: LinkedIn URL of the desired company to lookup.
+      - in: query
+        name: name
+        schema:
+          type: string
+          minLength: 1
+        description: Name of the desired company to lookup.
+      - in: query
+        name: ticker
+        schema:
+          type: string
+          minLength: 1
+        description: Stock ticker of the desired company to lookup.
+      tags:
+      - Company Data API
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompiledCompanyAPISerializerWithExtendedCompanyAttributes'
+          description: Success. Returns the profile data for the company lookup.
+        '400':
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+  /searchCompany:
+    post:
+      operationId: create_company_search
+      description: Search Companies by Criteria
+      summary: Company Search API
+      tags:
+      - Company Data API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIPublicCompiledCompanySearchInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/APIPublicCompiledCompanySearchInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/APIPublicCompiledCompanySearchInput'
+        required: true
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompiledCompanyPublicDetails'
+          description: Success. Companies search request accepted
+        '400':
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+  /universal/company/search:
+    post:
+      operationId: create_universal_company_search
+      description: Search Companies by Criteria
+      summary: ⭐ Universal Company Search API
+      tags:
+      - Company Data API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIUniversalCreditsPublicCompiledCompanySearchInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/APIUniversalCreditsPublicCompiledCompanySearchInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/APIUniversalCreditsPublicCompiledCompanySearchInput'
+        required: true
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UniversalCreditCompanySearchOutput'
+          description: Success. Companies search request accepted
+        '400':
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+  /profile-company/lookup:
+    get:
+      operationId: create_person_and_company_lookup
+      description: Person and Company Lookup
+      summary: People and Company Lookup API
+      parameters:
+      - in: query
+        name: current_employer
+        schema:
+          type: string
+          minLength: 1
+        description: 'Current employer of the desired profile. Must specify along with `name`.
+
+          - Example: `RocketReach`'
+      - in: query
+        name: email
+        schema:
+          type: string
+          format: email
+          minLength: 1
+        description: 'An email address for the desired profile.
+
+          - Example: `jamie@rocketreach.co`'
+      - in: query
+        name: id
+        schema:
+          type: integer
+        description: 'RocketReach internal unique profile ID.
+
+          - Example: `123456`'
+      - in: query
+        name: linkedin_ext_url
+        schema:
+          type: string
+          pattern: ''
+          minLength: 1
+        description: linkedin_ext_url deprecated, please use `linkedin_url` instead
+        deprecated: true
+      - in: query
+        name: linkedin_url
+        schema:
+          type: string
+          pattern: ''
+          minLength: 1
+        description: 'LinkedIn URL of the desired profile.
+
+          - Example: `www.linkedin.com/in/jamesgullbrand`'
+      - in: query
+        name: lookup_type
+        schema:
+          enum:
+          - standard
+          - premium
+          - premium (feeds disabled)
+          - bulk
+          - phone
+          - enrich
+          - ''
+          - null
+          type:
+          - string
+          - 'null'
+        description: 'Lookup type for the request
+
+
+          * `standard` - standard
+
+          * `premium` - premium
+
+          * `premium (feeds disabled)` - premium (feeds disabled)
+
+          * `bulk` - bulk
+
+          * `phone` - phone
+
+          * `enrich` - enrich'
+      - in: query
+        name: name
+        schema:
+          type: string
+          minLength: 1
+        description: 'Name of the desired profile. Must specify along with `current_employer`.
+
+          - Example: `Jamie Gullbrand`'
+      - in: query
+        name: npi_number
+        schema:
+          type: integer
+        description: 'An NPI number for the desired profile (US healthcare professional).
+
+          - Example: `1234567890`'
+      - in: query
+        name: return_cached_emails
+        schema:
+          type: boolean
+          default: true
+        description: 'Controls whether cached emails are included in the initial response when `lookup status = progress`. When set to `false`, all email fields will be null until the lookup is complete and all emails are fully verified. Use /checkStatus or Webhooks to retrieve the completed response with fully verified emails (`status = complete`). Defaults to `true`.
+
+
+          <b>NOTE: Default will change to false on September 1st, 2026. No cached emails will be returned in the initial response. Use /checkStatus or webhooks to retrieve fully verified emails.</b>'
+      - in: query
+        name: title
+        schema:
+          type: string
+          minLength: 1
+        description: 'Job title of the desired profile.
+
+          - Example: `Product Manager`'
+      - in: query
+        name: webhook_id
+        schema:
+          type: integer
+        description: Your webhook's unique ID number. Find it in your API Usage & Settings page.
+      tags:
+      - Company Data API
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '200':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileAPISerializerWithCompiledCompany'
+          description: Success. Returns the profile data and company data for the person / company lookup.
+        '400':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+components:
+  schemas:
+    CompiledCompanyPublicDetails:
+      type: object
+      description: Serializer for company details (API).
+      properties:
+        id:
+          type: integer
+          description: RocketReach internal unique company ID
+          example: 123456
+        name:
+          type: string
+          description: Name of the company
+        email_domain:
+          type: string
+          description: Email domain for the company
+        ticker_symbol:
+          type: string
+          description: Ticker symbol for the company (if available)
+        industry_str:
+          type: string
+          description: Industry of the company
+        city:
+          type: string
+          description: City of the company
+        region:
+          type: string
+          description: Region of the company
+        country_code:
+          type: string
+          description: Country code of the company
+    CompiledCompanyAddress:
+      type: object
+      properties:
+        description:
+          type: string
+          readOnly: true
+          description: Description of the company location
+        street:
+          type: string
+          readOnly: true
+          description: Street of the company address
+        city:
+          type: string
+          readOnly: true
+          description: City of the company address
+        region:
+          type: string
+          readOnly: true
+          description: Region of the company address
+        region_code:
+          type: string
+          readOnly: true
+          description: Region code of the company address
+        postal_code:
+          type: string
+          readOnly: true
+          description: Postal code of the company address
+        country:
+          type: string
+          readOnly: true
+          description: Country of the company address
+        country_code:
+          type: string
+          readOnly: true
+          description: Country code of the company address
+    JobHistoryAPICompiledCompany:
+      type: object
+      properties:
+        start_date:
+          type:
+          - string
+          - 'null'
+          description: Start date of the work experience
+        end_date:
+          type: string
+          default: Present
+          description: End date of the work experience (Present if experience is current)
+        company:
+          type:
+          - string
+          - 'null'
+          description: Name of the company
+        company_name:
+          type: string
+          description: Name of the company
+        company_id:
+          type:
+          - integer
+          - 'null'
+          description: RocketReach internal unique company ID
+        company_linkedin_url:
+          type: string
+          readOnly: true
+          description: Linkedin URL of the company
+        company_city:
+          type: string
+          readOnly: true
+          description: City of the company's location
+        company_region:
+          type: string
+          readOnly: true
+          description: Region of the company's location
+        company_country_code:
+          type: string
+          readOnly: true
+          description: Country code of the company's location
+        department:
+          type: string
+          description: Department of the work experience
+        title:
+          type: string
+          description: Job title of the work experience
+        highest_level:
+          type: string
+          description: Highest level of the work experience
+        description:
+          type: string
+          description: Description of the work experience
+        last_updated:
+          type: string
+          format: date-time
+          description: Timestamp of the last update of this work experience
+        sub_department:
+          type:
+          - string
+          - 'null'
+          description: Sub-department of the work experience
+        is_current:
+          type: boolean
+          default: false
+          description: True if the experience is the profile's current role, False otherwise
+    APIPublicCompiledCompanySearchInput:
+      type: object
+      properties:
+        start:
+          type: integer
+          maximum: 10000
+          minimum: 1
+          default: 1
+          description: Start index of the request results (counting from 1)
+        page_size:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 10
+          description: Maximum number of results to return per page [1-100]
+        query:
+          $ref: '#/components/schemas/CompanyQuery'
+          description: Search query object for the request
+        order_by:
+          allOf:
+          - $ref: '#/components/schemas/OrderByEnum'
+          description: Specifies the ordering of search results. "popularity" matches the default ordering of the Search web app.
+          default: relevance
+          example: popularity
+    ProfilePhoneAPI:
+      type: object
+      properties:
+        number:
+          type: string
+          description: 'The phone number in international format
+
+            - Example: `+1 234-555-6789`'
+          example: +1 234-555-6789
+        e164:
+          type:
+          - string
+          - 'null'
+          description: 'The phone number in E.164 format
+
+            - Example: `+12345556789`'
+          example: '+12345556789'
+        country_code:
+          type:
+          - string
+          - 'null'
+          description: 'The country code associated with the phone number
+
+            - Example: `1` for United States'
+          example: '1'
+        extension:
+          type:
+          - string
+          - 'null'
+          description: 'The phone extension, if applicable
+
+            - Example: `123`'
+          example: '123'
+        type:
+          type: string
+          default: unknown
+          description: 'The type of phone number. Options are `mobile`, `landline`, `work`, `unknown`, `home`, or `fax`.
+
+            - Example: `mobile`'
+          example: mobile
+        validity:
+          type: string
+          default: unknown
+          description: 'Indicates whether a phone number matches a valid numbering pattern for the country/region. Options are valid or unknown. All invalid phones are removed
+
+            - Example: `valid`'
+          example: valid
+        recommended:
+          type: boolean
+          default: false
+          description: 'Indicates whether this is the recommended phone number to use as the best option for connecting with the person.
+
+            - Example: `true`'
+          example: true
+        premium:
+          type: boolean
+          default: false
+          description: '`premium` deprecated'
+          deprecated: true
+          example: true
+        last_checked:
+          type: string
+          format: date-time
+          description: '`last_checked` deprecated'
+          deprecated: true
+    CompiledCompanyAPI:
+      type: object
+      description: Serializes purchased company fields when looked up.
+      properties:
+        id:
+          type: integer
+          description: RocketReach internal unique company ID
+          example: 123456
+        name:
+          type: string
+          description: Name of the company
+        domain:
+          type: string
+          description: Web domain for the company
+        email_domain:
+          type: string
+          description: Email domain for the company
+        website_domain:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Website for the company
+        ticker_symbol:
+          type:
+          - string
+          - 'null'
+          description: Ticker symbol for the company (if available)
+        links:
+          type:
+          - object
+          - 'null'
+          properties:
+            facebook:
+              type: string
+            twitter:
+              type: string
+            linkedin:
+              type: string
+          readOnly: true
+          description: Social media links for the company
+        year_founded:
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          description: Year the company was founded
+        address:
+          $ref: '#/components/schemas/CompiledCompanyAddress'
+          description: Street address of the company
+        phone:
+          type:
+          - string
+          - 'null'
+          description: Phone number for the company
+        fax:
+          type:
+          - string
+          - 'null'
+          description: Fax number for the company
+        num_employees:
+          type:
+          - integer
+          - 'null'
+          description: Number of employees working at the company
+        revenue:
+          type:
+          - integer
+          - 'null'
+          description: Revenue of the company
+        funding_investors:
+          type: array
+          items:
+            type: string
+          description: List of names of founding investors for the company
+        industry:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Industry of the company
+        sic_codes:
+          type: array
+          items:
+            type: integer
+          description: List of SIC codes for the company. Standard Industrial Classification (SIC) codes, are four-digit numerical codes used to categorize businesses by their primary industry
+        rr_profile_url:
+          type: string
+          readOnly: true
+          description: URL of the RocketReach company profile page for the company
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the company
+        industry_keywords:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: List of industry keywords for the company
+    EducationAPI:
+      type: object
+      properties:
+        major:
+          type:
+          - string
+          - 'null'
+          description: Primary field of study of the educational experience
+        school:
+          type:
+          - string
+          - 'null'
+          description: School/University of the educational experience
+        degree:
+          type:
+          - string
+          - 'null'
+          description: Degree obtained through the educational experience
+        start:
+          type:
+          - integer
+          - 'null'
+          description: Start date of the educational experience
+        end:
+          type:
+          - integer
+          - 'null'
+          description: End date of the educational experience
+    CompiledCompanyAPISerializerWithExtendedCompanyAttributes:
+      type: object
+      description: Serializes purchased company fields when looked up.
+      properties:
+        id:
+          type: integer
+          description: RocketReach internal unique company ID
+          example: 123456
+        name:
+          type: string
+          description: Name of the company
+        domain:
+          type: string
+          description: Web domain for the company
+        email_domain:
+          type: string
+          description: Email domain for the company
+        website_domain:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Website for the company
+        ticker_symbol:
+          type:
+          - string
+          - 'null'
+          description: Ticker symbol for the company (if available)
+        links:
+          type:
+          - object
+          - 'null'
+          properties:
+            facebook:
+              type: string
+            twitter:
+              type: string
+            linkedin:
+              type: string
+          readOnly: true
+          description: Social media links for the company
+        year_founded:
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          description: Year the company was founded
+        address:
+          $ref: '#/components/schemas/CompiledCompanyAddress'
+          description: Street address of the company
+        phone:
+          type:
+          - string
+          - 'null'
+          description: Phone number for the company
+        fax:
+          type:
+          - string
+          - 'null'
+          description: Fax number for the company
+        num_employees:
+          type:
+          - integer
+          - 'null'
+          description: Number of employees working at the company
+        revenue:
+          type:
+          - integer
+          - 'null'
+          description: Revenue of the company
+        funding_investors:
+          type: array
+          items:
+            type: string
+          description: List of names of founding investors for the company
+        industry:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Industry of the company
+        sic_codes:
+          type: array
+          items:
+            type: integer
+          description: List of SIC codes for the company. Standard Industrial Classification (SIC) codes, are four-digit numerical codes used to categorize businesses by their primary industry
+        rr_profile_url:
+          type: string
+          readOnly: true
+          description: URL of the RocketReach company profile page for the company
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the company
+        industry_keywords:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: List of industry keywords for the company
+        naics_codes:
+          type: array
+          items:
+            type: integer
+          description: List of NAICS codes for the company. North American Industry Classification System (NAICS) codes are used to classify businesses by their primary industry
+        techstack:
+          type: array
+          items:
+            type: string
+          description: List of technologies used by the company
+        industries:
+          type: array
+          items:
+            type: string
+          description: List of industries the company operates in
+        competitors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          readOnly: true
+          description: List of competitors for the company
+        departments:
+          type: object
+          additionalProperties:
+            type: integer
+          readOnly: true
+          description: List of departments within the company
+        company_growth:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyQuarterlyGrowth'
+          readOnly: true
+          description: Growth rate of the company
+    CompanyQuery:
+      type: object
+      properties:
+        company_tag:
+          type: array
+          items:
+            type: string
+        competitors:
+          type: array
+          items:
+            type: string
+          description: Include companies with these compeitiors
+        description:
+          type: array
+          items:
+            type: string
+          description: Include companies with these descriptions
+        domain:
+          type: array
+          items:
+            type: string
+          description: Include companies with these domains
+        email_domain:
+          type: array
+          items:
+            type: string
+          description: Include companies with these email domains
+        employees:
+          type: array
+          items:
+            type: string
+          description: Include companies with this number of employees
+        extended_keyword:
+          type: array
+          items:
+            type: string
+        geo:
+          type: array
+          items:
+            type: string
+          description: Include companies located in these geographies
+        growth:
+          type: array
+          items:
+            type: string
+          description: 'Include growth numbers for specific departments and time ranges.
+
+            <b>Format:</b> `min_percentage_growth-max_percentage_growth::Department,TimeRange`
+
+            * min_percentage_growth: Minimum growth percentage to filter companies
+
+            * max_percentage_growth: Maximum growth percentage to filter companies
+
+            * Department: Name of the company department (e.g., Engineering, Sales)
+
+            * TimeRange: Duration for the growth metric (e.g., six_months, one_year)
+
+            - Example: `[''5-30::Engineering,six_months'']`
+
+            - Example: `[''-10--20::Sales,one_year'']`'
+          example:
+          - 5-30::Engineering,six_months
+        id:
+          type: array
+          items:
+            type: string
+          description: Include companies with these RocketReach company IDs
+        industry:
+          type: array
+          items:
+            type: string
+          description: Include companies focused in these industries
+        industry_keywords:
+          type: array
+          items:
+            type: string
+          description: Include companies focused in industries with these keywords
+        industry_tags:
+          type: array
+          items:
+            type: string
+          description: Include companies focused in industries with these tags
+        intent:
+          type: array
+          items:
+            type: string
+          description: Search across 37,000 intent topics found [here](https://docs.google.com/spreadsheets/d/1nnk8ZOLr9GUzrPNy1pG_N_gVIhDpkc5XjE3Hh4J8M00/edit?gid=761283207#gid=761283207). Intent is only available on certain plans. Please reach out to our team to learn more.
+        is_primary:
+          type: array
+          items:
+            type: string
+        job_posting_signal:
+          type: array
+          items:
+            type: string
+          description: 'Hiring signals that identify companies that are actively building out specific departments. Full list of categories [here](https://docs.google.com/spreadsheets/d/1EZPVnOftbHNwDm0aXjiJ79dSpqcZ4JLnrNJPZxKXi5Q/edit?gid=2100271042#gid=2100271042).
+
+            - Example: `[''Accounting Roles::one_month'']`'
+          example:
+          - Accounting Roles::one_month
+        keyword:
+          type: array
+          items:
+            type: string
+        link:
+          type: array
+          items:
+            type: string
+          description: Include companies listed with these links
+        location:
+          type: array
+          items:
+            type: string
+          description: Include companies located in these locations
+        naics_code:
+          type: array
+          items:
+            type: string
+          description: Include companies with these NAICS codes
+        name:
+          type: array
+          items:
+            type: string
+          description: Include companies with these names
+        news_signal:
+          type: array
+          items:
+            type: string
+          description: 'Search on news events within the 25 categories listed [here](https://docs.google.com/spreadsheets/d/1EZPVnOftbHNwDm0aXjiJ79dSpqcZ4JLnrNJPZxKXi5Q/edit?gid=577464958#gid=577464958").
+
+            - Example: `[''Funding::one_month'']`'
+          example:
+          - Funding::one_month
+        news_timestamp:
+          type: array
+          items:
+            type: string
+          deprecated: true
+          description: news_timestamp deprecated, please use `news_signal`
+        phone:
+          type: array
+          items:
+            type: string
+          description: Include companies with these phone numbers
+        primary_industry:
+          type: array
+          items:
+            type: string
+          description: Include companies focues in these primary industries
+        publicly_traded:
+          type: array
+          items:
+            type: string
+          description: Include companies that are publically traded
+        revenue:
+          type: array
+          items:
+            type: string
+          description: Include companies with these revenue values
+        sic_code:
+          type: array
+          items:
+            type: string
+          description: Include companies with these SIC codes
+        simplified_keyword:
+          type: array
+          items:
+            type: string
+        techstack:
+          type: array
+          items:
+            type: string
+          description: Include companies working in these techstacks
+        total_funding:
+          type: array
+          items:
+            type: string
+          description: Include companies who have raised this amount of capital
+        website_category:
+          type: array
+          items:
+            type: string
+          description: Include companies with websites in these categories
+        website_url:
+          type: array
+          items:
+            type: string
+          description: Include companies with these website URLs
+    ProfileListAPI:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique profile list ID
+          example: 123456
+        name:
+          type: string
+          readOnly: true
+          description: Name of the profile list
+          example: Example List Name
+    ProfileEmailAPI:
+      type: object
+      properties:
+        email:
+          type: string
+          readOnly: true
+          description: 'The email address.
+
+            - Example: `info@rocketreach.co`'
+          example: info@rocketreach.co
+        smtp_valid:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: 'SMTP validation result. Options are `valid`, `invalid`, `accept-all`, or `unknown`.
+
+            - Example: `valid`'
+          example: valid
+        type:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: 'The type of email address. Options are `personal`, `professional`, `disposable`, or `role-based`.
+
+            - Example: `professional`'
+          example: professional
+        last_validation_check:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: 'Timestamp of the last validation check of the email address.
+
+            - Example: `2026-01-01T12:00:00Z`'
+          example: '2026-01-01T12:00:00Z'
+        grade:
+          type: string
+          readOnly: true
+          description: RocketReach internal grade for the email. See <a href="https://knowledgebase.rocketreach.co/hc/en-us/articles/360047771994">Email Grades</a> for details.
+          example: A-
+    APIUniversalCreditsPublicCompiledCompanySearchInput:
+      type: object
+      properties:
+        start:
+          type: integer
+          maximum: 10000
+          minimum: 1
+          default: 1
+          description: Paginate through search results by returning results starting from this value (counting from 1).
+        page_size:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 100
+          description: Maximum number of search results to return per page.
+        query:
+          $ref: '#/components/schemas/CompanyQuery'
+        order_by:
+          allOf:
+          - $ref: '#/components/schemas/OrderByEnum'
+          default: relevance
+    ProfileAPISerializerWithCompiledCompany:
+      type: object
+      properties:
+        profile_list:
+          allOf:
+          - $ref: '#/components/schemas/ProfileListAPI'
+          readOnly: true
+          description: Profile List this contact was added to.
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique profile ID
+        status:
+          type: string
+          readOnly: true
+          description: Status of the profile lookup. Either "complete", "progress", "searching" or "not queued"
+          example: progress
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: Name of the profile
+        profile_pic:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: URL containing this profile's picture (if available).
+        linkedin_url:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: LinkedIn URL of the profile
+        connections:
+          type: integer
+          description: Number of LinkedIn connections for this profile
+        links:
+          type: object
+          additionalProperties: {}
+          description: Social media links for the profile
+        location:
+          type:
+          - string
+          - 'null'
+          maxLength: 256
+          description: Location of the profile
+        current_title:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current job title of the profile
+        current_employer:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current employer of the profile
+        current_employer_id:
+          type: integer
+          description: RocketReach internal unique company ID
+        current_employer_domain:
+          type:
+          - string
+          - 'null'
+          description: This person's company's domain name.
+        current_employer_website:
+          type:
+          - string
+          - 'null'
+          description: This person's company's website.
+        current_employer_linkedin_url:
+          type:
+          - string
+          - 'null'
+          description: This person's company's LinkedIn URL.
+        current_employer_industry:
+          type:
+          - string
+          - 'null'
+          description: This person's company's industry.
+        job_history:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobHistoryAPICompiledCompany'
+          description: List of professional experiences for the profile
+        education:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationAPI'
+          description: List of educational experiences for the profile
+        skills:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of skills for the profile
+        birth_year:
+          type: integer
+          description: Year of birth of the profile
+        region_latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Latitude of the region of the profile
+        region_longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Longitude of the region of the profile
+        city:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: City of the profile
+        region:
+          type:
+          - string
+          - 'null'
+          maxLength: 3
+          description: Region of the profile
+        country:
+          type: string
+          readOnly: true
+          description: Country of the profile
+        country_code:
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          description: Country code of the profile
+        npi_data:
+          type: object
+          description: List of NPI data objects for the profile
+          properties:
+            npi_number:
+              type: string
+            credentials:
+              type: string
+            license_number:
+              type: string
+            specialization:
+              type: string
+          readOnly: true
+        tags:
+          type: string
+          readOnly: true
+        return_cached_emails:
+          type: boolean
+          readOnly: true
+          description: Indicates if cached emails were returned in the initial synchronous response. If false, email fields will be null until the lookup is complete.
+        linkedin_url_active:
+          type: boolean
+          description: 'Indicates if the LinkedIn profile exists or is no longer available.
+
+            * `True` = Active (as of last update)
+
+            * `False` = Unavailable (as of last update)'
+          readOnly: true
+        recommended_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Recommended email for the profile
+        recommended_personal_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Recommended personal email for the profile
+        recommended_professional_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Recommended professional email for the profile
+        current_work_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current work email for the profile
+        current_personal_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current personal email for the profile
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileEmailAPI'
+          readOnly: true
+          description: List of email objects for the profile
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfilePhoneAPI'
+          readOnly: true
+          description: List of phone number objects for the profile
+        company:
+          $ref: '#/components/schemas/CompiledCompanyAPI'
+          description: Object representing the employer of the profile
+    UniversalCreditCompanySearchOutput:
+      type: object
+      description: Universal Credit Serializer for company details (API).
+      properties:
+        id:
+          type: integer
+          description: RocketReach internal unique company ID
+        name:
+          type: string
+          description: Name of the company
+        ticker_symbol:
+          type: string
+          description: Ticker symbol of the company (if available)
+        industry_str:
+          type: string
+          description: Industry of the company
+        city:
+          type: string
+          description: City where the company is located
+        region:
+          type: string
+          description: Region where the company is located
+        country_code:
+          type: string
+          description: Country where the company is located
+        linkedin_url:
+          type: string
+          description: LinkedIn URL of the company
+        logo_url:
+          type: string
+          description: Logo URL of the company
+    CompanyQuarterlyGrowth:
+      type: object
+      properties:
+        year:
+          type: integer
+        quarter:
+          type: integer
+        values:
+          type: array
+          items:
+            type: integer
+          minLength: 3
+          maxLength: 3
+          readOnly: true
+    OrderByEnum:
+      enum:
+      - relevance
+      - popularity
+      - score
+      type: string
+  securitySchemes:
+    RocketReachAPIKey:
+      type: apiKey
+      name: Api-Key
+      in: header
+      description: RocketReach account API key. You can locate your API Key from the "My API Key" section of the [API account page](https://rocketreach.co/account?section=nav_gen_api). Requests to the API are authenticated using the Api-Key request header. Older clients may use an `api_key` query parameter, but this behavior is deprecated.

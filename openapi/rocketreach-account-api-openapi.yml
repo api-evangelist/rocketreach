@@ -2,8 +2,7 @@ openapi: 3.1.0
 info:
   title: RocketReach Account API
   version: 1.0.0
-  description: Retrieve and manage RocketReach API account details, lookup quotas, plan usage, billing email, and webhook
-    configuration.
+  description: Retrieve and manage RocketReach API account details, lookup quotas, plan usage, billing email, and webhook configuration.
   contact:
     name: RocketReach Support
     email: api@rocketreach.co
@@ -17,6 +16,8 @@ servers:
   description: RocketReach v1 API
 security:
 - RocketReachAPIKey: []
+tags:
+- name: Account
 paths:
   /account/:
     get:
@@ -48,8 +49,7 @@ paths:
           description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
       x-code-samples:
       - lang: Python
-        source: "\n                        result = rr.account.get()\n                        if result.is_success:\n    \
-          \                        account = result.account\n                        "
+        source: "\n                        result = rr.account.get()\n                        if result.is_success:\n                            account = result.account\n                        "
   /account/key/:
     post:
       operationId: create_new_api_key
@@ -119,28 +119,27 @@ paths:
         '500':
           description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
 components:
-  securitySchemes:
-    RocketReachAPIKey:
-      type: apiKey
-      name: Api-Key
-      in: header
-      description: RocketReach account API key. You can locate your API Key from the "My API Key" section of the [API account
-        page](https://rocketreach.co/account?section=nav_gen_api). Requests to the API are authenticated using the Api-Key
-        request header. Older clients may use an `api_key` query parameter, but this behavior is deprecated.
   schemas:
-    CreditUsage:
+    UniversalCreditUsage:
       type: object
       properties:
-        credit_type:
+        credits_allocated:
+          type: integer
+          description: Total credits allocated to the user
+          example: 100
+        credits_used:
+          type: integer
+          description: Total credits used by the user
+          example: 50
+        credits_remaining:
+          type: integer
+          description: Total credits remaining for the user
+          example: 50
+        last_synced:
           type: string
-        allocated:
-          type: integer
-          description: Value will be 'inf' if infinity
-        used:
-          type: integer
-        remaining:
-          type: integer
-          description: Value will be 'inf' if infinity
+          format: date-time
+          description: Timestamp of the last sync of the user credit usage data
+          example: '2023-10-01T12:00:00Z'
     RateLimit:
       type: object
       properties:
@@ -163,124 +162,6 @@ components:
           - integer
           - 'null'
           description: The number of requests remaining in the current window
-    StateEnum:
-      enum:
-      - anonymous
-      - test_user
-      - registered
-      type: string
-    UserModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: RocketReach internal unique user ID
-          example: 123456
-        first_name:
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          description: First name of the user
-          example: Mark
-        last_name:
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          description: Last name of the user
-          example: Cuban
-        email:
-          type:
-          - string
-          - 'null'
-          maxLength: 128
-          description: Email for the user
-          example: name@example.com
-        state:
-          allOf:
-          - $ref: '#/components/schemas/StateEnum'
-          readOnly: true
-        credit_usage:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditUsage'
-          readOnly: true
-        rate_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimit'
-          readOnly: true
-    APIKey:
-      type: object
-      properties:
-        api_key:
-          type: string
-          description: The API key for your account. You can also find your API key [here](https://rocketreach.co/account?section=nav_gen_api).
-    Plan:
-      type: object
-      properties:
-        id:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-          description: RocketReach internal unique plan ID
-        name:
-          type: string
-          maxLength: 64
-          description: Name of the plan
-        lookup_limit:
-          type: integer
-          description: Maximum number of lookups for the plan
-        export_limit:
-          type: integer
-          description: Maximum number of exports for the plan
-    UniversalCreditUsage:
-      type: object
-      properties:
-        credits_allocated:
-          type: integer
-          description: Total credits allocated to the user
-          example: 100
-        credits_used:
-          type: integer
-          description: Total credits used by the user
-          example: 50
-        credits_remaining:
-          type: integer
-          description: Total credits remaining for the user
-          example: 50
-        last_synced:
-          type: string
-          format: date-time
-          description: Timestamp of the last sync of the user credit usage data
-          example: '2023-10-01T12:00:00Z'
-    UniversalCreditUsageByAction:
-      type: object
-      properties:
-        credit_action:
-          type: string
-          description: The credit action being tracked. One of `PersonSearch`, `CompanySearch`, `ProfessionalEmailEnrichment`,
-            `PersonalEmailEnrichment`, `PhoneEnrichment`, `PersonEnrichment`, `CompanyEnrichment`, `HealthcareEnrichment`
-          example: PersonSearch
-        attempted_count:
-          type: integer
-          description: Number of attempted credit actions
-          example: 50
-        succeeded_count:
-          type: integer
-          description: Number of successful credit actions
-          example: 50
-        credits_used:
-          type: integer
-          description: Total credits used by this credit action
-          example: 50
-        last_synced:
-          type: string
-          format: date-time
-          description: Timestamp of the last sync of the user credit usage by action data
-          example: '2023-10-01T12:00:00Z'
     UniversalCreditsUserModelWithExtraAttributes:
       type: object
       properties:
@@ -356,4 +237,119 @@ components:
             $ref: '#/components/schemas/RateLimit'
           readOnly: true
           description: Objects representing the user's rate limits by request type
-tags: []
+    Plan:
+      type: object
+      properties:
+        id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: RocketReach internal unique plan ID
+        name:
+          type: string
+          maxLength: 64
+          description: Name of the plan
+        lookup_limit:
+          type: integer
+          description: Maximum number of lookups for the plan
+        export_limit:
+          type: integer
+          description: Maximum number of exports for the plan
+    StateEnum:
+      enum:
+      - anonymous
+      - test_user
+      - registered
+      type: string
+    UserModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique user ID
+          example: 123456
+        first_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          description: First name of the user
+          example: Mark
+        last_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          description: Last name of the user
+          example: Cuban
+        email:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: Email for the user
+          example: name@example.com
+        state:
+          allOf:
+          - $ref: '#/components/schemas/StateEnum'
+          readOnly: true
+        credit_usage:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditUsage'
+          readOnly: true
+        rate_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+          readOnly: true
+    APIKey:
+      type: object
+      properties:
+        api_key:
+          type: string
+          description: The API key for your account. You can also find your API key [here](https://rocketreach.co/account?section=nav_gen_api).
+    UniversalCreditUsageByAction:
+      type: object
+      properties:
+        credit_action:
+          type: string
+          description: The credit action being tracked. One of `PersonSearch`, `CompanySearch`, `ProfessionalEmailEnrichment`, `PersonalEmailEnrichment`, `PhoneEnrichment`, `PersonEnrichment`, `CompanyEnrichment`, `HealthcareEnrichment`
+          example: PersonSearch
+        attempted_count:
+          type: integer
+          description: Number of attempted credit actions
+          example: 50
+        succeeded_count:
+          type: integer
+          description: Number of successful credit actions
+          example: 50
+        credits_used:
+          type: integer
+          description: Total credits used by this credit action
+          example: 50
+        last_synced:
+          type: string
+          format: date-time
+          description: Timestamp of the last sync of the user credit usage by action data
+          example: '2023-10-01T12:00:00Z'
+    CreditUsage:
+      type: object
+      properties:
+        credit_type:
+          type: string
+        allocated:
+          type: integer
+          description: Value will be 'inf' if infinity
+        used:
+          type: integer
+        remaining:
+          type: integer
+          description: Value will be 'inf' if infinity
+  securitySchemes:
+    RocketReachAPIKey:
+      type: apiKey
+      name: Api-Key
+      in: header
+      description: RocketReach account API key. You can locate your API Key from the "My API Key" section of the [API account page](https://rocketreach.co/account?section=nav_gen_api). Requests to the API are authenticated using the Api-Key request header. Older clients may use an `api_key` query parameter, but this behavior is deprecated.
