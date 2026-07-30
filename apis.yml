@@ -20,93 +20,25 @@ tags:
 - Recruiting
 - Webhooks
 kind: contract
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Provider
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rocketreach.png
 specificationVersion: '0.20'
 created: '2026-05-25'
 modified: '2026-05-25'
 apis:
-- aid: rocketreach:rocketreach-people-lookup-api
-  name: RocketReach People Lookup API
-  tags:
-  - Contact Data
-  - Email Lookup
-  - People
-  - Enrichment
-  - Webhooks
-  humanURL: https://docs.rocketreach.co/reference/people-lookup-api
-  properties:
-  - url: https://docs.rocketreach.co/reference/people-lookup-api
-    type: Documentation
-  - url: https://docs.rocketreach.co/reference/bulk-person-lookup-person-lookup-api
-    type: Documentation
-  - url: https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api
-    type: Documentation
-  - url: https://docs.rocketreach.co/reference/create_universal_person_lookup
-    type: Documentation
-  - url: https://docs.rocketreach.co/reference/create_universal_person_bulk_lookup
-    type: Documentation
-  - url: https://docs.rocketreach.co/reference/create_person_and_company_lookup
-    type: Documentation
-  - url: openapi/rocketreach-people-lookup-api-openapi.yml
-    type: OpenAPI
-  description: Look up an individual's email addresses, phone numbers, social handles, and full enriched
-    profile from a name + employer, LinkedIn URL, RocketReach profile id, NPI number, or email. Supports
-    single lookups, bulk lookups (up to 100 queries per request), status polling, combined person+company
-    lookups, and the newer Universal endpoints. Results can be delivered synchronously or via webhook with
-    an RR-Request-ID correlation header.
-- aid: rocketreach:rocketreach-people-search-api
-  name: RocketReach People Search API
-  tags:
-  - People Search
-  - Sales Intelligence
-  - Prospecting
-  humanURL: https://docs.rocketreach.co/reference/people-search-api
-  properties:
-  - url: https://docs.rocketreach.co/reference/people-search-api
-    type: Documentation
-  - url: https://docs.rocketreach.co/reference/create_universal_person_search
-    type: Documentation
-  - url: openapi/rocketreach-people-search-api-openapi.yml
-    type: OpenAPI
-  description: Search RocketReach's 700M+ professional profiles using filters such as name, current
-    employer, title, location, skills, industry, and education. Returns paginated lists of profile summaries
-    that can then be passed to the People Lookup API for full contact enrichment.
-- aid: rocketreach:rocketreach-company-lookup-api
-  name: RocketReach Company Lookup API
-  tags:
-  - Company Data
-  - Firmographics
-  - Enrichment
-  humanURL: https://docs.rocketreach.co/reference/company-lookup-api
-  properties:
-  - url: https://docs.rocketreach.co/reference/company-lookup-api
-    type: Documentation
-  - url: https://docs.rocketreach.co/reference/create_universal_company_lookup
-    type: Documentation
-  - url: openapi/rocketreach-company-lookup-api-openapi.yml
-    type: OpenAPI
-  description: Retrieve an enriched company profile from a domain, company name, LinkedIn URL, or
-    RocketReach company id. Returns firmographics including headcount, industry, founded year, location,
-    revenue band, technology stack, and key social and contact metadata.
-- aid: rocketreach:rocketreach-company-search-api
-  name: RocketReach Company Search API
-  tags:
-  - Company Search
-  - Firmographics
-  - Sales Intelligence
-  humanURL: https://docs.rocketreach.co/reference/company-search-api
-  properties:
-  - url: https://docs.rocketreach.co/reference/company-search-api
-    type: Documentation
-  - url: https://docs.rocketreach.co/reference/create_universal_company_search
-    type: Documentation
-  - url: openapi/rocketreach-company-search-api-openapi.yml
-    type: OpenAPI
-  description: Search RocketReach's company database using firmographic filters such as industry, headcount,
-    revenue, location, and technology stack. Returns paginated company summaries suitable for downstream
-    enrichment via the Company Lookup API.
 - aid: rocketreach:rocketreach-account-api
   name: RocketReach Account API
   tags:
@@ -123,9 +55,78 @@ apis:
     type: Documentation
   - url: openapi/rocketreach-account-api-openapi.yml
     type: OpenAPI
-  description: Retrieve and manage RocketReach API account details, generate new API keys, and inspect
-    plan, lookup credit balance, export credit balance, and Universal Credits usage. Provides both legacy
-    account endpoints and the newer Universal account endpoint.
+  description: >-
+    Retrieve and manage RocketReach API account details, generate new API keys, and inspect plan, lookup
+    credit balance, export credit balance, and Universal Credits usage. Provides both legacy account endpoints
+    and the newer Universal account endpoint.
+- aid: rocketreach:rocketreach-company-data-api-api
+  name: RocketReach Company Data API API
+  description: The Company Data API API from RocketReach — 5 operation(s) for company data api.
+  humanURL: https://docs.rocketreach.co/reference/people-lookup-api
+  tags:
+  - Company Data API
+  properties:
+  - type: OpenAPI
+    url: openapi/rocketreach-company-data-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/people-lookup-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/bulk-person-lookup-person-lookup-api
+  - type: Documentation
+    url: >-
+      https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_person_lookup
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_person_bulk_lookup
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_person_and_company_lookup
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/people-search-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_person_search
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/company-lookup-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_company_lookup
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/company-search-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_company_search
+- aid: rocketreach:rocketreach-people-data-api-api
+  name: RocketReach People Data API API
+  description: The People Data API API from RocketReach — 9 operation(s) for people data api.
+  humanURL: https://docs.rocketreach.co/reference/people-lookup-api
+  tags:
+  - People Data API
+  properties:
+  - type: OpenAPI
+    url: openapi/rocketreach-people-data-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/people-lookup-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/bulk-person-lookup-person-lookup-api
+  - type: Documentation
+    url: >-
+      https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_person_lookup
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_person_bulk_lookup
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_person_and_company_lookup
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/people-search-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_person_search
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/company-lookup-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_company_lookup
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/company-search-api
+  - type: Documentation
+    url: https://docs.rocketreach.co/reference/create_universal_company_search
 common:
 - type: AgenticAccess
   url: agentic-access/rocketreach-agentic-access.yml
