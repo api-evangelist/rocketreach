@@ -1,0 +1,18 @@
+{
+  "provider": "rocketreach",
+  "sources": [
+    "rocketreach-account-api-openapi.yml",
+    "rocketreach-company-data-api-api-openapi.yml",
+    "rocketreach-people-data-api-api-openapi.yml"
+  ],
+  "outputs": [
+    "rocketreach-account-api-openapi.yml",
+    "rocketreach-company-data-api-api-openapi.yml",
+    "rocketreach-people-data-api-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
