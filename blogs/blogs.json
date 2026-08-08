@@ -5,11 +5,11 @@
       "source": "https://rocketreach.co/blog",
       "feed_url": "https://rocketreach.co/resources/feed/",
       "title": "RocketReach Resources",
-      "saved": 0,
+      "saved": 1,
       "method": "rss",
       "note": "RSS feed resolves at /resources/feed/; most recent items still dated 2026-05-21, older than prior fetch cutoff. /blog/feed/ is a comments feed with no items."
     }
   ],
-  "post_count": 17,
-  "fetched": "2026-08-01T15:38:58Z"
+  "post_count": 18,
+  "fetched": "2026-08-06T13:56:59Z"
 }
