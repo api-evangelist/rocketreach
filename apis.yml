@@ -37,7 +37,7 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rocketreach.png
 specificationVersion: '0.20'
 created: '2026-05-25'
-modified: '2026-05-25'
+modified: '2026-08-13'
 apis:
 - aid: rocketreach:rocketreach-account-api
   name: RocketReach Account API
@@ -46,6 +46,7 @@ apis:
   - Administration
   - Usage
   humanURL: https://docs.rocketreach.co/reference/rocketreach-api-account
+  baseURL: https://api.rocketreach.co/api/v2
   properties:
   - url: https://docs.rocketreach.co/reference/rocketreach-api-account
     type: Documentation
@@ -55,6 +56,8 @@ apis:
     type: Documentation
   - url: openapi/rocketreach-account-api-openapi.yml
     type: OpenAPI
+  - url: overlays/rocketreach-account-api-overlay.yaml
+    type: Overlay
   description: >-
     Retrieve and manage RocketReach API account details, generate new API keys, and inspect plan, lookup
     credit balance, export credit balance, and Universal Credits usage. Provides both legacy account endpoints
@@ -63,11 +66,14 @@ apis:
   name: RocketReach Company Data API API
   description: The Company Data API API from RocketReach — 5 operation(s) for company data api.
   humanURL: https://docs.rocketreach.co/reference/people-lookup-api
+  baseURL: https://api.rocketreach.co/api/v2
   tags:
   - Company Data API
   properties:
   - type: OpenAPI
     url: openapi/rocketreach-company-data-api-api-openapi.yml
+  - type: Overlay
+    url: overlays/rocketreach-company-data-api-api-overlay.yaml
   - type: Documentation
     url: https://docs.rocketreach.co/reference/people-lookup-api
   - type: Documentation
@@ -97,11 +103,14 @@ apis:
   name: RocketReach People Data API API
   description: The People Data API API from RocketReach — 9 operation(s) for people data api.
   humanURL: https://docs.rocketreach.co/reference/people-lookup-api
+  baseURL: https://api.rocketreach.co/api/v2
   tags:
   - People Data API
   properties:
   - type: OpenAPI
     url: openapi/rocketreach-people-data-api-api-openapi.yml
+  - type: Overlay
+    url: overlays/rocketreach-people-data-api-api-overlay.yaml
   - type: Documentation
     url: https://docs.rocketreach.co/reference/people-lookup-api
   - type: Documentation
@@ -161,7 +170,7 @@ common:
 - type: FAQ
   url: https://docs.rocketreach.co/reference/faq
 - type: Pricing
-  url: https://rocketreach.co/api
+  url: https://rocketreach.co/pricing
 - type: Signup
   url: https://rocketreach.co/signup
 - type: Login
@@ -172,17 +181,15 @@ common:
 - type: Blog
   url: https://rocketreach.co/blog
 - type: Company
-  url: https://rocketreach.co/about
+  url: https://rocketreach.co/company
 - type: Careers
   url: https://rocketreach.co/careers
-- type: Press
-  url: https://rocketreach.co/press
 - type: TrustCenter
-  url: https://rocketreach.co/security
+  url: https://trust.rocketreach.co
 - type: PrivacyPolicy
-  url: https://rocketreach.co/legal/privacy-policy
+  url: https://rocketreach.co/privacy
 - type: TermsOfService
-  url: https://rocketreach.co/legal/terms-of-use
+  url: https://rocketreach.co/terms
 - type: LinkedIn
   url: https://www.linkedin.com/company/rocketreach
 - type: Twitter
@@ -225,7 +232,66 @@ common:
   - https://docs.rocketreach.co/reference/webhooks
   - https://docs.rocketreach.co/reference/universal-credits-overview
   updated: '2026-05-25'
+- type: MCPServer
+  url: mcp/rocketreach-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/rocketreach-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/rocketreach-llms.txt
+- type: WellKnown
+  url: well-known/rocketreach-well-known.yml
+- type: APICatalog
+  url: well-known/rocketreach-api-catalog.json
+- type: SecurityTxt
+  url: well-known/rocketreach-security.txt
+- type: Packages
+  url: packages/rocketreach-packages.yml
+- type: SDKs
+  name: RocketReach Python SDK
+  url: packages/rocketreach-packages.yml
+- type: RateLimits
+  url: rate-limits/rocketreach-rate-limits.yml
+- type: Plans
+  url: plans/rocketreach-plans-pricing.yml
+- type: ErrorCatalog
+  url: errors/rocketreach-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/rocketreach-lifecycle.yml
+- type: StatusPage
+  url: https://status.rocketreach.co
+- type: Deprecation
+  url: lifecycle/rocketreach-lifecycle.yml
+- type: Conventions
+  url: conventions/rocketreach-conventions.yml
+- type: Conformance
+  url: conformance/rocketreach-conformance.yml
+- type: OAuthScopes
+  url: scopes/rocketreach-scopes.yml
+- type: DataModel
+  url: data-model/rocketreach-data-model.yml
+- type: Webhooks
+  url: asyncapi/rocketreach-webhooks.yml
+- type: Security
+  url: security/rocketreach-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: security/rocketreach-trust-center.yml
+- type: GitHubOrganization
+  url: https://github.com/rocketreach
+- type: APIReference
+  url: https://docs.rocketreach.co/reference/rocketreach-api
+- type: DeveloperPortal
+  url: https://docs.rocketreach.co/
+- type: SignUp
+  url: https://rocketreach.co/signup
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
   url: https://apievangelist.com
+
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 30
+  pass: local-v1
