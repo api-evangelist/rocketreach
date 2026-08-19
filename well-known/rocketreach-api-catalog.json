@@ -1,0 +1,19 @@
+{
+    "linkset": [
+        {
+            "anchor": "https://docs.rocketreach.co/reference#index.yaml",
+            "service-desc": [
+                {
+                    "href": "https://docs.rocketreach.co/openapi/index.yaml",
+                    "type": "application/vnd.oai.openapi+json"
+                }
+            ],
+            "service-doc": [
+                {
+                    "href": "https://docs.rocketreach.co/reference",
+                    "type": "text/html"
+                }
+            ]
+        }
+    ]
+}

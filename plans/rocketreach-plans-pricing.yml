@@ -1,0 +1,114 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.rocketreach.co/reference/rate-limits
+docs:
+- https://rocketreach.co/pricing
+- https://docs.rocketreach.co/reference/rate-limits
+- https://docs.rocketreach.co/reference/universal-credits-overview
+summary: >-
+  RocketReach names four API plan tiers in its own documentation — Essentials, Pro, Ultimate and Custom —
+  and attaches a published rate-limit allowance to each. It does NOT publish a price, currency or billing
+  period for any API tier anywhere machine-readable: rocketreach.co/pricing renders entirely client-side
+  (the served HTML is an 11KB shell with no plan data), and the API docs route buyers to api@rocketreach.co
+  or sales@rocketreach.co to set up a plan. The tiers below are therefore recorded with their real published
+  quotas and with price null — an honest gap, not a guess.
+pricing_page_readable: false
+pricing_page_evidence:
+  url: https://rocketreach.co/pricing
+  status: 200
+  note: 200 OK but JS-rendered; no tier, price or quota text present in the served markup.
+currency: null
+billing_period: null
+plans:
+- name: Essentials
+  price: null
+  currency: null
+  billing_period: null
+  audience: API
+  included_quota:
+    person_search_monthly: 10000
+    person_lookup_monthly: 5000
+    company_search_monthly: 10000
+    bulk_jobs_daily: 100
+  limits:
+    person_search_per_minute: 15
+    person_lookup_per_minute: 15
+    company_search_per_minute: 15
+    bulk_jobs_per_minute: 10
+    global_requests_per_second: 10
+  overage: null
+  source: https://docs.rocketreach.co/reference/rate-limits
+- name: Pro
+  price: null
+  currency: null
+  billing_period: null
+  audience: API
+  included_quota:
+    person_search_monthly: 15000
+    person_lookup_monthly: 20000
+    company_search_monthly: 15000
+    bulk_jobs_daily: 100
+  limits:
+    person_search_per_minute: 30
+    person_lookup_per_minute: 50
+    company_search_per_minute: 30
+    bulk_jobs_per_minute: 10
+    global_requests_per_second: 10
+  overage: null
+  source: https://docs.rocketreach.co/reference/rate-limits
+- name: Ultimate
+  price: null
+  currency: null
+  billing_period: null
+  audience: API
+  included_quota:
+    person_search_monthly: 20000
+    person_lookup_monthly: 50000
+    company_search_monthly: 20000
+    bulk_jobs_daily: 100
+  limits:
+    person_search_per_minute: 60
+    person_lookup_per_minute: 100
+    company_search_per_minute: 60
+    bulk_jobs_per_minute: 10
+    global_requests_per_second: 10
+  overage: null
+  source: https://docs.rocketreach.co/reference/rate-limits
+- name: Custom
+  price: null
+  currency: null
+  billing_period: null
+  audience: API
+  included_quota:
+    person_search_monthly: 200000
+    person_lookup_monthly: 200000
+    company_search_monthly: 200000
+    bulk_jobs_daily: 1000
+  limits:
+    person_search_per_minute: 100
+    person_lookup_per_minute: 250
+    company_search_per_minute: 100
+    bulk_jobs_per_minute: 10
+    global_requests_per_second: 10
+  overage: null
+  contact: api@rocketreach.co
+  source: https://docs.rocketreach.co/reference/rate-limits
+plan_count: 4
+metering:
+  model: credits
+  systems:
+  - name: Universal Credits
+    description: >-
+      Single credit pool spent across every action, live as of the 2026 rollout. Published costs — person
+      search 1 credit per page of up to 100 results; company search 2 credits per page; professional email
+      2 credits per verified profile; personal email 3 credits; phone 6 credits; detailed person enrichment
+      1 credit; healthcare enrichment 1 credit; company enrichment 1 credit.
+    source: https://docs.rocketreach.co/reference/universal-credits-overview
+  - name: Legacy credit types
+    description: >-
+      Six discrete credit types still issued on legacy plans — standard_lookup, premium_lookup, phone_lookup,
+      person_enrich, person_export, company_export. allocated 0 on the account endpoint means that credit
+      type is not available on the plan.
+    source: https://docs.rocketreach.co/reference/mcp-errors
+  balance_endpoint: GET https://api.rocketreach.co/api/v2/universal/account/
+  exhaustion_error: HTTP 402 / MCP error_code insufficient_credits with _meta.credit_type

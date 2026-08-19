@@ -1,0 +1,109 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.rocketreach.co/reference/mcp
+status: published
+name: RocketReach MCP Server
+description: >-
+  RocketReach ships a first-party, hosted Model Context Protocol server that exposes its people and company
+  search and lookup surface as MCP tools. The agent authenticates once via OAuth 2.1 with PKCE and Dynamic
+  Client Registration; the server handles auth, proxies to the RocketReach v2 API, and shapes responses. It
+  is a genuine remote agent surface — an MCP client can reach it over HTTPS with no local install.
+deployment:
+  mode: remote
+  endpoint: https://mcp.rocketreach.co/mcp
+  auth: oauth
+  verified: probed
+  note: >-
+    Probed 2026-08-13. POST https://mcp.rocketreach.co/mcp with tools/list returned HTTP 401
+    {"error":"auth_required"} — the endpoint is live and the tool schemas are auth-gated behind OAuth, so
+    the tool list below is transcribed from RocketReach's own published Tools Reference rather than from a
+    live tools/list response. RocketReach also publishes a Claude Code / Cowork plugin
+    (github.com/rocketreach/rocketreach-mcp-plugin) whose mcp.json wraps this SAME remote URL with
+    `npx -y mcp-remote@0.1.16 https://mcp.rocketreach.co/mcp`. That is a transport shim for clients without
+    streamable-HTTP support, NOT a locally-run server, so mode stays `remote`.
+transport: streamable-http
+transport_spec: https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#streamable-http
+authentication:
+  type: oauth2.1
+  pkce: S256
+  dynamic_client_registration: true
+  registration_endpoint: https://rocketreach.co/mcp-oauth/register
+  authorization_endpoint: https://rocketreach.co/mcp-oauth/authorize
+  token_endpoint: https://rocketreach.co/mcp-oauth/token
+  revocation_endpoint: https://rocketreach.co/mcp-oauth/revoke
+  protected_resource_metadata: https://mcp.rocketreach.co/.well-known/oauth-protected-resource
+  authorization_server_metadata: https://rocketreach.co/.well-known/oauth-authorization-server
+  scopes:
+  - rocketreach:read
+  token_format: JWE-wrapped JWT (AES-256-GCM envelope over an HS256-signed JWS)
+  access_token_lifetime: 1 hour
+  refresh_token_lifetime: 30 days
+  refresh_token_rotation: single-use, rotates on each exchange; replay revokes all tokens for that user+client
+  audience_binding: tokens are bound to the MCP server URL and rejected by any other audience
+  source: https://docs.rocketreach.co/reference/mcp-auth
+tools:
+- name: person_search
+  description: Search 700M+ professional profiles by name, title, employer, location, skills and more. Returns profile summaries only, not contact info.
+  credits: none
+- name: company_search
+  description: Search companies by name, domain, industry, size, funding, tech stack and more. Returns company summaries.
+  credits: none
+- name: person_lookup
+  description: Retrieve full contact info (emails, phones) for a specific person by profile ID, email, LinkedIn URL, NPI number, or name + employer. Adds the contact to My Contacts. Asynchronous — may return status pending.
+  credits: 1 lookup credit + 1 person export credit
+- name: profile_company_lookup
+  description: Retrieve contact info for a person and full details for their current company in one call. Person side is async; company side resolves immediately.
+  credits: 1 lookup credit + 1 person export credit + 1 company export credit
+- name: company_lookup
+  description: Retrieve full details for a specific company by domain, company ID, name, ticker, or LinkedIn URL. Adds the company to My Companies.
+  credits: 1 company export credit
+- name: account
+  description: Check plan, credit balances, and rate-limit status.
+  credits: none
+- name: check_person_status
+  description: Poll the status of an in-progress person lookup. Accepts an array of profile IDs (up to 100 per call).
+  credits: none
+- name: ping
+  description: Liveness check.
+  credits: none
+tool_count: 8
+errors:
+  envelope: MCP tool error with isError true, human-readable content[0].text, and machine-readable _meta.error_code
+  catalog: errors/rocketreach-problem-types.yml
+  source: https://docs.rocketreach.co/reference/mcp-errors
+rate_limits:
+  shared_with_rest_api: true
+  note: >-
+    MCP calls draw on the same RocketReach API quota as direct REST calls — there is no separate MCP limit.
+    A 429 surfaces as error_code rate_limited with _meta.retry_after_seconds.
+  detail: rate-limits/rocketreach-rate-limits.yml
+clients:
+- name: Claude Code
+  install: claude mcp add rocketreach https://mcp.rocketreach.co/mcp
+  docs: https://docs.rocketreach.co/reference/mcp-claude-code-setup
+- name: Claude Code / Cowork plugin
+  install: /plugin marketplace add rocketreach/rocketreach-mcp-plugin
+  repo: https://github.com/rocketreach/rocketreach-mcp-plugin
+  note: Official marketplace; ships four Agent Skills alongside the server registration.
+- name: Claude Desktop, Cursor, ChatGPT
+  note: Register the same URL directly; mcp.json / .mcp.json manifests are published in the plugin repo.
+crosswalk: mcp/rocketreach-tool-crosswalk.yml
+skills: skills/_index.yml
+docs:
+- https://docs.rocketreach.co/reference/mcp
+- https://docs.rocketreach.co/reference/mcp-auth
+- https://docs.rocketreach.co/reference/mcp-tools
+- https://docs.rocketreach.co/reference/quick-start
+- https://docs.rocketreach.co/reference/mcp-errors
+x-evidence:
+- url: https://mcp.rocketreach.co/mcp
+  method: POST tools/list
+  http_status: 401
+  body: '{"error":"auth_required"}'
+  fetched: '2026-08-13'
+- url: https://mcp.rocketreach.co/.well-known/oauth-protected-resource
+  http_status: 200
+  fetched: '2026-08-13'
+- url: https://rocketreach.co/.well-known/oauth-authorization-server
+  http_status: 200
+  fetched: '2026-08-13'

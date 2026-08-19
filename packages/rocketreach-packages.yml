@@ -1,0 +1,84 @@
+generated: '2026-08-13'
+method: searched
+source: https://pypi.org/pypi/rocketreach/json, https://github.com/rocketreach, https://registry.npmjs.org/-/v1/search?text=rocketreach
+note: >-
+  RocketReach ships exactly ONE first-party client library — the Python SDK. Every rocketreach-named package
+  on npm is third-party (Pipedream components, agentic/microfox/deepagent wrappers, community MCP shims) and
+  is recorded below as official:false so the SDK count is not inflated. RubyGems, crates.io, Packagist,
+  NuGet and the Go module proxy return nothing for rocketreach.
+packages:
+- language: python
+  registry: pypi
+  name: rocketreach
+  url: https://pypi.org/project/rocketreach/
+  repo: https://github.com/rocketreach/rocketreach_python
+  official: true
+  version: 2.1.8
+  published: '2025-03-26'
+  license: MIT
+  author: RocketReach <engineering@rocketreach.co>
+  install: pip install rocketreach
+  note: >-
+    First-party: published by RocketReach engineering, project_urls Source Code points at the
+    github.com/rocketreach org. Latest release 2.1.8 (2025-03-26) predates the Universal Credits endpoints
+    (/api/v2/universal/*) and the MCP surface RocketReach shipped in 2026, so the SDK does not cover the
+    current API surface — a decay signal worth raising with the provider.
+- language: shell
+  registry: github
+  name: rocketreach-mcp-plugin
+  url: https://github.com/rocketreach/rocketreach-mcp-plugin
+  official: true
+  version: 0.1.0
+  published: null
+  license: MIT
+  install: /plugin marketplace add rocketreach/rocketreach-mcp-plugin
+  note: >-
+    Official Claude Code / Cowork plugin marketplace. Not distributed through a package registry — version
+    0.1.0 is read from .claude-plugin/plugin.json; there is no registry metadata endpoint to date it, so
+    published is null. Registers the hosted MCP server and ships four Agent Skills. See mcp/ and skills/.
+- language: javascript
+  registry: npm
+  name: '@pipedream/rocketreach'
+  url: https://www.npmjs.com/package/@pipedream/rocketreach
+  official: false
+  version: 0.0.3
+  published: '2023-01-23'
+  note: Pipedream-authored component pack, not a RocketReach client library.
+- language: javascript
+  registry: npm
+  name: '@agentic/rocketreach'
+  url: https://www.npmjs.com/package/@agentic/rocketreach
+  official: false
+  version: 7.6.9
+  published: '2025-06-25'
+  note: Third-party (transitive-bullshit/agentic) AI-tool wrapper.
+- language: javascript
+  registry: npm
+  name: '@microfox/rocketreach'
+  url: https://www.npmjs.com/package/@microfox/rocketreach
+  official: false
+  version: 1.0.2
+  published: '2025-03-22'
+  note: Third-party Microfox SDK wrapper.
+- language: javascript
+  registry: npm
+  name: '@ridge-ventures/rocketreach-mcp'
+  url: https://www.npmjs.com/package/@ridge-ventures/rocketreach-mcp
+  official: false
+  version: 1.0.4
+  published: '2026-04-17'
+  note: >-
+    Third-party local-stdio MCP server built on the REST API. Predates and is unrelated to RocketReach's own
+    hosted MCP server at mcp.rocketreach.co.
+official_count: 2
+official_sdk_count: 1
+third_party_count: 4
+registries_checked:
+- pypi
+- npm
+- rubygems
+- crates.io
+- packagist
+- nuget
+- proxy.golang.org
+- maven-central

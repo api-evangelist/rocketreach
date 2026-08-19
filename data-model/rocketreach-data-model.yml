@@ -1,0 +1,324 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/rocketreach-api-openapi.json (41 component schemas, 16 operations), https://docs.rocketreach.co/reference/mcp-tools
+note: >-
+  Entity graph derived from the provider-published OpenAPI's $ref links and id-reference fields, cross-checked
+  against the documented search facets. RocketReach's model is small and denormalised: two root entities
+  (Profile and Company) with embedded value objects, joined by an integer foreign key on the profile
+  (current_employer_id) rather than by a $ref. Many schema names are v1/Universal-Credits variants of the same
+  entity and are folded into the canonical entity below with their aliases listed.
+identifiers:
+  style: opaque integers
+  prefixes: none
+  note: >-
+    RocketReach uses bare integer ids for profiles, companies, profile lists, plans and webhooks. There are no
+    typed id prefixes, so an id alone does not tell you which entity it belongs to — callers must track the
+    entity type alongside the id.
+entities:
+- name: Profile
+  description: A person in the RocketReach database — the primary enrichment target.
+  primary_key: id
+  schemas:
+  - ProfileAPICompiledCompany
+  - ProfileAPISerializerWithCompiledCompany
+  - ProfileAPIWithMetadataCompiledCompany
+  - ProfileSearchResultSerializerBase
+  - UniversalCreditPersonLookupOutput
+  - UniversalCreditPersonLookupOutputWithMetadata
+  - UniversalCreditPersonSearchOutput
+  key_fields:
+  - id
+  - status
+  - name
+  - linkedin_url
+  - location
+  - current_title
+  - current_employer
+  - current_employer_id
+  - profile_pic
+  - connections
+  - links
+  operations:
+  - create_person_lookup
+  - create_universal_person_lookup
+  - create_person_search
+  - create_universal_person_search
+  - create_person_bulk_lookup
+  - create_universal_person_bulk_lookup
+  - check_person_lookup_status
+  - check_universal_person_lookup_status
+- name: Company
+  description: An organisation in the RocketReach database, with firmographics, tech stack and funding.
+  primary_key: id
+  schemas:
+  - CompiledCompanyAPI
+  - CompiledCompanyAPISerializerWithExtendedCompanyAttributes
+  - CompiledCompanyPublicDetails
+  - UniversalCreditCompanySearchOutput
+  key_fields:
+  - id
+  - name
+  - domain
+  - email_domain
+  - website_domain
+  - ticker_symbol
+  - year_founded
+  - num_employees
+  - revenue
+  - funding_investors
+  - industry_str
+  - links
+  operations:
+  - create_company_lookup
+  - create_universal_company_lookup
+  - create_company_search
+  - create_universal_company_search
+  - create_person_and_company_lookup
+- name: ProfileEmail
+  description: One email address attached to a profile, with deliverability grade and SMTP validity.
+  primary_key: email
+  schemas:
+  - ProfileEmailAPI
+  key_fields:
+  - email
+  - smtp_valid
+  - type
+  - grade
+  - last_validation_check
+- name: ProfilePhone
+  description: One phone number attached to a profile, with E.164 form, grade and premium flag.
+  primary_key: e164
+  schemas:
+  - ProfilePhoneAPI
+  key_fields:
+  - number
+  - e164
+  - country_code
+  - extension
+  - type
+  - grade
+  - validity
+  - recommended
+  - premium
+  - last_checked
+- name: JobHistory
+  description: One employment record in a profile's career history, itself pointing at a Company.
+  schemas:
+  - JobHistoryAPICompiledCompany
+  key_fields:
+  - start_date
+  - end_date
+  - company_name
+  - company_id
+  - company_linkedin_url
+  - department
+  - title
+  - highest_level
+- name: Education
+  description: One education record on a profile.
+  schemas:
+  - EducationAPI
+  key_fields:
+  - major
+  - school
+  - degree
+  - start
+  - end
+- name: CompanyAddress
+  description: Structured postal address value object on a Company.
+  schemas:
+  - CompiledCompanyAddress
+  key_fields:
+  - street
+  - city
+  - region
+  - region_code
+  - postal_code
+  - country
+  - country_code
+- name: CompanyQuarterlyGrowth
+  description: Quarterly headcount/growth series attached to a Company.
+  schemas:
+  - CompanyQuarterlyGrowth
+  key_fields:
+  - year
+  - quarter
+  - values
+- name: HealthcareIdentity
+  description: US healthcare practitioner identifiers on a profile (NPI, licence, credentials, specialization).
+  schemas:
+  - TypedDict
+  key_fields:
+  - npi_number
+  - credentials
+  - license_number
+  - specialization
+- name: ProfileList
+  description: A saved list a resolved contact is filed under. Echoed on lookup results and webhook payloads.
+  primary_key: id
+  schemas:
+  - ProfileListAPI
+  key_fields:
+  - id
+  - name
+- name: User
+  description: The API account itself — the caller's identity, plan, key, credits and rate limits.
+  primary_key: id
+  schemas:
+  - UserModel
+  - UniversalCreditsUserModelWithExtraAttributes
+  key_fields:
+  - id
+  - first_name
+  - last_name
+  - email
+  - state
+  - plan
+  - api_key
+  - api_key_domain
+  - daily_api_num_calls
+  - daily_api_limit
+  operations:
+  - get_account
+  - get_universal_account
+  - create_new_api_key
+- name: Plan
+  description: The subscription plan attached to a User, with lookup and export ceilings.
+  primary_key: id
+  schemas:
+  - Plan
+  key_fields:
+  - id
+  - name
+  - lookup_limit
+  - export_limit
+- name: CreditUsage
+  description: Balance for one legacy credit type on the account.
+  schemas:
+  - CreditUsage
+  key_fields:
+  - credit_type
+  - allocated
+  - used
+  - remaining
+- name: UniversalCreditUsage
+  description: Balance for the single Universal Credits pool, plus a per-action breakdown.
+  schemas:
+  - UniversalCreditUsage
+  - UniversalCreditUsageByAction
+  key_fields:
+  - credits_allocated
+  - credits_used
+  - credits_remaining
+  - last_synced
+  - credit_action
+  - attempted_count
+  - succeeded_count
+- name: RateLimit
+  description: One rate-limit window on the account, returned by the account endpoints.
+  schemas:
+  - RateLimit
+  key_fields:
+  - action
+  - duration
+  - limit
+  - used
+  - remaining
+- name: APIKey
+  description: A minted API key, returned only by POST /account/key/.
+  schemas:
+  - APIKey
+  key_fields:
+  - api_key
+relationships:
+- from: Profile
+  to: Company
+  type: belongs_to
+  via: current_employer_id
+  binding: id-reference
+  note: >-
+    Integer foreign key, not a $ref. current_employer, current_employer_domain, current_employer_website and
+    current_employer_linkedin_url are denormalised copies of the company's fields on the profile.
+- from: Profile
+  to: ProfileEmail
+  type: has_many
+  via: emails
+  binding: $ref
+- from: Profile
+  to: ProfilePhone
+  type: has_many
+  via: phones
+  binding: $ref
+- from: Profile
+  to: JobHistory
+  type: has_many
+  via: job_history
+  binding: $ref
+- from: Profile
+  to: Education
+  type: has_many
+  via: education
+  binding: $ref
+- from: Profile
+  to: HealthcareIdentity
+  type: has_one
+  via: healthcare metadata (TypedDict)
+  binding: $ref
+- from: Profile
+  to: ProfileList
+  type: belongs_to
+  via: profile_list
+  binding: $ref
+- from: JobHistory
+  to: Company
+  type: belongs_to
+  via: company_id
+  binding: id-reference
+- from: Company
+  to: CompanyAddress
+  type: has_one
+  via: address
+  binding: $ref
+- from: Company
+  to: CompanyQuarterlyGrowth
+  type: has_many
+  via: growth series
+  binding: $ref
+- from: User
+  to: Plan
+  type: has_one
+  via: plan
+  binding: $ref
+- from: User
+  to: CreditUsage
+  type: has_many
+  via: credit_usage
+  binding: $ref
+- from: User
+  to: UniversalCreditUsage
+  type: has_one
+  via: credit_usage / credit_usage_by_action
+  binding: $ref
+- from: User
+  to: RateLimit
+  type: has_many
+  via: rate_limits
+  binding: $ref
+- from: User
+  to: APIKey
+  type: has_one
+  via: api_key
+  binding: inline
+query_models:
+- name: PersonQuery
+  description: The person_search facet vocabulary — identity, title, employer, department, seniority, skills, education, location, contact, healthcare, company firmographics, and activity signals.
+  used_by:
+  - create_person_search
+  - create_universal_person_search
+- name: CompanyQuery
+  description: The company_search facet vocabulary — identity, classification (SIC/NAICS/industry), size, revenue, funding, location, tech stack, competitors, intent and news/hiring signals.
+  used_by:
+  - create_company_search
+  - create_universal_company_search
+entity_count: 17
+relationship_count: 15

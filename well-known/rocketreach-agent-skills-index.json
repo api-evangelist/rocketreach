@@ -1,0 +1,12 @@
+{
+    "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+    "skills": [
+        {
+            "name": "read-the-docs",
+            "type": "skill-md",
+            "description": "Guide to the documentation available at https://docs.rocketreach.co. Points to an llms.txt summary with links to every doc, reference, changelog, and custom page.",
+            "url": "https://docs.rocketreach.co/.well-known/agent-skills/read-the-docs/SKILL.md",
+            "digest": "sha256:bd42aa398dedfb7be524c69e4ef18496adcb252ba51b00ce224d3bea49423a76"
+        }
+    ]
+}

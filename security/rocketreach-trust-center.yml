@@ -1,0 +1,43 @@
+generated: '2026-08-13'
+method: probed
+source: DNS CNAME + live HTTP probe of https://trust.rocketreach.co
+trust_center:
+  url: https://trust.rocketreach.co
+  exists: true
+  platform: Drata Trust Center
+  platform_evidence: trust.rocketreach.co CNAMEs to trust.cname.drata.com
+  readable: false
+  http_status: 403
+  blocked_by: Cloudflare managed bot challenge ("Just a moment...", cf_chl interstitial, JavaScript required)
+certifications: []
+certifications_note: >-
+  NO certification is asserted here. RocketReach runs a Drata-hosted trust center on its own subdomain — that
+  much is proven by the CNAME and by the host answering — but the page itself is behind a Cloudflare
+  challenge that a non-browser client cannot pass, so the named certifications (SOC 2, ISO 27001 or otherwise)
+  could not be read and must not be inferred from the platform choice. Recording the surface without the
+  contents is the honest result. A follow-up with the provider, or a browser-rendered fetch, would close this.
+related_pages:
+- url: https://rocketreach.co/gdpr
+  status: 200
+  kind: GDPR policy statement (not an attestation)
+- url: https://rocketreach.co/ccpa
+  status: 200
+  kind: CCPA policy statement (not an attestation)
+- url: https://rocketreach.co/privacy
+  status: 200
+  kind: Privacy policy
+- url: https://rocketreach.co/terms
+  status: 200
+  kind: Terms of use
+- url: https://rocketreach.co/security
+  status: 404
+  kind: >-
+    Stale. A TrustCenter pointer in this repo previously named this URL; it 404s. Corrected to
+    https://trust.rocketreach.co in this pass.
+x-evidence:
+- url: https://trust.rocketreach.co
+  http_status: 403
+  fetched: '2026-08-13'
+- url: https://rocketreach.co/security
+  http_status: 404
+  fetched: '2026-08-13'

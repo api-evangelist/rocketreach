@@ -1,0 +1,6 @@
+{
+    "resource": "https://mcp.rocketreach.co",
+    "authorization_servers": [
+        "https://rocketreach.co"
+    ]
+}

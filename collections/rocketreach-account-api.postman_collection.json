@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "dcf143f5-6fa0-417a-8d32-4ae2ca96cc55",
+      "id": "e7160060-2002-4fd3-8073-933c64d32a1e",
       "name": "Account",
       "description": {
         "content": "",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "d47b4e56-df78-4084-b639-78b79c0a8ffc",
+          "id": "4e4defac-8eb1-4141-9bd0-e3cab5823f41",
           "name": "RocketReach API Account",
           "request": {
             "name": "RocketReach API Account",
@@ -55,7 +55,7 @@
           },
           "response": [
             {
-              "id": "360cfeab-659c-4700-9460-451525a1db35",
+              "id": "270c31bd-3aed-40b8-a906-ea1b1a10bdd1",
               "name": "Success. Returns the account object.",
               "originalRequest": {
                 "url": {
@@ -94,12 +94,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": 123456,\n  \"first_name\": \"Mark\",\n  \"last_name\": \"Cuban\",\n  \"email\": \"name@example.com\",\n  \"state\": \"anonymous\",\n  \"credit_usage\": [\n    {\n      \"credit_type\": \"string\",\n      \"allocated\": 4708,\n      \"used\": 1532,\n      \"remaining\": 9967\n    },\n    {\n      \"credit_type\": \"string\",\n      \"allocated\": 3367,\n      \"used\": 6339,\n      \"remaining\": 3080\n    }\n  ],\n  \"rate_limits\": [\n    {\n      \"action\": \"string\",\n      \"duration\": \"string\",\n      \"limit\": 5181,\n      \"used\": 8325,\n      \"remaining\": 4596\n    },\n    {\n      \"action\": \"string\",\n      \"duration\": \"string\",\n      \"limit\": 286,\n      \"used\": 8157,\n      \"remaining\": 5382\n    }\n  ]\n}",
+              "body": "{\n  \"id\": 123456,\n  \"first_name\": \"Mark\",\n  \"last_name\": \"Cuban\",\n  \"email\": \"name@example.com\",\n  \"state\": \"registered\",\n  \"credit_usage\": [\n    {\n      \"credit_type\": \"string\",\n      \"allocated\": 5354,\n      \"used\": 5192,\n      \"remaining\": 8419\n    },\n    {\n      \"credit_type\": \"string\",\n      \"allocated\": 2254,\n      \"used\": 6394,\n      \"remaining\": 7906\n    }\n  ],\n  \"rate_limits\": [\n    {\n      \"action\": \"string\",\n      \"duration\": \"string\",\n      \"limit\": 8730,\n      \"used\": 2745,\n      \"remaining\": 4951\n    },\n    {\n      \"action\": \"string\",\n      \"duration\": \"string\",\n      \"limit\": 8586,\n      \"used\": 5816,\n      \"remaining\": 2691\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "39197942-51ae-44e2-b8b1-e43f4b25b274",
+              "id": "c7142a7e-ee4e-4d5a-9a73-651940655ec3",
               "name": "Bad Request. The request is malformed or missing required parameters.",
               "originalRequest": {
                 "url": {
@@ -139,7 +139,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "63ce0f1f-e164-4c66-b1fd-e49af2cc2290",
+              "id": "71ea78c5-e76e-4097-abb0-d00e4da13d34",
               "name": "Unauthorized. API Key is missing or invalid.",
               "originalRequest": {
                 "url": {
@@ -179,7 +179,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0ef32398-3599-449e-9a53-d7359e433b1d",
+              "id": "ce3af94f-45bc-4fde-9e6f-3a33ba2e871d",
               "name": "Forbidden. API Key lacks permission to perform this action.",
               "originalRequest": {
                 "url": {
@@ -219,7 +219,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c093a11c-1f98-4d4e-a78a-cc6a4b1a60dc",
+              "id": "6d3b0a5a-8c12-4c56-b1a8-c4bbbebae61f",
               "name": "Not Found. The requested resource (e.g., profile) does not exist.",
               "originalRequest": {
                 "url": {
@@ -259,7 +259,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d53f4cee-597b-4555-bde5-052d19ec72cc",
+              "id": "e356d5a8-25d1-4401-a445-5886dd380610",
               "name": "Too Many Requests. API request limit reached -- slow down requests.",
               "originalRequest": {
                 "url": {
@@ -299,7 +299,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f4554013-3cd8-47f0-a4db-eef8d09cf7a0",
+              "id": "40d37d0c-8497-4ab1-b903-f90f5f2cd7ef",
               "name": "Internal Server Error. Unexpected error on RocketReach servers. Try again later.",
               "originalRequest": {
                 "url": {
@@ -345,7 +345,7 @@
           }
         },
         {
-          "id": "60e46a3b-47cf-46b0-b420-611f0e589216",
+          "id": "e5e784dd-912c-4b28-880e-0ad196b3df23",
           "name": "Get a RocketReach API Account",
           "request": {
             "name": "Get a RocketReach API Account",
@@ -407,7 +407,7 @@
           },
           "response": [
             {
-              "id": "220da394-2e0e-422c-9e4f-72e154146f49",
+              "id": "b7161267-08d1-4e4c-98a1-3842253962f5",
               "name": "Success. Returns the new API key.",
               "originalRequest": {
                 "url": {
@@ -465,7 +465,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f4f83d82-69a3-452f-9c63-73134e5b23e4",
+              "id": "fc433aad-9c6d-4d35-a3b5-3a2b911770a6",
               "name": "Bad Request. The request is malformed or missing required parameters.",
               "originalRequest": {
                 "url": {
@@ -519,7 +519,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "977b1057-5b76-494d-98f4-2e6fab86f868",
+              "id": "3b65aee7-f7b8-4f8b-a9aa-c3455135fc37",
               "name": "Unauthorized. API Key is missing or invalid.",
               "originalRequest": {
                 "url": {
@@ -573,7 +573,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e6430ca3-7bd1-4c31-b285-4e5c1b537881",
+              "id": "2396c578-bee8-4852-8de3-484a8e130240",
               "name": "Forbidden. API Key lacks permission to perform this action.",
               "originalRequest": {
                 "url": {
@@ -627,7 +627,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0d2aa2e7-3c92-4ece-aac2-cf828d1d52d7",
+              "id": "c71c6e0f-ebc7-4d44-8d38-6eabebb1999e",
               "name": "Not Found. The requested resource (e.g., profile) does not exist.",
               "originalRequest": {
                 "url": {
@@ -681,7 +681,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fca28dae-6cd7-49af-bca0-1ce921dba8f9",
+              "id": "66b85369-01a0-4d5a-9721-38fa7b77e1ed",
               "name": "Too Many Requests. API request limit reached -- slow down requests.",
               "originalRequest": {
                 "url": {
@@ -735,7 +735,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fd4deabc-54e8-443e-bfc7-2c5f6a156950",
+              "id": "10bdc6c3-d39a-4a3d-81ad-35342ae9af25",
               "name": "Internal Server Error. Unexpected error on RocketReach servers. Try again later.",
               "originalRequest": {
                 "url": {
@@ -795,7 +795,7 @@
           }
         },
         {
-          "id": "c30b4331-2ec4-4234-9eb8-ec7e13cc47fe",
+          "id": "321e9533-0a7b-4ca1-9299-8ba8ad5ecd83",
           "name": "⭐ RocketReach Universal API Account",
           "request": {
             "name": "⭐ RocketReach Universal API Account",
@@ -842,7 +842,7 @@
           },
           "response": [
             {
-              "id": "fc09f741-8e59-4b42-8c64-039dd6c6b965",
+              "id": "bf4ef32b-afab-4ff8-9f0d-e0dedee113d9",
               "name": "Success. Returns the account object.",
               "originalRequest": {
                 "url": {
@@ -882,12 +882,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": 123456,\n  \"first_name\": \"Mark\",\n  \"last_name\": \"Cuban\",\n  \"email\": \"name@example.com\",\n  \"state\": \"registered\",\n  \"plan\": {\n    \"id\": -1585194659,\n    \"name\": \"string\",\n    \"lookup_limit\": 2677,\n    \"export_limit\": 6437\n  },\n  \"api_key\": \"string\",\n  \"api_key_domain\": \"string\",\n  \"daily_api_num_calls\": 5,\n  \"daily_api_limit\": \"string\",\n  \"credit_usage\": {\n    \"credits_allocated\": 100,\n    \"credits_used\": 50,\n    \"credits_remaining\": 50,\n    \"last_synced\": \"2023-10-01T12:00:00Z\"\n  },\n  \"credit_usage_by_action\": [\n    {\n      \"credit_action\": \"PersonSearch\",\n      \"attempted_count\": 50,\n      \"succeeded_count\": 50,\n      \"credits_used\": 50,\n      \"last_synced\": \"2023-10-01T12:00:00Z\"\n    },\n    {\n      \"credit_action\": \"PersonSearch\",\n      \"attempted_count\": 50,\n      \"succeeded_count\": 50,\n      \"credits_used\": 50,\n      \"last_synced\": \"2023-10-01T12:00:00Z\"\n    }\n  ],\n  \"rate_limits\": [\n    {\n      \"action\": \"string\",\n      \"duration\": \"string\",\n      \"limit\": 1325,\n      \"used\": 2476,\n      \"remaining\": 7799\n    },\n    {\n      \"action\": \"string\",\n      \"duration\": \"string\",\n      \"limit\": 3933,\n      \"used\": 7992,\n      \"remaining\": 7700\n    }\n  ]\n}",
+              "body": "{\n  \"id\": 123456,\n  \"first_name\": \"Mark\",\n  \"last_name\": \"Cuban\",\n  \"email\": \"name@example.com\",\n  \"state\": \"test_user\",\n  \"plan\": {\n    \"id\": -1944986466,\n    \"name\": \"string\",\n    \"lookup_limit\": 4543,\n    \"export_limit\": 4812\n  },\n  \"api_key\": \"string\",\n  \"api_key_domain\": \"string\",\n  \"daily_api_num_calls\": 5,\n  \"daily_api_limit\": \"string\",\n  \"credit_usage\": {\n    \"credits_allocated\": 100,\n    \"credits_used\": 50,\n    \"credits_remaining\": 50,\n    \"last_synced\": \"2023-10-01T12:00:00Z\"\n  },\n  \"credit_usage_by_action\": [\n    {\n      \"credit_action\": \"PersonSearch\",\n      \"attempted_count\": 50,\n      \"succeeded_count\": 50,\n      \"credits_used\": 50,\n      \"last_synced\": \"2023-10-01T12:00:00Z\"\n    },\n    {\n      \"credit_action\": \"PersonSearch\",\n      \"attempted_count\": 50,\n      \"succeeded_count\": 50,\n      \"credits_used\": 50,\n      \"last_synced\": \"2023-10-01T12:00:00Z\"\n    }\n  ],\n  \"rate_limits\": [\n    {\n      \"action\": \"string\",\n      \"duration\": \"string\",\n      \"limit\": 49,\n      \"used\": 1145,\n      \"remaining\": 4313\n    },\n    {\n      \"action\": \"string\",\n      \"duration\": \"string\",\n      \"limit\": 1629,\n      \"used\": 2015,\n      \"remaining\": 9577\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "6ae5ab69-b953-439e-b393-dc21923effb4",
+              "id": "64bfcf62-3974-420c-88c5-6fbca8f7af80",
               "name": "Bad Request. The request is malformed or missing required parameters.",
               "originalRequest": {
                 "url": {
@@ -928,7 +928,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "45b55de9-1471-4a0f-a208-9b26e54cab6f",
+              "id": "4c171b40-2967-4708-a557-b60435b9e768",
               "name": "Unauthorized. API Key is missing or invalid.",
               "originalRequest": {
                 "url": {
@@ -969,7 +969,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "502fe0dc-1e18-462c-b058-815d9bf1829f",
+              "id": "4d2440ea-5a6c-4e65-a4c2-6d37ab8dd6f2",
               "name": "Forbidden. API Key lacks permission to perform this action.",
               "originalRequest": {
                 "url": {
@@ -1010,7 +1010,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "06ed047e-7a04-4387-9cd9-033b964eacda",
+              "id": "ca99c418-1e5e-42ef-b9ac-22bfceddb128",
               "name": "Not Found. The requested resource (e.g., profile) does not exist.",
               "originalRequest": {
                 "url": {
@@ -1051,7 +1051,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2f83b3bc-6bb8-4d25-a8b1-24df9356427d",
+              "id": "0c1bc401-de61-4324-8ebb-83ae3aa7a5d1",
               "name": "Too Many Requests. API request limit reached -- slow down requests.",
               "originalRequest": {
                 "url": {
@@ -1092,7 +1092,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6e00fe09-c8c7-4bf5-b17e-2b68e26dd679",
+              "id": "4c4daf66-cabb-4cb6-8635-14ed3cba40b0",
               "name": "Internal Server Error. Unexpected error on RocketReach servers. Try again later.",
               "originalRequest": {
                 "url": {
@@ -1168,7 +1168,7 @@
     ]
   },
   "info": {
-    "_postman_id": "80f499f4-bb99-4d75-84c9-357b11f743a4",
+    "_postman_id": "9ca04d61-497b-4e79-be6a-13300b0f4198",
     "name": "RocketReach Account API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {

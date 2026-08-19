@@ -1,0 +1,33 @@
+# rocketreach-docs Documentation
+
+> Documentation for rocketreach-docs
+
+## API Reference
+- [RocketReach API](https://docs.rocketreach.co/reference/rocketreach-api.md): Email & Contact Lookup
+- [RocketReach API Account](https://docs.rocketreach.co/reference/rocketreach-api-account.md): Retrieve & Manage Account Details
+- [Get a RocketReach API Account](https://docs.rocketreach.co/reference/rocketreach-api-account-newaccount.md): Create New API Key
+- [⭐ RocketReach Universal API Account](https://docs.rocketreach.co/reference/get_universal_account.md): Retrieve & Manage Account Details
+- [People Lookup API](https://docs.rocketreach.co/reference/people-lookup-api.md): Person Enrichment API
+- [People Lookup Status API](https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api.md): Check Person Lookup Status
+- [People Search API](https://docs.rocketreach.co/reference/people-search-api.md): Search People by Criteria
+- [Bulk People Lookup API](https://docs.rocketreach.co/reference/bulk-person-lookup-person-lookup-api.md): Bulk People Lookup by Criteria
+- [People and Company Lookup API](https://docs.rocketreach.co/reference/create_person_and_company_lookup.md): Person and Company Lookup
+- [⭐ Universal People Search API](https://docs.rocketreach.co/reference/create_universal_person_search.md): Search People by Criteria
+- [⭐ Universal People Lookup API](https://docs.rocketreach.co/reference/create_universal_person_lookup.md): Person Enrichment API
+- [⭐ Universal Bulk People Lookup API](https://docs.rocketreach.co/reference/create_universal_person_bulk_lookup.md): Bulk People Lookup by Criteria
+- [⭐ Universal People Lookup Status API](https://docs.rocketreach.co/reference/check_universal_person_lookup_status.md): Check Universal Person Lookup Status
+- [Company Search API](https://docs.rocketreach.co/reference/company-search-api.md): Search Companies by Criteria
+- [Company Lookup API](https://docs.rocketreach.co/reference/company-lookup-api.md): Search Companies by Criteria
+- [⭐ Universal Company Search API](https://docs.rocketreach.co/reference/create_universal_company_search.md): Search Companies by Criteria
+- [⭐ Universal Company Lookup API](https://docs.rocketreach.co/reference/create_universal_company_lookup.md): Search Companies by Criteria
+- [Responses & Errors](https://docs.rocketreach.co/reference/responses-and-errors.md): The RocketReach API allows you to programmatically search and retrieve contact information for professionals and companies. This guide will help you understand API responses, error codes, rate limits, and troubleshooting steps.
+- [Webhooks](https://docs.rocketreach.co/reference/webhooks.md): Lookup results can be sent to a webhook for streamlined data flow
+- [Rate Limits](https://docs.rocketreach.co/reference/rate-limits.md): If we start receiving unusually heavy call volumes on your API key, you may receive responses with `HTTP: 429 "Too Many Requests"`
+- [Universal Credits Overview](https://docs.rocketreach.co/reference/universal-credits-overview.md): Universal Credits offer a more flexible way to utilize your RocketReach credits.
+- [FAQ](https://docs.rocketreach.co/reference/faq.md)
+- [Overview](https://docs.rocketreach.co/reference/mcp.md)
+- [Authentication](https://docs.rocketreach.co/reference/mcp-auth.md)
+- [Tools Reference](https://docs.rocketreach.co/reference/mcp-tools.md)
+- [Quick Start](https://docs.rocketreach.co/reference/quick-start.md)
+- [Claude Code Setup](https://docs.rocketreach.co/reference/mcp-claude-code-setup.md)
+- [Errors](https://docs.rocketreach.co/reference/mcp-errors.md)

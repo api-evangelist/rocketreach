@@ -1,0 +1,78 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — RocketReach Account Company Data API API
+  version: 1.0.0
+extends: ../openapi/rocketreach-company-data-api-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/rocketreach-company-data-api-api-openapi.yml + RocketReach published docs (docs.rocketreach.co)
+x-note: Additive only. This overlay records API Evangelist enrichment as x- extensions; it never mutates or removes
+  anything the provider published.
+actions:
+- target: $.info
+  description: Record the provider-published source of truth and the API Evangelist artifact set derived from it.
+  update:
+    x-apievangelist-source: https://docs.rocketreach.co/openapi/index.yaml
+    x-apievangelist-discovery: https://docs.rocketreach.co/.well-known/api-catalog (RFC 9727 linkset)
+    x-apievangelist-artifacts:
+      authentication: authentication/rocketreach-authentication.yml
+      conventions: conventions/rocketreach-conventions.yml
+      errors: errors/rocketreach-problem-types.yml
+      rate-limits: rate-limits/rocketreach-rate-limits.yml
+      plans: plans/rocketreach-plans-pricing.yml
+      lifecycle: lifecycle/rocketreach-lifecycle.yml
+      data-model: data-model/rocketreach-data-model.yml
+      webhooks: asyncapi/rocketreach-webhooks.yml
+      mcp: mcp/rocketreach-mcp.yml
+      tool-crosswalk: mcp/rocketreach-tool-crosswalk.yml
+      skills: skills/_index.yml
+      conformance: conformance/rocketreach-conformance.yml
+      scopes: scopes/rocketreach-scopes.yml
+      well-known: well-known/rocketreach-well-known.yml
+- target: $.paths.*[?(@.operationId)]
+  description: 'Attach the cross-cutting runtime semantics every RocketReach operation shares: 429 carries Retry-After,
+    there is no idempotency key, and a retried credit-consuming call can charge twice.'
+  update:
+    x-rate-limit:
+      exhaustion-status: 429
+      runtime-header: Retry-After
+      global-ceiling: 10 requests per second across all RocketReach APIs
+      detail: rate-limits/rocketreach-rate-limits.yml
+    x-idempotency:
+      supported: false
+      note: No idempotency key is published. Retrying a credit-consuming lookup can spend a second credit.
+    x-error-catalog: errors/rocketreach-problem-types.yml
+- target: $.paths['/company/lookup/'].get
+  description: Record the published credit cost for create_company_lookup so an agent can pre-flight spend.
+  update:
+    x-credit-cost: 1 company export credit
+    x-credit-preflight: GET /universal/account/
+- target: $.paths['/universal/company/lookup'].get
+  description: Record the published credit cost for create_universal_company_lookup so an agent can pre-flight spend.
+  update:
+    x-credit-cost: 'Universal Credits: 1 per enriched company profile'
+    x-credit-preflight: GET /universal/account/
+- target: $.paths['/searchCompany'].post
+  description: Record the published credit cost for create_company_search so an agent can pre-flight spend.
+  update:
+    x-credit-cost: No credits (legacy search)
+    x-credit-preflight: GET /universal/account/
+- target: $.paths['/universal/company/search'].post
+  description: Record the published credit cost for create_universal_company_search so an agent can pre-flight spend.
+  update:
+    x-credit-cost: 'Universal Credits: 2 per page of up to 100 results'
+    x-credit-preflight: GET /universal/account/
+- target: $.paths['/profile-company/lookup'].get
+  description: Record the published credit cost for create_person_and_company_lookup so an agent can pre-flight
+    spend.
+  update:
+    x-credit-cost: 1 lookup credit + 1 person export credit + 1 company export credit
+    x-credit-preflight: GET /universal/account/
+- target: $.paths['/profile-company/lookup'].get
+  description: Record that create_person_and_company_lookup is asynchronous and how to resolve a pending result.
+  update:
+    x-async:
+      pending-state: 'status: "pending" with a profile_id'
+      poll: /person/checkStatus or /universal/person/check_status (free, ~3s interval, up to 100 ids)
+      push: webhook delivery signed with X-RocketReach-Signature; correlate on RR-Request-ID
+      detail: asyncapi/rocketreach-webhooks.yml

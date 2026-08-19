@@ -1,0 +1,130 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.rocketreach.co/reference/responses-and-errors, https://docs.rocketreach.co/reference/mcp-errors,
+  openapi/rocketreach-people-data-api-api-openapi.yml, openapi/rocketreach-company-data-api-api-openapi.yml,
+  openapi/rocketreach-account-api-openapi.yml
+docs:
+- https://docs.rocketreach.co/reference/responses-and-errors
+- https://docs.rocketreach.co/reference/mcp-errors
+format: vendor-json
+rfc9457: false
+note: >-
+  RocketReach does not use application/problem+json. The REST API returns a flat vendor envelope; the MCP
+  server returns the MCP tool-error shape with a machine-readable code in _meta. Both are documented, and
+  both are captured here because an agent will hit whichever surface it is wired to. Every REST status below
+  is declared on all 16 operations in the provider's own OpenAPI, so the catalogue is complete rather than
+  sampled.
+envelopes:
+- surface: rest
+  media_type: application/json
+  shape:
+    status: integer HTTP status
+    message: human-readable description
+  example: '{"status": 401, "message": "Invalid API Key"}'
+  source: https://docs.rocketreach.co/reference/responses-and-errors
+- surface: mcp
+  media_type: application/json (JSON-RPC over streamable HTTP)
+  shape:
+    isError: boolean
+    content: array with a human-readable text block
+    _meta.error_code: machine-readable code for programmatic branching
+  example: '{"content":[{"type":"text","text":"You have run out of lookup credits."}],"_meta":{"error_code":"insufficient_credits","credit_type":"standard_lookup"},"isError":true}'
+  source: https://docs.rocketreach.co/reference/mcp-errors
+  guidance: >-
+    Surface content[0].text to the end user verbatim; never parse it for machine logic — branch on
+    _meta.error_code.
+problem_types:
+- status: 400
+  title: Bad Request
+  detail: The request is malformed or missing required parameters.
+  remediation: Review the API reference and ensure every required parameter is present and well-formed.
+  declared_on: all 16 operations
+- status: 401
+  title: Unauthorized
+  detail: API key is missing or invalid.
+  remediation: Send the key in the Api-Key request header. Regenerate from Account Settings if it was rotated.
+  declared_on: all 16 operations
+- status: 403
+  title: Forbidden
+  detail: The API key lacks permission to perform this action.
+  remediation: Confirm the plan entitles the endpoint; contact api@rocketreach.co to widen access.
+  declared_on: all 16 operations
+- status: 404
+  title: Not Found
+  detail: The requested resource (profile or company) does not exist.
+  remediation: Check the identifier. Terminal for that identifier — retrying will not resolve it.
+  declared_on: all 16 operations
+- status: 429
+  title: Too Many Requests
+  detail: The API rate limit for the key was reached.
+  remediation: Parse the Retry-After header and wait that many seconds. See rate-limits/rocketreach-rate-limits.yml.
+  declared_on: all 16 operations
+- status: 500
+  title: Internal Server Error
+  detail: Unexpected error on RocketReach's servers.
+  remediation: Retry after a short backoff.
+  declared_on: all 16 operations
+mcp_error_codes:
+- code: auth_required
+  http_equivalent: 401
+  detail: >-
+    No Bearer token, expired token, wrong audience, or the v2 API rejected the request on user state
+    (unverified email, suspended account, region unavailable).
+  remediation: Re-authorize through the OAuth flow; if the token is valid, read the error text for the account-state gate.
+  terminal: false
+- code: insufficient_credits
+  http_equivalent: 402
+  detail: The credit type required by this operation has a zero balance — depleted or never issued on the plan.
+  extra_fields:
+  - credit_type
+  credit_types:
+  - standard_lookup
+  - premium_lookup
+  - phone_lookup
+  - person_enrich
+  - person_export
+  - company_export
+  remediation: Call account to read allocated balances; allocated 0 means the plan does not issue that credit type.
+  terminal: false
+- code: not_found
+  http_equivalent: 404
+  detail: The supplied identifier did not resolve to any profile or company.
+  remediation: Ask for a stronger identifier. Terminal.
+  terminal: true
+- code: lookup_failed
+  http_equivalent: null
+  detail: The profile resolved and the search completed, but no contact information was found.
+  remediation: Terminal — retrying the same identifier will not help. Move on.
+  terminal: true
+- code: rate_limited
+  http_equivalent: 429
+  detail: RocketReach API rate limit reached. Shares the quota with direct REST calls.
+  extra_fields:
+  - retry_after_seconds
+  remediation: Wait _meta.retry_after_seconds and retry.
+  terminal: false
+- code: validation_error
+  http_equivalent: 400
+  detail: A parameter failed input validation.
+  extra_fields:
+  - field
+  - reason
+  remediation: Correct the named field and retry.
+  terminal: false
+- code: service_error
+  http_equivalent: 5xx
+  detail: Unexpected backend failure.
+  remediation: Retry after a moment.
+  terminal: false
+non_error_states:
+- state: pending
+  surface: both
+  detail: >-
+    A person lookup is still resolving. isError is false. Poll check_person_status (MCP) or
+    GET /person/checkStatus (REST) with the profile_id; polling consumes no credits.
+- state: failed (per-record)
+  surface: mcp
+  detail: >-
+    An individual record inside a check_person_status array response carries status failed. The array
+    itself is a success, not a tool-level error.
+error_count: 13

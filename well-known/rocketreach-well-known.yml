@@ -1,0 +1,133 @@
+generated: '2026-08-13'
+method: probed
+source: live GET probes of /.well-known/* on every RocketReach host in apis.yml and openapi servers[]
+summary:
+  hosts_probed: 4
+  paths_probed: 26
+  hits: 5
+  note: >-
+    RocketReach serves a real, non-empty set of well-known documents. security.txt (RFC 9116) is served
+    from both the website and the API host; the OAuth 2.0 authorization-server metadata (RFC 8414) and the
+    OAuth 2.0 protected-resource metadata (RFC 9728) back the RocketReach MCP server; the docs host serves
+    an RFC 9727 api-catalog linkset that points at the machine-readable OpenAPI, and an Agent Skills
+    discovery index (schemas.agentskills.io 0.2.0). Every hit below is a real document, not an SPA shell.
+probes:
+- host: rocketreach.co
+  path: /.well-known/security.txt
+  status: 200
+  content_type: text/plain
+  file: well-known/rocketreach-security.txt
+  document: true
+- host: api.rocketreach.co
+  path: /.well-known/security.txt
+  status: 200
+  content_type: text/plain
+  document: true
+  note: identical body to the apex host
+- host: rocketreach.co
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: application/json
+  file: well-known/rocketreach-oauth-authorization-server.json
+  document: true
+- host: api.rocketreach.co
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: application/json
+  document: true
+  note: identical body to the apex host
+- host: mcp.rocketreach.co
+  path: /.well-known/oauth-protected-resource
+  status: 200
+  content_type: application/json
+  file: well-known/rocketreach-oauth-protected-resource.json
+  document: true
+- host: docs.rocketreach.co
+  path: /.well-known/api-catalog
+  status: 200
+  content_type: application/json
+  file: well-known/rocketreach-api-catalog.json
+  document: true
+  note: >-
+    RFC 9727 linkset. service-desc -> https://docs.rocketreach.co/openapi/index.yaml (the real 16-operation
+    OpenAPI 3.1.0), service-doc -> https://docs.rocketreach.co/reference. This is how the machine-readable
+    contract was found.
+- host: docs.rocketreach.co
+  path: /.well-known/agent-skills/index.json
+  status: 200
+  content_type: application/json
+  file: well-known/rocketreach-agent-skills-index.json
+  document: true
+  note: >-
+    Advertised via the Link rel="agent-skills" header on docs responses. One skill, read-the-docs, with a
+    sha256 digest. Saved verbatim to skills/rocketreach-read-the-docs.md.
+- host: rocketreach.co
+  path: /.well-known/openid-configuration
+  status: 404
+  document: false
+- host: rocketreach.co
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: rocketreach.co
+  path: /.well-known/ai-plugin.json
+  status: 404
+  document: false
+- host: rocketreach.co
+  path: /.well-known/agent-card.json
+  status: 404
+  document: false
+- host: rocketreach.co
+  path: /.well-known/agent.json
+  status: 404
+  document: false
+- host: api.rocketreach.co
+  path: /.well-known/openid-configuration
+  status: 404
+  document: false
+- host: api.rocketreach.co
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: api.rocketreach.co
+  path: /.well-known/ai-plugin.json
+  status: 404
+  document: false
+- host: api.rocketreach.co
+  path: /.well-known/agent-card.json
+  status: 404
+  document: false
+- host: api.rocketreach.co
+  path: /.well-known/agent.json
+  status: 404
+  document: false
+- host: mcp.rocketreach.co
+  path: /.well-known/agent-card.json
+  status: 404
+  document: false
+- host: docs.rocketreach.co
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+- host: docs.rocketreach.co
+  path: /.well-known/openid-configuration
+  status: 404
+  document: false
+- host: docs.rocketreach.co
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  document: false
+- host: docs.rocketreach.co
+  path: /.well-known/ai-plugin.json
+  status: 404
+  document: false
+- host: docs.rocketreach.co
+  path: /.well-known/agent-card.json
+  status: 404
+  document: false
+  note: HTML docs shell, not a JSON agent card
+- host: docs.rocketreach.co
+  path: /.well-known/agent.json
+  status: 404
+  document: false
+  note: HTML docs shell, not a JSON agent card

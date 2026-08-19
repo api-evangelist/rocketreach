@@ -1,0 +1,60 @@
+generated: '2026-08-13'
+method: probed
+source: https://rocketreach.co/.well-known/oauth-authorization-server
+docs: https://docs.rocketreach.co/reference/mcp-auth
+note: >-
+  The RocketReach REST API is API-key authenticated and has no scope surface. OAuth exists solely for the
+  RocketReach MCP server, and the scope list below is read verbatim from the provider's own RFC 8414
+  authorization-server metadata (scopes_supported), corroborated by the published Authentication page. It is
+  a single coarse scope — there is no per-tool or read/write separation.
+authorization_server: https://rocketreach.co
+protected_resource: https://mcp.rocketreach.co
+oauth_version: '2.1'
+flows:
+- type: authorization_code
+  pkce: S256
+  authorization_endpoint: https://rocketreach.co/mcp-oauth/authorize
+  token_endpoint: https://rocketreach.co/mcp-oauth/token
+- type: refresh_token
+  token_endpoint: https://rocketreach.co/mcp-oauth/token
+dynamic_client_registration:
+  supported: true
+  rfc: RFC 7591
+  endpoint: https://rocketreach.co/mcp-oauth/register
+  open: true
+  note: No pre-approval required. Redirect URIs are bound at registration; non-localhost redirects must be https.
+token_endpoint_auth_methods_supported:
+- none
+response_types_supported:
+- code
+grant_types_supported:
+- authorization_code
+- refresh_token
+code_challenge_methods_supported:
+- S256
+scopes:
+- name: rocketreach:read
+  description: >-
+    Grants access to all RocketReach MCP tools — person and company search, person and company lookup, and
+    account. Authorizing this single scope authorizes the whole tool set, including the three
+    credit-consuming lookup tools.
+  default: true
+  note: >-
+    An empty scope parameter on the authorize request defaults to rocketreach:read. Requesting any other
+    scope returns HTTP 400 invalid_scope.
+scope_count: 1
+granularity: coarse
+gap: >-
+  There is no way for a user to authorize read-only search (free) without also authorizing the
+  credit-consuming lookup tools. A finer split — for example rocketreach:search versus rocketreach:enrich —
+  would let an agent be granted a spend-free capability. Worth raising with the provider.
+revocation:
+  endpoint: https://rocketreach.co/mcp-oauth/revoke
+  note: Revoking a refresh token invalidates every access token issued from it.
+x-evidence:
+- url: https://rocketreach.co/.well-known/oauth-authorization-server
+  http_status: 200
+  fetched: '2026-08-13'
+- url: https://mcp.rocketreach.co/.well-known/oauth-protected-resource
+  http_status: 200
+  fetched: '2026-08-13'

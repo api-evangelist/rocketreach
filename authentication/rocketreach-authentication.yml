@@ -1,25 +1,100 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/rocketreach-account-api-openapi.yml, openapi/rocketreach-company-lookup-api-openapi.yml,
-  openapi/rocketreach-company-search-api-openapi.yml, openapi/rocketreach-people-lookup-api-openapi.yml,
-  openapi/rocketreach-people-search-api-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://docs.rocketreach.co/reference/rocketreach-api, https://docs.rocketreach.co/reference/mcp-auth,
+  https://rocketreach.co/.well-known/oauth-authorization-server, openapi/_original/rocketreach-api-openapi.json
+docs:
+- https://docs.rocketreach.co/reference/rocketreach-api
+- https://docs.rocketreach.co/reference/mcp-auth
 summary:
   types:
   - apiKey
+  - oauth2
   api_key_in:
   - header
+  note: >-
+    RocketReach runs TWO distinct auth models on two distinct surfaces. The REST API at api.rocketreach.co is
+    API-key only. The MCP server at mcp.rocketreach.co is OAuth 2.1 with PKCE and Dynamic Client Registration.
+    An earlier round of this profile recorded only the API key, because the OpenAPI declares only the apiKey
+    scheme; the OAuth surface was found by probing /.well-known/oauth-authorization-server.
 schemes:
 - name: RocketReachAPIKey
+  surface: rest
   type: apiKey
   in: header
   parameter: Api-Key
-  description: RocketReach account API key. You can locate your API Key from the "My API Key"
-    section of the [API account page](https://rocketreach.co/account?section=nav_gen_api). Requests
-    to the API are authenticated using the Api-Key request header. Older clients may use an
-    `api_key` query parameter, but this behavior is deprecated.
+  description: >-
+    RocketReach account API key. Locate it in the "My API Key" section of the API account page
+    (https://rocketreach.co/account?section=nav_gen_api). Requests are authenticated with the Api-Key request
+    header. Older clients may use an api_key query parameter, but that behaviour is deprecated.
+  applies_to: all 16 REST operations on https://api.rocketreach.co/api/v2
+  rotation:
+    self_service: true
+    operation: create_new_api_key (POST /account/key/)
+    note: Minting a new key through the API returns it in an APIKey object; there is no published key-expiry policy.
+  scopes: null
   sources:
+  - openapi/_original/rocketreach-api-openapi.json
   - openapi/rocketreach-account-api-openapi.yml
-  - openapi/rocketreach-company-lookup-api-openapi.yml
-  - openapi/rocketreach-company-search-api-openapi.yml
-  - openapi/rocketreach-people-lookup-api-openapi.yml
-  - openapi/rocketreach-people-search-api-openapi.yml
+  - openapi/rocketreach-company-data-api-api-openapi.yml
+  - openapi/rocketreach-people-data-api-api-openapi.yml
+- name: RocketReachMCPOAuth
+  surface: mcp
+  type: oauth2
+  version: '2.1'
+  description: >-
+    OAuth 2.1 authorization-code flow with PKCE (S256) and open Dynamic Client Registration, protecting the
+    hosted MCP server. MCP-compatible clients complete the flow automatically from the server URL.
+  applies_to: https://mcp.rocketreach.co/mcp
+  flows:
+    authorizationCode:
+      authorizationUrl: https://rocketreach.co/mcp-oauth/authorize
+      tokenUrl: https://rocketreach.co/mcp-oauth/token
+      refreshUrl: https://rocketreach.co/mcp-oauth/token
+      registrationUrl: https://rocketreach.co/mcp-oauth/register
+      revocationUrl: https://rocketreach.co/mcp-oauth/revoke
+      scopes:
+        rocketreach:read: Access to all RocketReach MCP tools — search, lookup and account.
+  pkce: S256
+  dynamic_client_registration: true
+  token_endpoint_auth_methods_supported:
+  - none
+  token:
+    header: 'Authorization: Bearer <token>'
+    format: JWE-wrapped JWT — AES-256-GCM envelope over an HS256-signed JWS carrying sub, aud, exp and the account API key
+    access_token_lifetime: 1 hour
+    refresh_token_lifetime: 30 days
+    refresh_rotation: single-use; replay revokes every token for that user+client
+    audience_binding: bound to the MCP server URL; rejected by any other audience
+  discovery:
+    protected_resource: https://mcp.rocketreach.co/.well-known/oauth-protected-resource
+    authorization_server: https://rocketreach.co/.well-known/oauth-authorization-server
+  client_responsibilities:
+  - Generate and verify a random state parameter — CSRF defence is the client's job, not the server's.
+  - redirect_uri must exactly match one bound at registration; non-localhost redirects must be https.
+  - http://localhost and http://127.0.0.1 on any port are permitted for native/desktop clients (RFC 8252).
+  scopes_detail: scopes/rocketreach-scopes.yml
+  sources:
+  - https://rocketreach.co/.well-known/oauth-authorization-server
+  - https://docs.rocketreach.co/reference/mcp-auth
+errors:
+- surface: rest
+  status: 401
+  meaning: API key missing or invalid.
+- surface: rest
+  status: 403
+  meaning: API key lacks permission for the action.
+- surface: mcp
+  error: auth_required
+  status: 401
+  meaning: No Bearer token, expired token, wrong audience, or the account state (unverified email, suspended, region) blocked the call.
+- surface: mcp
+  error: invalid_scope
+  status: 400
+  meaning: A scope other than rocketreach:read (or empty) was requested.
+transport_security:
+  https_required: true
+  hsts: true
+  detail: security/rocketreach-domain-security.yml
+mtls: false
+openid_connect: false
+openid_connect_note: /.well-known/openid-configuration returns 404 on every RocketReach host — OAuth here is authorization only, not identity.

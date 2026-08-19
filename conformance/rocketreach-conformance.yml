@@ -1,0 +1,132 @@
+generated: '2026-08-13'
+method: probed
+source: live probes of RocketReach hosts plus https://docs.rocketreach.co/reference/mcp-auth and the provider OpenAPI
+note: >-
+  Each entry records whether RocketReach demonstrably conforms to a cross-cutting standard, with the exact
+  evidence used. Standards claimed by neither the docs nor a probe are recorded conforms false rather than
+  omitted, so an absence is legible. No compliance certification (SOC 2, ISO 27001, GDPR/CCPA attestations
+  beyond the published policy pages) could be verified: trust.rocketreach.co answers with a Cloudflare bot
+  challenge (HTTP 403) and rocketreach.co/security is a 404, so no certification is asserted here.
+conformance:
+- id: oauth2
+  name: OAuth 2.0 / 2.1 Authorization Framework
+  conforms: true
+  evidence: >-
+    RFC 8414 authorization-server metadata served at https://rocketreach.co/.well-known/oauth-authorization-server
+    (HTTP 200) declaring authorization, token, registration and revocation endpoints, code response type,
+    authorization_code + refresh_token grants.
+- id: oauth-pkce
+  name: RFC 7636 Proof Key for Code Exchange
+  conforms: true
+  evidence: code_challenge_methods_supported ["S256"] in the authorization-server metadata; PKCE documented as required in mcp-auth.
+- id: oauth-dcr
+  name: RFC 7591 OAuth 2.0 Dynamic Client Registration
+  conforms: true
+  evidence: registration_endpoint https://rocketreach.co/mcp-oauth/register in the AS metadata; documented as open, no pre-approval.
+- id: oauth-protected-resource
+  name: RFC 9728 OAuth 2.0 Protected Resource Metadata
+  conforms: true
+  evidence: >-
+    https://mcp.rocketreach.co/.well-known/oauth-protected-resource returns HTTP 200 with resource and
+    authorization_servers, which is the discovery hop MCP clients follow.
+- id: oauth-native-app
+  name: RFC 8252 OAuth 2.0 for Native Apps
+  conforms: true
+  evidence: >-
+    mcp-auth documents http://localhost and http://127.0.0.1 redirect URIs on any port for native/desktop
+    clients, https required otherwise.
+- id: oidc
+  name: OpenID Connect Discovery
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on rocketreach.co, api.rocketreach.co and docs.rocketreach.co. OAuth here is authorization only, not identity.
+- id: rfc9116
+  name: RFC 9116 security.txt
+  conforms: true
+  evidence: >-
+    https://rocketreach.co/.well-known/security.txt and https://api.rocketreach.co/.well-known/security.txt
+    both HTTP 200 with Contact, Expires and Preferred-Languages fields.
+- id: rfc9727
+  name: RFC 9727 api-catalog well-known URI
+  conforms: true
+  evidence: >-
+    https://docs.rocketreach.co/.well-known/api-catalog returns a linkset with service-desc pointing at the
+    OpenAPI and service-doc pointing at the reference, and the Link rel="api-catalog" header is present on
+    docs responses.
+- id: openapi
+  name: OpenAPI 3.1.0
+  conforms: true
+  evidence: >-
+    Provider-published OpenAPI 3.1.0 at https://docs.rocketreach.co/openapi/index.yaml — 16 operations, all
+    with operationId, summary and 200/400/401/403/404/429/500 responses, 41 component schemas, a declared
+    apiKey securityScheme. Saved verbatim to openapi/_original/rocketreach-api-openapi.json.
+- id: mcp
+  name: Model Context Protocol (streamable HTTP transport)
+  conforms: true
+  evidence: >-
+    Hosted server at https://mcp.rocketreach.co/mcp. POST tools/list returns HTTP 401 {"error":"auth_required"},
+    i.e. the JSON-RPC endpoint is live and gated. RocketReach cites the 2025-03-26 streamable-HTTP transport
+    specification in its own Overview page.
+- id: agent-skills
+  name: Agent Skills discovery (schemas.agentskills.io 0.2.0)
+  conforms: true
+  evidence: >-
+    https://docs.rocketreach.co/.well-known/agent-skills/index.json returns a 0.2.0 discovery document with a
+    sha256-digested SKILL.md; advertised through a Link rel="agent-skills" header.
+- id: llmstxt
+  name: llms.txt
+  conforms: true
+  evidence: https://docs.rocketreach.co/llms.txt returns HTTP 200 with an indexed link list of every doc page.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json return 404 on rocketreach.co, api.rocketreach.co,
+    mcp.rocketreach.co and docs.rocketreach.co. No card is published.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Errors are a flat vendor envelope {status, message}; no application/problem+json media type appears in
+    the OpenAPI or the docs.
+- id: rfc8594
+  name: RFC 8594 Sunset / Deprecation headers
+  conforms: false
+  evidence: No Sunset or Deprecation response header is documented; breaking changes are announced in prose in the reference.
+- id: rfc9331
+  name: RFC 9331 RateLimit header fields
+  conforms: false
+  evidence: >-
+    Only Retry-After is published on a 429. No RateLimit-* or X-RateLimit-* headers are documented; limits and
+    usage are read out-of-band from the account endpoint.
+- id: idempotency
+  name: Idempotency keys for unsafe requests
+  conforms: false
+  evidence: >-
+    No idempotency key header, de-duplication window, or safe-retry contract is published, on an API where a
+    retried lookup can spend a second credit. See conventions/rocketreach-conventions.yml.
+- id: webhook-signing
+  name: HMAC-signed webhook delivery
+  conforms: true
+  evidence: >-
+    X-RocketReach-Signature carries a base64 HMAC-SHA256 of the raw body, keyed on a per-webhook secret, with
+    a constant-time verification sample published by RocketReach. No timestamp/nonce, so replay protection is
+    incomplete.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: >-
+    Webhooks are documented in prose only. No AsyncAPI document is published on the docs host, the api-catalog
+    linkset, or the GitHub org.
+- id: hsts
+  name: HTTP Strict Transport Security
+  conforms: true
+  evidence: See security/rocketreach-domain-security.yml — HSTS present on rocketreach.co, api.rocketreach.co and docs.rocketreach.co.
+conformance_count: 20
+conforms_true: 12
+conforms_false: 8
+certifications_verified: []
+certifications_note: >-
+  No named certification (SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP) could be verified from a readable
+  RocketReach page. trust.rocketreach.co exists but returns HTTP 403 behind a Cloudflare interstitial, and
+  rocketreach.co/security returns 404. RocketReach does publish GDPR and CCPA pages
+  (rocketreach.co/gdpr, rocketreach.co/ccpa, both HTTP 200) but those are policy statements, not attestations.

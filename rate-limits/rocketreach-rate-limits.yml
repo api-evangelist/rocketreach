@@ -1,0 +1,141 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.rocketreach.co/reference/rate-limits
+docs:
+- https://docs.rocketreach.co/reference/rate-limits
+- https://docs.rocketreach.co/reference/responses-and-errors
+- https://docs.rocketreach.co/reference/quick-start
+summary: >-
+  RocketReach publishes a full per-plan rate-limit matrix broken out by API family (person search, person
+  lookup, company search, bulk jobs) across minute, hourly, daily and monthly windows, plus a global ceiling
+  of 10 requests per second across all APIs. Exhaustion returns HTTP 429 with a Retry-After header carrying
+  the number of seconds to wait. MCP tool calls draw on the SAME budget — there is no separate MCP quota.
+signalling:
+  status_code: 429
+  status_text: Too Many Requests
+  response_headers:
+  - name: Retry-After
+    description: Seconds to wait before the endpoint becomes available again. Published and documented; clients are told to parse and honour it.
+    verified: documented
+  rate_limit_headers_published: false
+  rate_limit_header_note: >-
+    RocketReach does NOT document X-RateLimit-* or RFC 9331 RateLimit-* response headers. The only runtime
+    signal on the wire is Retry-After on a 429. Current limits and usage are instead readable out-of-band
+    from the account endpoint (GET /account/, GET /universal/account/) under rate_limits, and via the MCP
+    account tool.
+  mcp_error_shape:
+    error_code: rate_limited
+    meta_field: retry_after_seconds
+    source: https://docs.rocketreach.co/reference/mcp-errors
+global:
+- scope: all-apis
+  window: second
+  limit: 10
+  note: Global ceiling of 10 requests per second across every RocketReach API, in addition to the per-plan limits below.
+rate_limits:
+- api: Person Search
+  scope: per-api-key
+  plan: Essentials
+  minute: 15
+  hourly: 50
+  daily: 500
+  monthly: 10000
+- api: Person Search
+  scope: per-api-key
+  plan: Pro
+  minute: 30
+  hourly: 250
+  daily: 750
+  monthly: 15000
+- api: Person Search
+  scope: per-api-key
+  plan: Ultimate
+  minute: 60
+  hourly: 500
+  daily: 1000
+  monthly: 20000
+- api: Person Search
+  scope: per-api-key
+  plan: Custom
+  minute: 100
+  hourly: 1000
+  daily: 10000
+  monthly: 200000
+- api: Person Lookup
+  scope: per-api-key
+  plan: Essentials
+  minute: 15
+  hourly: 100
+  daily: 500
+  monthly: 5000
+- api: Person Lookup
+  scope: per-api-key
+  plan: Pro
+  minute: 50
+  hourly: 300
+  daily: 1500
+  monthly: 20000
+- api: Person Lookup
+  scope: per-api-key
+  plan: Ultimate
+  minute: 100
+  hourly: 1000
+  daily: 3000
+  monthly: 50000
+- api: Person Lookup
+  scope: per-api-key
+  plan: Custom
+  minute: 250
+  hourly: 2500
+  daily: 10000
+  monthly: 200000
+- api: Company Search
+  scope: per-api-key
+  plan: Essentials
+  minute: 15
+  hourly: 50
+  daily: 500
+  monthly: 10000
+- api: Company Search
+  scope: per-api-key
+  plan: Pro
+  minute: 30
+  hourly: 250
+  daily: 750
+  monthly: 15000
+- api: Company Search
+  scope: per-api-key
+  plan: Ultimate
+  minute: 60
+  hourly: 500
+  daily: 1000
+  monthly: 20000
+- api: Company Search
+  scope: per-api-key
+  plan: Custom
+  minute: 100
+  hourly: 1000
+  daily: 10000
+  monthly: 200000
+- api: Bulk Jobs
+  scope: per-api-key
+  plan: Essentials / Pro / Ultimate
+  minute: 10
+  hourly: 25
+  daily: 100
+  monthly: null
+  note: No monthly ceiling published for bulk jobs.
+- api: Bulk Jobs
+  scope: per-api-key
+  plan: Custom
+  minute: 10
+  hourly: 100
+  daily: 1000
+  monthly: null
+  note: No monthly ceiling published for bulk jobs.
+limit_count: 15
+remediation:
+- Parse the Retry-After header on any 429 and sleep for that many seconds before retrying.
+- Use webhooks for person lookups instead of polling checkStatus, to cut request volume.
+- Call the account endpoint (or the MCP account tool) to read current limits and usage before a batch run.
+- Upgrade the plan by contacting api@rocketreach.co; free accounts have no paid API allowance.

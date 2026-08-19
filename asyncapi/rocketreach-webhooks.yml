@@ -1,0 +1,79 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.rocketreach.co/reference/webhooks
+asyncapi_published: false
+asyncapi_note: >-
+  RocketReach publishes NO AsyncAPI document. Probed the docs host, the RFC 9727 api-catalog linkset (which
+  advertises only the OpenAPI), and the github.com/rocketreach org — nothing. The event surface below is the
+  webhook catalog transcribed from RocketReach's own Webhooks page; it is deliberately NOT rendered as a
+  fabricated AsyncAPI spec.
+summary: >-
+  RocketReach delivers asynchronous person-lookup results by HTTP POST to a customer-registered callback URL,
+  as the documented alternative to polling the check-status endpoints. Webhooks are created and managed in
+  Account Settings, are per-endpoint selectable, and can be test-fired from the UI. Payloads are HMAC-signed.
+delivery:
+  transport: http
+  method: POST
+  direction: provider-to-consumer
+  registration:
+    ui: https://rocketreach.co/account?section=nav_gen_api
+    api: false
+    note: >-
+      Webhook endpoints are registered in the account UI, not through the API. Each registered URL gets an
+      integer webhook_id, can be enabled/disabled, test-fired, deleted, and given a signing secret.
+  selection:
+    parameter: webhook_id
+    scope: request-level
+    default: the top-most enabled webhook when webhook_id is omitted from the lookup request
+  retries_published: false
+  ordering_published: false
+events:
+- name: person.lookup.result
+  trigger: A People Lookup request (GET /person/lookup) completes asynchronously.
+  requesting_operations:
+  - create_person_lookup
+  - create_universal_person_lookup
+  payload: >-
+    The resolved person profile object — the same body the lookup endpoint would return — with an added
+    profile_list object carrying the list id and name the contact was filed under.
+  example: '{"profile_list": {"id": 1000, "name": "Example Profile List"}, "id": 123456}'
+  source: https://docs.rocketreach.co/reference/webhooks
+- name: person.bulk_lookup.result
+  trigger: A Bulk People Lookup request (POST /bulkLookup) completes.
+  requesting_operations:
+  - create_person_bulk_lookup
+  - create_universal_person_bulk_lookup
+  payload: A LIST of the person.lookup.result objects, one per query in the batch.
+  source: https://docs.rocketreach.co/reference/webhooks
+- name: webhook.test
+  trigger: The Test Webhook button in Account Settings.
+  payload: A basic JSON payload used only to verify connectivity.
+  source: https://docs.rocketreach.co/reference/webhooks
+event_count: 3
+headers:
+- name: RR-Request-ID
+  description: UUID correlating the delivery back to the originating lookup request.
+  required: true
+- name: X-RocketReach-Signature
+  description: Base64-encoded HMAC-SHA256 of the raw request body, keyed on the webhook's secret.
+  required: true
+  present_when: a secret has been generated for the webhook
+security:
+  signature:
+    header: X-RocketReach-Signature
+    algorithm: HMAC-SHA256
+    encoding: base64
+    signed_content: raw response body bytes
+    secret_management: Generate / Regenerate Secret in Account Settings, per webhook
+    verification_sample: python (hmac.new + hmac.compare_digest), published by RocketReach
+  timestamp_header: null
+  replay_protection: >-
+    Incomplete. No timestamp or nonce is signed, so a captured delivery can be replayed; consumers should
+    de-duplicate on RR-Request-ID.
+  mtls: false
+  ip_allowlist_published: false
+consumer_guidance:
+- Register the callback URL and enable the endpoints you want before sending lookups.
+- Pass webhook_id in the lookup request rather than relying on the top-most-enabled default.
+- Verify X-RocketReach-Signature with a constant-time comparison before trusting the body.
+- Use webhooks instead of polling /person/checkStatus to stay under the published rate limits.

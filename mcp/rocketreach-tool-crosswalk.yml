@@ -1,0 +1,122 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/rocketreach-mcp.yml, https://docs.rocketreach.co/reference/mcp-tools, openapi/rocketreach-people-data-api-api-openapi.yml,
+  openapi/rocketreach-company-data-api-api-openapi.yml, openapi/rocketreach-account-api-openapi.yml
+note: >-
+  Binding is by name and documented semantics, not by live introspection: POST tools/list against
+  https://mcp.rocketreach.co/mcp returns 401 auth_required, so the real inputSchema per tool could not be
+  read. RocketReach's Tools Reference documents each tool's parameters explicitly and they line up 1:1 with
+  the v2 REST operations, which is why most rows are confidence high. Where the tool documents behaviour
+  the REST operation does not (My Contacts tagging, credit-type selection) it is recorded in the note.
+surfaces:
+  openapi:
+  - file: openapi/rocketreach-people-data-api-api-openapi.yml
+    gated: false
+  - file: openapi/rocketreach-company-data-api-api-openapi.yml
+    gated: false
+  - file: openapi/rocketreach-account-api-openapi.yml
+    gated: false
+  - file: openapi/_original/rocketreach-api-openapi.json
+    gated: false
+    note: provider-published unified spec, 16 operations, harvested from the RFC 9727 api-catalog
+  graphql: null
+  mcp:
+    url: https://mcp.rocketreach.co/mcp
+    gated: true
+    gate: OAuth 2.1 bearer token; tools/list returns 401 auth_required anonymously
+crosswalk:
+- tool: person_search
+  category: search
+  rest:
+  - create_person_search
+  - create_universal_person_search
+  binding: one-to-many
+  confidence: high
+  note: >-
+    Maps to POST /person/search (legacy credits) and POST /universal/person/search (Universal Credits).
+    Same query/exclude facet vocabulary, start, page_size, order_by. MCP consumes no credits on search;
+    the Universal REST endpoint charges 1 credit per page.
+- tool: company_search
+  category: search
+  rest:
+  - create_company_search
+  - create_universal_company_search
+  binding: one-to-many
+  confidence: high
+  note: POST /searchCompany and POST /universal/company/search. Universal REST charges 2 credits per page.
+- tool: person_lookup
+  category: enrichment
+  rest:
+  - create_person_lookup
+  - create_universal_person_lookup
+  binding: one-to-many
+  confidence: high
+  note: >-
+    GET /person/lookup and GET /universal/person/lookup. Identifiers match (id, email, linkedin_url,
+    npi_number, name + current_employer). The MCP tool additionally writes the resolved contact to the
+    caller's My Contacts list with default tags (MCP Lookups plus the AI client name) — behaviour with no
+    REST equivalent in the published spec.
+- tool: profile_company_lookup
+  category: enrichment
+  rest:
+  - create_person_and_company_lookup
+  binding: one-to-one
+  confidence: high
+  note: GET /profile-company/lookup. Person side async, company side immediate, same as the REST operation.
+- tool: company_lookup
+  category: enrichment
+  rest:
+  - create_company_lookup
+  - create_universal_company_lookup
+  binding: one-to-many
+  confidence: high
+  note: GET /company/lookup/ and GET /universal/company/lookup by domain, id, name, ticker, or LinkedIn URL.
+- tool: account
+  category: account
+  rest:
+  - get_account
+  - get_universal_account
+  binding: one-to-many
+  confidence: high
+  note: >-
+    GET /account/ and GET /universal/account/. Returns plan, credit_usage array and rate_limits. The tool
+    is the documented pre-flight for every credit-consuming flow in RocketReach's own Agent Skills.
+- tool: check_person_status
+  category: async
+  rest:
+  - check_person_lookup_status
+  - check_universal_person_lookup_status
+  binding: one-to-many
+  confidence: high
+  note: GET /person/checkStatus and GET /universal/person/check_status. Accepts up to 100 profile IDs per call.
+- tool: ping
+  category: diagnostics
+  rest: []
+  binding: none
+  confidence: high
+  note: MCP-only liveness check; no REST equivalent.
+mcp_only:
+- tool: ping
+  reason: MCP transport liveness probe; the REST API publishes no health endpoint.
+- tool: person_lookup
+  reason: >-
+    Partial. The lookup itself maps to REST, but the My Contacts write-through with MCP Lookups tagging is
+    MCP-server behaviour layered on top of the REST call.
+rest_only:
+- operationId: create_new_api_key
+  reason: POST /account/key/ mints a new REST API key; deliberately not exposed as an MCP tool.
+- operationId: create_person_bulk_lookup
+  reason: POST /bulkLookup — no bulk tool is published; the Agent Skills batch person_lookup client-side instead.
+- operationId: create_universal_person_bulk_lookup
+  reason: POST /universal/person/bulk_lookup — same, no MCP bulk tool.
+coverage:
+  mcp_tools: 8
+  rest_operations: 16
+  tools_bound_to_rest: 7
+  mcp_only_tools: 1
+  rest_only_operations: 3
+  unified_operation_pairs: 6
+  note: >-
+    Six of the sixteen REST operations are the Universal Credits twin of a legacy operation, so the eight
+    tools cover the whole read surface of the API. The three unbound REST operations are key minting and
+    the two bulk lookups.

@@ -1,0 +1,128 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.rocketreach.co/reference/responses-and-errors, https://docs.rocketreach.co/reference/webhooks,
+  https://docs.rocketreach.co/reference/rate-limits, https://docs.rocketreach.co/reference/mcp-tools,
+  openapi/_original/rocketreach-api-openapi.json
+summary: >-
+  Cross-cutting runtime semantics for the RocketReach v2 REST API and the RocketReach MCP server, read from
+  the provider's docs and its own OpenAPI. The two headline facts an integrator needs: lookups are
+  ASYNCHRONOUS (status pending, then webhook or poll), and there is NO idempotency mechanism, so a retried
+  lookup can spend a second credit.
+authentication:
+  rest:
+    style: api-key
+    header: Api-Key
+    deprecated_alternative: api_key query parameter
+    key_source: https://rocketreach.co/account?section=nav_gen_api
+    rotation: self-service via POST /account/key/
+  mcp:
+    style: oauth2.1
+    grant: authorization_code + PKCE (S256), refresh_token
+    scope: rocketreach:read
+    header: 'Authorization: Bearer <token>'
+  detail: authentication/rocketreach-authentication.yml
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  note: >-
+    RocketReach publishes no idempotency key, no request de-duplication window and no safe-retry contract.
+    This matters more here than on most APIs: person_lookup and company_lookup CONSUME CREDITS, and the
+    documented retry guidance on a 429 or 500 is a plain re-issue of the same request. The only de-dup
+    signal available is the RR-Request-ID header echoed on webhook deliveries, which lets a consumer
+    correlate a response to a request but does not stop a duplicate charge. Credit-safety is instead
+    achieved by calling the account endpoint first and by treating lookup_failed and not_found as terminal.
+  safe_retry:
+    read_operations: GET /person/lookup, /company/lookup/, /account/, /person/checkStatus are re-callable, but
+      a lookup that returns data charges again.
+    polling: check status endpoints are free and explicitly designed to be polled (~3s interval, retry_after_seconds hint).
+    terminal_errors:
+    - not_found
+    - lookup_failed
+pagination:
+  style: offset
+  request_params:
+  - name: start
+    description: 1-based pagination offset. Default 1.
+  - name: page_size
+    description: Results per page. Default 10, maximum 100.
+  - name: order_by
+    description: relevance (default), popularity, or score.
+  response_fields:
+    container: pagination
+    fields:
+    - start
+    - next
+    - total
+  note: >-
+    Search responses carry a pagination object alongside the result array (profiles for person_search,
+    companies for company_search). Universal search charges credits per PAGE (1 for person, 2 for company),
+    so page_size 100 is materially cheaper than ten pages of 10.
+filtering:
+  style: faceted query object
+  request_shape:
+    query: object of facet -> array of values (AND across facets, OR within a facet)
+    exclude: same facet vocabulary; matches are removed from results
+  operators:
+    numeric: '1000+, <5000, 100-500'
+    exact_match: wrap the value in double quotes, e.g. "Jane Doe"
+    geo_radius: '"San Francisco"::~50mi or "Paris"::~50km'
+    signals: 'Category::time_window, e.g. Funding::one_month, Engineering Roles::one_month, Company Change::one_month'
+  source: https://docs.rocketreach.co/reference/mcp-tools
+async:
+  model: submit-then-resolve
+  pending_state: 'status: "pending" with a profile_id'
+  poll:
+    rest:
+    - GET /person/checkStatus
+    - GET /universal/person/check_status
+    mcp: check_person_status
+    batch_size: up to 100 profile IDs per call
+    interval: ~3 seconds; honour retry_after_seconds when present
+    cost: free
+  push:
+    mechanism: webhooks
+    detail: asyncapi/rocketreach-webhooks.yml
+  note: >-
+    RocketReach explicitly recommends webhooks over polling to reduce request volume against the rate limit.
+tracing:
+  request_id_header: RR-Request-ID
+  scope: returned on webhook deliveries to correlate a delivery with the originating lookup request
+  format: UUID
+  note: Not documented as a header on synchronous REST responses.
+versioning:
+  style: path
+  current: /api/v2
+  detail: lifecycle/rocketreach-lifecycle.yml
+errors:
+  rest_envelope: flat {status, message} JSON — not RFC 9457
+  mcp_envelope: MCP tool error with isError and _meta.error_code
+  detail: errors/rocketreach-problem-types.yml
+rate_limiting:
+  exhaustion_status: 429
+  runtime_header: Retry-After
+  standard_ratelimit_headers: false
+  global_ceiling: 10 requests per second across all APIs
+  detail: rate-limits/rocketreach-rate-limits.yml
+metering:
+  model: credits
+  preflight: 'GET /universal/account/ (REST) or the account tool (MCP) returns credit_usage[] and rate_limits'
+  exhaustion: HTTP 402 / MCP insufficient_credits with _meta.credit_type
+  detail: plans/rocketreach-plans-pricing.yml
+webhook_security:
+  signature_header: X-RocketReach-Signature
+  algorithm: HMAC-SHA256 over the raw response body, base64-encoded
+  secret_source: generated per webhook in Account Settings (Generate / Regenerate Secret)
+  comparison: constant-time (hmac.compare_digest) per RocketReach's own published sample
+  timestamp_header: null
+  replay_protection: >-
+    No timestamp or nonce header is published, so signature verification alone does not protect against
+    replay; consumers should de-duplicate on RR-Request-ID.
+media_types:
+  request: application/json
+  response: application/json
+field_conventions:
+  case: snake_case
+  ids: integer RocketReach profile and company IDs; no typed id prefixes
+  expansion: not supported
+  sparse_fieldsets: not supported
+  metadata_field: not supported

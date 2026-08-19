@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: searched
+source: https://status.rocketreach.co, https://docs.rocketreach.co/reference/rocketreach-api, openapi/_original/rocketreach-api-openapi.json
+versioning:
+  scheme: path
+  current_version: v2
+  base_path: /api/v2
+  legacy_version: v1
+  legacy_base_path: /v1/api
+  info_version: 1.0.0
+  note: >-
+    Version is carried in the URL path. v2 is the production surface named in the provider's own OpenAPI
+    servers[]; the older /v1/api base is still reachable and is retained as a second server entry in the
+    harvested specs. RocketReach publishes no dated release schedule for version transitions.
+status_page:
+  url: https://status.rocketreach.co
+  verified: probed
+  http_status: 200
+  components:
+  - RocketReach.co
+  - Extension
+  - API
+  - MCP
+  subscribe: true
+  history_window: rolling 90 days
+  note: >-
+    Real hosted status page with per-component history. Notably it tracks MCP as a first-class component
+    alongside the API, which is unusual and worth crediting.
+deprecation:
+  policy_published: true
+  policy_style: in-line docs notice
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    RocketReach does not emit RFC 8594 Sunset/Deprecation response headers and publishes no standalone
+    deprecation-policy page. It DOES announce dated breaking changes in the API reference itself, which is
+    why this is recorded as a published policy rather than an absence.
+  announced_changes:
+  - change: >-
+      Default behaviour of return_cached_emails on person lookup flips — cached emails will be returned by
+      default rather than fully verified emails.
+    effective: '2026-09-01'
+    breaking: true
+    source: https://docs.rocketreach.co/reference/people-lookup-api
+  - change: >-
+      api_key query-string authentication is deprecated in favour of the Api-Key request header. Older
+      clients may still send it.
+    effective: null
+    breaking: false
+    source: openapi/_original/rocketreach-api-openapi.json (securitySchemes.RocketReachAPIKey.description)
+  - change: >-
+      Universal Credits replaces the six discrete legacy credit types with a single pool, and adds a parallel
+      /api/v2/universal/* operation for every legacy lookup and search operation. Legacy endpoints remain.
+    effective: null
+    breaking: false
+    migration: https://docs.rocketreach.co/reference/universal-credits-overview
+deprecated_operations: []
+deprecated_operation_note: >-
+  No operation in the provider's OpenAPI carries deprecated true. The legacy (non-universal) operations are
+  superseded in practice by their /universal/* twins but are not marked deprecated in the contract.
+sla:
+  published: false
+  note: No public SLA or uptime commitment is published; enterprise terms are handled through sales.
+changelog:
+  published: false
+  note: >-
+    Probed https://docs.rocketreach.co/changelog (404) and the llms.txt documentation index, which lists no
+    changelog page. Individual reference pages carry an updatedAt timestamp but there is no dated,
+    consolidated change log.
+support:
+  api: mailto:api@rocketreach.co
+  sales: mailto:sales@rocketreach.co
+  security: mailto:security@rocketreach.co
+x-evidence:
+- url: https://status.rocketreach.co
+  http_status: 200
+  fetched: '2026-08-13'
+- url: https://docs.rocketreach.co/changelog
+  http_status: 404
+  fetched: '2026-08-13'

@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RocketReach Account Company Data API API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company Data API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Company Lookup API",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rocketreach.co/api/v2/company/lookup/",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain of the desired company to lookup (preferred)."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "RocketReach internal unique company ID"
+              },
+              {
+                "name": "linkedin_url",
+                "value": "",
+                "type": "query",
+                "description": "LinkedIn URL of the desired company to lookup."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the desired company to lookup."
+              },
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "query",
+                "description": "Stock ticker of the desired company to lookup."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Api-Key",
+              "value": "{{Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search Companies by Criteria"
+        },
+        {
+          "info": {
+            "name": "⭐ Universal Company Lookup API",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rocketreach.co/api/v2/universal/company/lookup",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain of the desired company to lookup (preferred)."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "RocketReach internal unique company ID"
+              },
+              {
+                "name": "linkedin_url",
+                "value": "",
+                "type": "query",
+                "description": "LinkedIn URL of the desired company to lookup."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the desired company to lookup."
+              },
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "query",
+                "description": "Stock ticker of the desired company to lookup."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Api-Key",
+              "value": "{{Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search Companies by Criteria"
+        },
+        {
+          "info": {
+            "name": "Company Search API",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rocketreach.co/api/v2/searchCompany",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Api-Key",
+              "value": "{{Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search Companies by Criteria"
+        },
+        {
+          "info": {
+            "name": "⭐ Universal Company Search API",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rocketreach.co/api/v2/universal/company/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Api-Key",
+              "value": "{{Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search Companies by Criteria"
+        },
+        {
+          "info": {
+            "name": "People and Company Lookup API",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rocketreach.co/api/v2/profile-company/lookup",
+            "params": [
+              {
+                "name": "current_employer",
+                "value": "",
+                "type": "query",
+                "description": "Current employer of the desired profile. Must specify along with `name`.\n- Example: `RocketReach`"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "An email address for the desired profile.\n- Example: `jamie@rocketreach.co`"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "RocketReach internal unique profile ID.\n- Example: `123456`"
+              },
+              {
+                "name": "linkedin_ext_url",
+                "value": "",
+                "type": "query",
+                "description": "linkedin_ext_url deprecated, please use `linkedin_url` instead"
+              },
+              {
+                "name": "linkedin_url",
+                "value": "",
+                "type": "query",
+                "description": "LinkedIn URL of the desired profile.\n- Example: `www.linkedin.com/in/jamesgullbrand`"
+              },
+              {
+                "name": "lookup_type",
+                "value": "",
+                "type": "query",
+                "description": "Lookup type for the request\n\n* `standard` - standard\n* `premium` - premium\n* `premium (feeds disabled)` - premium (feeds disabled)\n* `bulk` - bulk\n* `phone` - phone\n* `enrich` - enrich"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the desired profile. Must specify along with `current_employer`.\n- Example: `Jamie Gullbrand`"
+              },
+              {
+                "name": "npi_number",
+                "value": "",
+                "type": "query",
+                "description": "An NPI number for the desired profile (US healthcare professional).\n- Example: `1234567890`"
+              },
+              {
+                "name": "return_cached_emails",
+                "value": "",
+                "type": "query",
+                "description": "Controls whether cached emails are included in the initial response when `lookup status = progress`. When set to `false`, all email fields will be null until the lookup is complete and all emails are fully verified. Use /checkStatus or Webhooks to retrieve the completed response with fully verified emails (`status = complete`). Defaults to `true`.\n\n<b>NOTE: Default will change to false on September 1st, 2026. No cached emails will be returned in the initial response. Use /checkStatus or webhooks to retrieve fully verified emails.</b>"
+              },
+              {
+                "name": "title",
+                "value": "",
+                "type": "query",
+                "description": "Job title of the desired profile.\n- Example: `Product Manager`"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "query",
+                "description": "Your webhook's unique ID number. Find it in your API Usage & Settings page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Api-Key",
+              "value": "{{Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Person and Company Lookup"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
