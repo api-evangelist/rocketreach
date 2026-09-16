@@ -1,8 +1,8 @@
 aid: rocketreach
 name: RocketReach
 url: https://raw.githubusercontent.com/api-evangelist/rocketreach/refs/heads/main/apis.yml
-description: RocketReach is a Seattle-based B2B contact data and sales intelligence provider that maintains a
-  database of 700M+ professional profiles and 60M+ companies and exposes it through a REST API for email,
+description: RocketReach is a Seattle-based B2B contact data and sales intelligence provider that maintains
+  a database of 700M+ professional profiles and 60M+ companies and exposes it through a REST API for email,
   phone, and social-handle discovery plus company firmographics. The platform is used for sales prospecting,
   recruiting, marketing enrichment, and CRM hydration, with results returned as structured profile and
   company objects and optional webhook delivery for asynchronous lookups.
@@ -62,7 +62,7 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rocketreach.png
 specificationVersion: '0.23'
 created: '2026-05-25'
-modified: '2026-08-13'
+modified: '2026-09-16'
 apis:
 - aid: rocketreach:rocketreach-account-api
   name: RocketReach Account API
@@ -83,12 +83,11 @@ apis:
     type: OpenAPI
   - url: overlays/rocketreach-account-api-overlay.yaml
     type: Overlay
-  description: >-
-    Retrieve and manage RocketReach API account details, generate new API keys, and inspect plan, lookup
-    credit balance, export credit balance, and Universal Credits usage. Provides both legacy account endpoints
-    and the newer Universal account endpoint.
+  description: Retrieve and manage RocketReach API account details, generate new API keys, and inspect
+    plan, lookup credit balance, export credit balance, and Universal Credits usage. Provides both legacy
+    account endpoints and the newer Universal account endpoint.
 - aid: rocketreach:rocketreach-company-data-api-api
-  name: RocketReach Company Data API API
+  name: RocketReach Company Data API
   description: The Company Data API API from RocketReach — 5 operation(s) for company data api.
   humanURL: https://docs.rocketreach.co/reference/people-lookup-api
   baseURL: https://api.rocketreach.co/api/v2
@@ -104,8 +103,7 @@ apis:
   - type: Documentation
     url: https://docs.rocketreach.co/reference/bulk-person-lookup-person-lookup-api
   - type: Documentation
-    url: >-
-      https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api
+    url: https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api
   - type: Documentation
     url: https://docs.rocketreach.co/reference/create_universal_person_lookup
   - type: Documentation
@@ -125,7 +123,7 @@ apis:
   - type: Documentation
     url: https://docs.rocketreach.co/reference/create_universal_company_search
 - aid: rocketreach:rocketreach-people-data-api-api
-  name: RocketReach People Data API API
+  name: RocketReach People Data API
   description: The People Data API API from RocketReach — 9 operation(s) for people data api.
   humanURL: https://docs.rocketreach.co/reference/people-lookup-api
   baseURL: https://api.rocketreach.co/api/v2
@@ -141,8 +139,7 @@ apis:
   - type: Documentation
     url: https://docs.rocketreach.co/reference/bulk-person-lookup-person-lookup-api
   - type: Documentation
-    url: >-
-      https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api
+    url: https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api
   - type: Documentation
     url: https://docs.rocketreach.co/reference/create_universal_person_lookup
   - type: Documentation
@@ -246,8 +243,8 @@ common:
   - Cached and fully verified email return modes (return_cached_emails flag; default flips Sept 1, 2026)
   - Premium, standard, phone, enrich, and bulk lookup types with credit-aware pricing
   - LinkedIn URL, name+employer, profile id, email, and NPI number resolvers
-  - Tiered rate limits (Essentials, Pro, Ultimate, Custom) plus a 10-req/sec global ceiling with
-    Retry-After headers on 429s
+  - Tiered rate limits (Essentials, Pro, Ultimate, Custom) plus a 10-req/sec global ceiling with Retry-After
+    headers on 429s
   - API key authentication via Api-Key header; keys generated and rotated from Account Settings
   - Salesforce, HubSpot, Outreach, SalesLoft, Zapier, and Chrome extension integrations
   sources:
@@ -314,7 +311,6 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
   url: https://apievangelist.com
-
 x-enrichment:
   date: '2026-08-13'
   status: enriched
