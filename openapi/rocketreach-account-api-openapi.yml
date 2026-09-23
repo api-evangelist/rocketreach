@@ -1,21 +1,16 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RocketReach Account API
   version: 1.0.0
-  description: Retrieve and manage RocketReach API account details, lookup quotas, plan usage, billing email, and webhook configuration.
+  description: 'The RocketReach API lets you search and retrieve contact info for 700M+ professionals and 35M
+
+    companies.'
   contact:
     name: RocketReach Support
     email: api@rocketreach.co
-  license:
-    name: Proprietary
-  termsOfService: https://rocketreach.co/legal/terms-of-use
 servers:
 - url: https://api.rocketreach.co/api/v2
-  description: RocketReach v2 API
-- url: https://api.rocketreach.co/v1/api
-  description: RocketReach v1 API
-security:
-- RocketReachAPIKey: []
+  description: v2 Production Server
 tags:
 - name: Account
 paths:
@@ -120,6 +115,30 @@ paths:
           description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
 components:
   schemas:
+    Plan:
+      type: object
+      properties:
+        id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: RocketReach internal unique plan ID
+        name:
+          type: string
+          maxLength: 64
+          description: Name of the plan
+        lookup_limit:
+          type: integer
+          description: Maximum number of lookups for the plan
+        export_limit:
+          type: integer
+          description: Maximum number of exports for the plan
+    StateEnum:
+      enum:
+      - anonymous
+      - test_user
+      - registered
+      type: string
     UniversalCreditUsage:
       type: object
       properties:
@@ -140,28 +159,68 @@ components:
           format: date-time
           description: Timestamp of the last sync of the user credit usage data
           example: '2023-10-01T12:00:00Z'
-    RateLimit:
+    CreditUsage:
       type: object
       properties:
-        action:
+        credit_type:
           type: string
-          description: The credit action being rate limited
-        duration:
-          type: string
-          description: The duration of the rate limit window
-        limit:
-          type:
-          - integer
-          - 'null'
-          description: The maximum number of requests allowed
+        allocated:
+          type: integer
+          description: Value will be 'inf' if infinity
         used:
           type: integer
-          description: The number of requests used in the current window
         remaining:
+          type: integer
+          description: Value will be 'inf' if infinity
+    UserModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique user ID
+          example: 123456
+        first_name:
           type:
-          - integer
+          - string
           - 'null'
-          description: The number of requests remaining in the current window
+          maxLength: 32
+          description: First name of the user
+          example: Mark
+        last_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          description: Last name of the user
+          example: Cuban
+        email:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: Email for the user
+          example: name@example.com
+        state:
+          allOf:
+          - $ref: '#/components/schemas/StateEnum'
+          readOnly: true
+        credit_usage:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditUsage'
+          readOnly: true
+        rate_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+          readOnly: true
+    APIKey:
+      type: object
+      properties:
+        api_key:
+          type: string
+          description: The API key for your account. You can also find your API key [here](https://rocketreach.co/account?section=nav_gen_api).
     UniversalCreditsUserModelWithExtraAttributes:
       type: object
       properties:
@@ -237,79 +296,28 @@ components:
             $ref: '#/components/schemas/RateLimit'
           readOnly: true
           description: Objects representing the user's rate limits by request type
-    Plan:
+    RateLimit:
       type: object
       properties:
-        id:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-          description: RocketReach internal unique plan ID
-        name:
+        action:
           type: string
-          maxLength: 64
-          description: Name of the plan
-        lookup_limit:
-          type: integer
-          description: Maximum number of lookups for the plan
-        export_limit:
-          type: integer
-          description: Maximum number of exports for the plan
-    StateEnum:
-      enum:
-      - anonymous
-      - test_user
-      - registered
-      type: string
-    UserModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: RocketReach internal unique user ID
-          example: 123456
-        first_name:
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          description: First name of the user
-          example: Mark
-        last_name:
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          description: Last name of the user
-          example: Cuban
-        email:
-          type:
-          - string
-          - 'null'
-          maxLength: 128
-          description: Email for the user
-          example: name@example.com
-        state:
-          allOf:
-          - $ref: '#/components/schemas/StateEnum'
-          readOnly: true
-        credit_usage:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditUsage'
-          readOnly: true
-        rate_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimit'
-          readOnly: true
-    APIKey:
-      type: object
-      properties:
-        api_key:
+          description: The credit action being rate limited
+        duration:
           type: string
-          description: The API key for your account. You can also find your API key [here](https://rocketreach.co/account?section=nav_gen_api).
+          description: The duration of the rate limit window
+        limit:
+          type:
+          - integer
+          - 'null'
+          description: The maximum number of requests allowed
+        used:
+          type: integer
+          description: The number of requests used in the current window
+        remaining:
+          type:
+          - integer
+          - 'null'
+          description: The number of requests remaining in the current window
     UniversalCreditUsageByAction:
       type: object
       properties:
@@ -334,19 +342,6 @@ components:
           format: date-time
           description: Timestamp of the last sync of the user credit usage by action data
           example: '2023-10-01T12:00:00Z'
-    CreditUsage:
-      type: object
-      properties:
-        credit_type:
-          type: string
-        allocated:
-          type: integer
-          description: Value will be 'inf' if infinity
-        used:
-          type: integer
-        remaining:
-          type: integer
-          description: Value will be 'inf' if infinity
   securitySchemes:
     RocketReachAPIKey:
       type: apiKey

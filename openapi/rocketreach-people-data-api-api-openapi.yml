@@ -1,21 +1,16 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: RocketReach Account People Data API API
+  title: RocketReach People Data API
   version: 1.0.0
-  description: Retrieve and manage RocketReach API account details, lookup quotas, plan usage, billing email, and webhook configuration.
+  description: 'The RocketReach API lets you search and retrieve contact info for 700M+ professionals and 35M
+
+    companies.'
   contact:
     name: RocketReach Support
     email: api@rocketreach.co
-  license:
-    name: Proprietary
-  termsOfService: https://rocketreach.co/legal/terms-of-use
 servers:
 - url: https://api.rocketreach.co/api/v2
-  description: RocketReach v2 API
-- url: https://api.rocketreach.co/v1/api
-  description: RocketReach v1 API
-security:
-- RocketReachAPIKey: []
+  description: v2 Production Server
 tags:
 - name: People Data API
 paths:
@@ -96,6 +91,14 @@ paths:
 
           * `enrich` - enrich'
       - in: query
+        name: metadata
+        schema:
+          type:
+          - object
+          - 'null'
+          additionalProperties: {}
+        description: User metadata about the profile, such as external ids, tags, notes, etc.
+      - in: query
         name: name
         schema:
           type: string
@@ -110,6 +113,14 @@ paths:
         description: 'An NPI number for the desired profile (US healthcare professional).
 
           - Example: `1234567890`'
+      - in: query
+        name: phone
+        schema:
+          type: string
+          minLength: 1
+        description: 'A phone number for the desired profile in either E.164 format or international format.
+
+          - Example: `+15555555555`'
       - in: query
         name: return_cached_emails
         schema:
@@ -147,7 +158,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProfileAPICompiledCompany'
+                $ref: '#/components/schemas/ProfileAPIWithMetadataCompiledCompany'
           description: Success. Returns the profile data for the person lookup.
         '400':
           headers:
@@ -235,84 +246,55 @@ paths:
           description: Too Many Requests. API request limit reached -- slow down requests.
         '500':
           description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
-  /bulkLookup:
+  /person/search:
     post:
-      operationId: create_person_bulk_lookup
-      description: Bulk People Lookup by Criteria
-      summary: Bulk People Lookup API
+      operationId: create_person_search
+      description: Search People by Criteria
+      summary: People Search API
       tags:
       - People Data API
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/APIBulkLookupQuery'
+              $ref: '#/components/schemas/APISearchInput'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/APIBulkLookupQuery'
+              $ref: '#/components/schemas/APISearchInput'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/APIBulkLookupQuery'
+              $ref: '#/components/schemas/APISearchInput'
         required: true
       security:
       - RocketReachAPIKey: []
       responses:
-        '200':
-          headers:
-            RR-Request-ID:
+        '201':
+          content:
+            application/json:
               schema:
-                type: string
-                format: uuid
-              description: Lookup unique identifier, will also be sent in the header of webhook.
-          description: Success. Bulk lookup request accepted
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileSearchResultSerializerBase'
+          description: Success. People search request accepted
         '400':
-          headers:
-            RR-Request-ID:
-              schema:
-                type: string
-                format: uuid
-              description: Lookup unique identifier, will also be sent in the header of webhook.
           description: Bad Request. The request is malformed or missing required parameters.
         '401':
-          headers:
-            RR-Request-ID:
-              schema:
-                type: string
-                format: uuid
-              description: Lookup unique identifier, will also be sent in the header of webhook.
           description: Unauthorized. API Key is missing or invalid.
         '403':
-          headers:
-            RR-Request-ID:
-              schema:
-                type: string
-                format: uuid
-              description: Lookup unique identifier, will also be sent in the header of webhook.
           description: Forbidden. API Key lacks permission to perform this action.
         '404':
-          headers:
-            RR-Request-ID:
-              schema:
-                type: string
-                format: uuid
-              description: Lookup unique identifier, will also be sent in the header of webhook.
           description: Not Found. The requested resource (e.g., profile) does not exist.
         '429':
-          headers:
-            RR-Request-ID:
-              schema:
-                type: string
-                format: uuid
-              description: Lookup unique identifier, will also be sent in the header of webhook.
           description: Too Many Requests. API request limit reached -- slow down requests.
         '500':
-          headers:
-            RR-Request-ID:
-              schema:
-                type: string
-                format: uuid
-              description: Lookup unique identifier, will also be sent in the header of webhook.
           description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+      x-code-samples:
+      - lang: bash
+        source: "\n                curl --request 'POST' --location 'https://api.rocketreach.co/api/v2/person/search'\\\n                 --header 'Content-Type: application/json'\\\n                 --data '{\"query\":{\"keyword\":[\"Marc Benioff\"]},\"order_by\":\"popularity\"}'\n            "
+      - lang: Python
+        source: "\n                search = rr.person.search()\n                search = search.filter(current_title='Software Engineer')\n                search = search.options(order_by='popularity')\n                result = search.execute()\n                result.people\n            "
+      - lang: Javascript
+        source: "\n                let search = rr.people.search()\n                search = search.include({name: \"John Smith\"})\n                search = search.include({currentTitle: \"CEO\"})\n                const results =  await search.execute()\n            "
   /profile-company/lookup:
     get:
       operationId: create_person_and_company_lookup
@@ -390,6 +372,14 @@ paths:
 
           * `enrich` - enrich'
       - in: query
+        name: metadata
+        schema:
+          type:
+          - object
+          - 'null'
+          additionalProperties: {}
+        description: User metadata about the profile, such as external ids, tags, notes, etc.
+      - in: query
         name: name
         schema:
           type: string
@@ -404,6 +394,14 @@ paths:
         description: 'An NPI number for the desired profile (US healthcare professional).
 
           - Example: `1234567890`'
+      - in: query
+        name: phone
+        schema:
+          type: string
+          minLength: 1
+        description: 'A phone number for the desired profile in either E.164 format or international format.
+
+          - Example: `+15555555555`'
       - in: query
         name: return_cached_emails
         schema:
@@ -491,6 +489,129 @@ paths:
                 format: uuid
               description: Lookup unique identifier, will also be sent in the header of webhook.
           description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+  /bulkLookup:
+    post:
+      operationId: create_person_bulk_lookup
+      description: Bulk People Lookup by Criteria
+      summary: Bulk People Lookup API
+      tags:
+      - People Data API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIBulkLookupQuery'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/APIBulkLookupQuery'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/APIBulkLookupQuery'
+        required: true
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '200':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Success. Bulk lookup request accepted
+        '400':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          headers:
+            RR-Request-ID:
+              schema:
+                type: string
+                format: uuid
+              description: Lookup unique identifier, will also be sent in the header of webhook.
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+  /universal/person/search:
+    post:
+      operationId: create_universal_person_search
+      description: Search People by Criteria
+      summary: ⭐ Universal People Search API
+      tags:
+      - People Data API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIUniversalCreditsSearchInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/APIUniversalCreditsSearchInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/APIUniversalCreditsSearchInput'
+        required: true
+      security:
+      - RocketReachAPIKey: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UniversalCreditPersonSearchOutput'
+          description: Success. People search request accepted
+        '400':
+          description: Bad Request. The request is malformed or missing required parameters.
+        '401':
+          description: Unauthorized. API Key is missing or invalid.
+        '403':
+          description: Forbidden. API Key lacks permission to perform this action.
+        '404':
+          description: Not Found. The requested resource (e.g., profile) does not exist.
+        '429':
+          description: Too Many Requests. API request limit reached -- slow down requests.
+        '500':
+          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
+      x-code-samples:
+      - lang: bash
+        source: "\n                curl --request 'POST' --location 'https://api.rocketreach.co/api/v2/universal/person/search'\\\n                 --header 'Content-Type: application/json'\\\n                 --data '{\"query\":{\"keyword\":[\"Marc Benioff\"]},\"order_by\":\"popularity\"}'\n            "
   /universal/person/lookup:
     get:
       operationId: create_universal_person_lookup
@@ -562,6 +683,14 @@ paths:
 
           - Example: `1234567890`'
       - in: query
+        name: phone
+        schema:
+          type: string
+          minLength: 1
+        description: 'A phone number for the desired profile in either E.164 format or international format.
+
+          - Example: `+15555555555`'
+      - in: query
         name: return_cached_emails
         schema:
           type: boolean
@@ -628,7 +757,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UniversalCreditPersonLookupOutputWithOptionalMetadata'
+                $ref: '#/components/schemas/UniversalCreditPersonLookupOutputWithMetadata'
           description: Success. Returns the profile data for the person lookup.
         '400':
           headers:
@@ -794,102 +923,514 @@ paths:
           description: Too Many Requests. API request limit reached -- slow down requests.
         '500':
           description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
-  /person/search:
-    post:
-      operationId: create_person_search
-      description: Search People by Criteria
-      summary: People Search API
-      tags:
-      - People Data API
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/APISearchInput'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/APISearchInput'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/APISearchInput'
-        required: true
-      security:
-      - RocketReachAPIKey: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ProfileSearchResultSerializerBase'
-          description: Success. People search request accepted
-        '400':
-          description: Bad Request. The request is malformed or missing required parameters.
-        '401':
-          description: Unauthorized. API Key is missing or invalid.
-        '403':
-          description: Forbidden. API Key lacks permission to perform this action.
-        '404':
-          description: Not Found. The requested resource (e.g., profile) does not exist.
-        '429':
-          description: Too Many Requests. API request limit reached -- slow down requests.
-        '500':
-          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
-      x-code-samples:
-      - lang: bash
-        source: "\n                curl --request 'POST' --location 'https://api.rocketreach.co/api/v2/person/search'\\\n                 --header 'Content-Type: application/json'\\\n                 --data '{\"query\":{\"keyword\":[\"Marc Benioff\"]},\"order_by\":\"popularity\"}'\n            "
-      - lang: Python
-        source: "\n                search = rr.person.search()\n                search = search.filter(current_title='Software Engineer')\n                search = search.options(order_by='popularity')\n                result = search.execute()\n                result.people\n            "
-      - lang: Javascript
-        source: "\n                let search = rr.people.search()\n                search = search.include({name: \"John Smith\"})\n                search = search.include({currentTitle: \"CEO\"})\n                const results =  await search.execute()\n            "
-  /universal/person/search:
-    post:
-      operationId: create_universal_person_search
-      description: Search People by Criteria
-      summary: ⭐ Universal People Search API
-      tags:
-      - People Data API
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/APIUniversalCreditsSearchInput'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/APIUniversalCreditsSearchInput'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/APIUniversalCreditsSearchInput'
-        required: true
-      security:
-      - RocketReachAPIKey: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UniversalCreditPersonSearchOutput'
-          description: Success. People search request accepted
-        '400':
-          description: Bad Request. The request is malformed or missing required parameters.
-        '401':
-          description: Unauthorized. API Key is missing or invalid.
-        '403':
-          description: Forbidden. API Key lacks permission to perform this action.
-        '404':
-          description: Not Found. The requested resource (e.g., profile) does not exist.
-        '429':
-          description: Too Many Requests. API request limit reached -- slow down requests.
-        '500':
-          description: Internal Server Error. Unexpected error on RocketReach servers. Try again later.
-      x-code-samples:
-      - lang: bash
-        source: "\n                curl --request 'POST' --location 'https://api.rocketreach.co/api/v2/universal/person/search'\\\n                 --header 'Content-Type: application/json'\\\n                 --data '{\"query\":{\"keyword\":[\"Marc Benioff\"]},\"order_by\":\"popularity\"}'\n            "
 components:
   schemas:
+    JobHistoryAPICompiledCompany:
+      type: object
+      properties:
+        start_date:
+          type:
+          - string
+          - 'null'
+          description: Start date of the work experience
+        end_date:
+          type: string
+          default: Present
+          description: End date of the work experience (Present if experience is current)
+        company:
+          type:
+          - string
+          - 'null'
+          description: Name of the company
+        company_name:
+          type: string
+          description: Name of the company
+        company_id:
+          type:
+          - integer
+          - 'null'
+          description: RocketReach internal unique company ID
+        company_linkedin_url:
+          type: string
+          readOnly: true
+          description: Linkedin URL of the company
+        company_city:
+          type: string
+          readOnly: true
+          description: City of the company's location
+        company_region:
+          type: string
+          readOnly: true
+          description: Region of the company's location
+        company_country_code:
+          type: string
+          readOnly: true
+          description: Country code of the company's location
+        department:
+          type: string
+          description: Department of the work experience
+        title:
+          type: string
+          description: Job title of the work experience
+        highest_level:
+          type: string
+          description: Highest level of the work experience
+        description:
+          type: string
+          description: Description of the work experience
+        last_updated:
+          type: string
+          format: date-time
+          description: Timestamp of the last update of this work experience
+        sub_department:
+          type:
+          - string
+          - 'null'
+          description: Sub-department of the work experience
+        is_current:
+          type: boolean
+          default: false
+          description: True if the experience is the profile's current role, False otherwise
+    ProfileAPISerializerWithCompiledCompany:
+      type: object
+      properties:
+        profile_list:
+          allOf:
+          - $ref: '#/components/schemas/ProfileListAPI'
+          readOnly: true
+          description: Profile List this contact was added to.
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique profile ID
+        status:
+          type: string
+          readOnly: true
+          description: Status of the profile lookup. Either "complete", "progress", "searching" or "not queued"
+          example: progress
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: Name of the profile
+        profile_pic:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: profile_pic deprecated
+          deprecated: true
+        linkedin_url:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: LinkedIn URL of the profile
+        connections:
+          type: integer
+          description: Number of LinkedIn connections for this profile
+        links:
+          type: object
+          additionalProperties: {}
+          description: Social media links for the profile
+        location:
+          type:
+          - string
+          - 'null'
+          maxLength: 256
+          description: Location of the profile
+        current_title:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current job title of the profile
+        current_employer:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current employer of the profile
+        current_employer_id:
+          type: integer
+          description: RocketReach internal unique company ID
+        current_employer_domain:
+          type:
+          - string
+          - 'null'
+          description: This person's company's domain name.
+        current_employer_website:
+          type:
+          - string
+          - 'null'
+          description: This person's company's website.
+        current_employer_linkedin_url:
+          type:
+          - string
+          - 'null'
+          description: This person's company's LinkedIn URL.
+        current_employer_industry:
+          type:
+          - string
+          - 'null'
+          description: This person's company's industry.
+        job_history:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobHistoryAPICompiledCompany'
+          description: List of professional experiences for the profile
+        education:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationAPI'
+          description: List of educational experiences for the profile
+        skills:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of skills for the profile
+        birth_year:
+          type: integer
+          description: Year of birth of the profile
+        region_latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Latitude of the region of the profile
+        region_longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Longitude of the region of the profile
+        city:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: City of the profile
+        region:
+          type:
+          - string
+          - 'null'
+          maxLength: 3
+          description: Region of the profile
+        country:
+          type: string
+          readOnly: true
+          description: Country of the profile
+        country_code:
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          description: Country code of the profile
+        npi_data:
+          type: object
+          description: List of NPI data objects for the profile
+          properties:
+            npi_number:
+              type: string
+            credentials:
+              type: string
+            license_number:
+              type: string
+            specialization:
+              type: string
+          readOnly: true
+        tags:
+          type: string
+          readOnly: true
+        return_cached_emails:
+          type: boolean
+          readOnly: true
+          description: Indicates if cached emails were returned in the initial synchronous response. If false, email fields will be null until the lookup is complete.
+        linkedin_url_active:
+          type: boolean
+          description: 'Indicates if the LinkedIn profile exists or is no longer available.
+
+            * `True` = Active (as of last update)
+
+            * `False` = Unavailable (as of last update)'
+          readOnly: true
+        recommended_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Recommended email for the profile
+        recommended_personal_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Recommended personal email for the profile
+        recommended_professional_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Recommended professional email for the profile
+        current_work_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current work email for the profile
+        current_personal_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current personal email for the profile
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileEmailAPI'
+          readOnly: true
+          description: List of email objects for the profile
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfilePhoneAPI'
+          readOnly: true
+          description: List of phone number objects for the profile
+        company:
+          $ref: '#/components/schemas/CompiledCompanyAPI'
+          description: Object representing the employer of the profile
+    UniversalCreditPersonLookupInput:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: RocketReach internal unique profile ID
+        name:
+          type: string
+          description: Name of the desired profile. Must specify along with `current_employer`
+        current_employer:
+          type: string
+          description: Current employer of the desired profile. Must specify along with `name`
+        title:
+          type: string
+          description: Job title of the desired profile
+        linkedin_ext_url:
+          type: string
+          description: linkedin_ext_url deprecated, please use `linkedin_url`
+          pattern: ''
+          deprecated: true
+        linkedin_url:
+          type: string
+          description: LinkedIn URL of the desired profile
+          pattern: ''
+        email:
+          type: string
+          format: email
+          description: An email address for the desired profile
+        phone:
+          type: string
+          description: 'A phone number for the desired profile in either E.164 format or international format.
+
+            - Example: `+15555555555`'
+        npi_number:
+          type: integer
+          description: An NPI number for the desired profile (US healthcare professional)
+        reveal_phone:
+          type: boolean
+          default: false
+          description: Whether to reveal the phone enrichment data for the desired profile
+        reveal_professional_email:
+          type: boolean
+          default: false
+          description: Whether to reveal the professional email enrichment data for the desired profile
+        reveal_personal_email:
+          type: boolean
+          default: false
+          description: Whether to reveal the personal email enrichment data for the desired profile
+        reveal_detailed_person_enrichment:
+          type: boolean
+          default: false
+          description: Whether to reveal the detailed person enrichment data for the desired profile
+        reveal_healthcare_enrichment:
+          type: boolean
+          default: false
+          description: Whether to reveal the healthcare enrichment data for the desired profile
+        metadata:
+          type:
+          - object
+          - 'null'
+          additionalProperties: {}
+          description: User metadata about the profile, such as external ids, tags, notes, etc.
+    ProfileSearchResultSerializerBase:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique profile ID
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+          description: Status of the profile lookup
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: Name of the profile
+        profile_pic:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          deprecated: true
+          description: profile_pic deprecated
+        links:
+          type: object
+          additionalProperties: {}
+          description: Social media links for the profile
+        linkedin_url:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: LinkedIn URL of the profile
+        connections:
+          type: integer
+          description: Number of LinkedIn connections for this profile
+        location:
+          type:
+          - string
+          - 'null'
+          maxLength: 256
+          description: Location of the profile
+        city:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: City of the profile
+        region:
+          type:
+          - string
+          - 'null'
+          maxLength: 3
+          description: Region of the profile
+        country:
+          type: string
+          readOnly: true
+          description: Country code of the profile
+        country_code:
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          description: Country code of the profile
+        current_title:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current job title of the profile
+        current_employer:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current employer of the profile
+        current_employer_domain:
+          type:
+          - string
+          - 'null'
+          description: Domain for the employer of the profile
+        current_employer_website:
+          type:
+          - string
+          - 'null'
+          description: Website for the employer of the profile
+        teaser:
+          type:
+          - object
+          - 'null'
+          properties:
+            emails:
+              type: array
+              items:
+                type: string
+            phones:
+              type: array
+              items:
+                type: object
+                properties:
+                  number:
+                    type: string
+                  is_premium:
+                    type: boolean
+                required:
+                - is_premium
+                - number
+            office_phones:
+              type: array
+              items:
+                type: string
+            preview:
+              type: array
+              items:
+                type: string
+            is_premium_phone_available:
+              type: boolean
+            personal_emails:
+              type: array
+              items:
+                type: string
+            professional_emails:
+              type: array
+              items:
+                type: string
+          readOnly: true
+          description: Preview contact data for the profile
+        birth_year:
+          type: integer
+          description: Year of birth of the profile
+        current_employer_id:
+          type: integer
+          description: RocketReach internal unique company ID
+        current_employer_linkedin_url:
+          type:
+          - string
+          - 'null'
+          description: LinkedIn URL for the employer of the profile
+        region_latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Latitude of the region of the profile
+        region_longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Longitude of the region of the profile
+        suppressed:
+          type: string
+          readOnly: true
+          description: Returns True if this profile is blocked by a suppression list filter
+        npi_data:
+          allOf:
+          - $ref: '#/components/schemas/TypedDict'
+          readOnly: true
+          description: List of NPI data objects for the profile
+        update_time:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Timestamp of the last update for the profile
+          example: '2023-10-01T12:00:00Z'
     StatusEnum:
       enum:
       - complete
@@ -897,6 +1438,500 @@ components:
       - searching
       - not queued
       type: string
+    UniversalCreditPersonLookupOutputWithMetadata:
+      type: object
+      properties:
+        profile_list:
+          allOf:
+          - $ref: '#/components/schemas/ProfileListAPI'
+          readOnly: true
+          description: Profile List this contact was added to.
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique profile ID
+        status:
+          type: string
+          readOnly: true
+          description: Status of the profile lookup. Either "complete", "progress", "searching" or "not queued"
+          example: progress
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: Name of the profile
+        profile_pic:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: profile_pic deprecated
+          deprecated: true
+        linkedin_url:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: LinkedIn URL of the profile
+        connections:
+          type: integer
+          description: Number of LinkedIn connections for this profile
+        location:
+          type:
+          - string
+          - 'null'
+          maxLength: 256
+          description: Location of the profile
+        current_title:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current job title of the profile
+        current_employer:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Current employer of the profile
+        current_employer_id:
+          type: integer
+          description: RocketReach internal unique company ID
+        current_employer_domain:
+          type:
+          - string
+          - 'null'
+          description: This person's company's domain name.
+        current_employer_website:
+          type:
+          - string
+          - 'null'
+          description: This person's company's website.
+        current_employer_linkedin_url:
+          type:
+          - string
+          - 'null'
+          description: This person's company's LinkedIn URL.
+        birth_year:
+          type: string
+          description: Year of birth of the profile
+        region_latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Latitude of the region of the profile
+        region_longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Longitude of the region of the profile
+        city:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+          description: City of the profile
+        region:
+          type:
+          - string
+          - 'null'
+          maxLength: 3
+          description: Region of the profile
+        country:
+          type: string
+          readOnly: true
+          description: Country of the profile
+        country_code:
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          description: Country code of the profile
+        return_cached_emails:
+          type: boolean
+          readOnly: true
+          description: Indicates if cached emails were returned in the initial synchronous response. If false, email fields will be null until the lookup is complete.
+        linkedin_url_active:
+          type: boolean
+          description: 'Indicates if the LinkedIn profile exists or is no longer available.
+
+            * `True` = Active (as of last update)
+
+            * `False` = Unavailable (as of last update)'
+          readOnly: true
+        job_history:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobHistoryAPICompiledCompany'
+          description: '[`reveal_detailed_person_enrichment=true` required or this field will not be returned] List of professional experiences for the profile'
+        education:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationAPI'
+          description: '[`reveal_detailed_person_enrichment=true` required or this field will not be returned] List of educational experiences for the profile'
+        skills:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: '[`reveal_detailed_person_enrichment=true` required or this field will not be returned] List of skills for the profile'
+        links:
+          type: object
+          additionalProperties: {}
+          description: '[`reveal_detailed_person_enrichment=true` required or this field will not be returned] Social media links for the profile'
+        npi_data:
+          type: object
+          description: '[`reveal_healthcare_enrichment=true` required or this field will not be returned] List of NPI data objects for the profile'
+          properties:
+            npi_number:
+              type: string
+            credentials:
+              type: string
+            license_number:
+              type: string
+            specialization:
+              type: string
+          readOnly: true
+        recommended_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: '[`reveal_personal_email OR reveal_professional_email=true` required or this field will not be returned] Recommended email for the profile'
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileEmailAPI'
+          readOnly: true
+          description: '[`reveal_personal_email OR reveal_professional_email=true` required or this field will not be returned] List of email objects for the profile'
+        recommended_personal_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: '[`reveal_personal_email=true` required or this field will not be returned] Recommended personal email for the profile'
+        current_personal_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: '[`reveal_personal_email=true` required or this field will not be returned] Current personal email for the profile'
+        recommended_professional_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: '[`reveal_professional_email=true` required or this field will not be returned] Recommended professional email for the profile'
+        current_work_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: '[`reveal_professional_email=true` required or this field will not be returned] Current work email for the profile'
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfilePhoneAPI'
+          readOnly: true
+          description: '[`reveal_phone=true` required or this field will not be returned] List of phone number objects for the profile'
+        metadata:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: User metadata associated with the profile lookup
+    ProfileListAPI:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: RocketReach internal unique profile list ID
+          example: 123456
+        name:
+          type: string
+          readOnly: true
+          description: Name of the profile list
+          example: Example List Name
+    ProfileAPIWithMetadataCompiledCompany:
+      type: object
+      properties:
+        profile_list:
+          allOf:
+          - $ref: '#/components/schemas/ProfileListAPI'
+          readOnly: true
+          description: Profile List this contact was added to.
+        id:
+          type: integer
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+          description: Either "complete", "progress", "searching" or "not queued". A status other than "complete" indicates the lookup is not finished, and the contact info is not fully available yet.
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+        profile_pic:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: profile_pic deprecated
+          deprecated: true
+        linkedin_url:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        connections:
+          type: integer
+          description: Number of LinkedIn connections for this profile
+        links:
+          type: object
+          additionalProperties: {}
+        location:
+          type:
+          - string
+          - 'null'
+          maxLength: 256
+        current_title:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        current_employer:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        current_employer_id:
+          type: integer
+        current_employer_domain:
+          type:
+          - string
+          - 'null'
+          description: This person's company's domain name.
+        current_employer_website:
+          type:
+          - string
+          - 'null'
+          description: This person's company's website.
+        current_employer_linkedin_url:
+          type:
+          - string
+          - 'null'
+          description: This person's company's LinkedIn URL.
+        current_employer_industry:
+          type:
+          - string
+          - 'null'
+          description: This person's company's industry.
+        job_history:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobHistoryAPICompiledCompany'
+        education:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationAPI'
+        skills:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        birth_year:
+          type: integer
+        region_latitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        region_longitude:
+          type:
+          - number
+          - 'null'
+          format: double
+        city:
+          type:
+          - string
+          - 'null'
+          maxLength: 128
+        region:
+          type:
+          - string
+          - 'null'
+          maxLength: 3
+        country:
+          type: string
+          readOnly: true
+        country_code:
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+        npi_data:
+          type: object
+          description: The format of the NPI data that is serialized to the UI on the search page.
+          properties:
+            npi_number:
+              type: string
+            credentials:
+              type: string
+            license_number:
+              type: string
+            specialization:
+              type: string
+          readOnly: true
+        tags:
+          type: string
+          readOnly: true
+        return_cached_emails:
+          type: boolean
+          readOnly: true
+          description: Indicates if cached emails were returned in the initial synchronous response. If false, email fields will be null until the lookup is complete.
+        linkedin_url_active:
+          type: boolean
+          description: 'Indicates if the LinkedIn profile exists or is no longer available."
+
+            * `True` = Active (as of last update)
+
+            * `False` = Unavailable (as of last update)'
+          readOnly: true
+        recommended_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        recommended_personal_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        recommended_professional_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        current_work_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        current_personal_email:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileEmailAPI'
+          readOnly: true
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfilePhoneAPI'
+          readOnly: true
+        metadata:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: User metadata about the profile, such as external ids, tags, notes, etc.
+    ProfilePhoneAPI:
+      type: object
+      properties:
+        number:
+          type: string
+          description: 'The phone number in international format
+
+            - Example: `+1 234-555-6789`'
+          example: +1 234-555-6789
+        e164:
+          type:
+          - string
+          - 'null'
+          description: 'The phone number in E.164 format
+
+            - Example: `+12345556789`'
+          example: '+12345556789'
+        country_code:
+          type:
+          - string
+          - 'null'
+          description: 'The country code associated with the phone number
+
+            - Example: `1` for United States'
+          example: '1'
+        extension:
+          type:
+          - string
+          - 'null'
+          description: 'The phone extension, if applicable
+
+            - Example: `123`'
+          example: '123'
+        type:
+          type: string
+          default: unknown
+          description: 'The type of phone number. Options are `mobile`, `direct dial`, or `other`.
+
+            - Example: `mobile`'
+          example: mobile
+        grade:
+          type: string
+          description: 'Phone confidence grade.
+
+            - `A` = Best: Confirmed as valid phone and strong identity match signals.
+
+            - `A-` = Likely: Confirmed as valid phone, but unable to confirm identity.
+
+            - `B` = Possible:  Worth trying, especially if better options are not available.'
+          example: A
+        validity:
+          type: string
+          default: unknown
+          description: validity deprecated, please use `grade` instead.
+          deprecated: true
+          example: valid
+        recommended:
+          type: boolean
+          default: false
+          description: 'Indicates whether this is the recommended phone number to use as the best option for connecting with the person.
+
+            - Example: `true`'
+          example: true
+        premium:
+          type: boolean
+          default: false
+          description: '`premium` deprecated'
+          deprecated: true
+          example: true
+        last_checked:
+          type: string
+          format: date-time
+          description: '`last_checked` deprecated'
+          deprecated: true
+    UniversalCreditAPIBulkLookupQuery:
+      type: object
+      properties:
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/UniversalCreditPersonLookupInput'
+          description: Specify the lookup criteria for up to 100 people.
+        profile_list:
+          type: string
+          default: API Bulk Lookup
+          description: Add specified contacts to this profile list.
+        webhook_id:
+          type: integer
+          description: ID of the webhook to post lookup results upon completion.
     ProfileAPICompiledCompany:
       type: object
       properties:
@@ -1122,7 +2157,8 @@ components:
           - string
           - 'null'
           readOnly: true
-          description: URL containing this profile's picture (if available).
+          deprecated: true
+          description: profile_pic deprecated
         linkedin_url:
           type:
           - string
@@ -1255,172 +2291,34 @@ components:
           readOnly: true
           description: Timestamp of the last update for the profile
           example: '2023-10-01T12:00:00Z'
-    TypedDict:
+    EducationAPI:
       type: object
       properties:
-        npi_number:
-          type: string
-          readOnly: true
-          description: NPI number of the healthcare provider. An NPI is a unique 10-digit number used to identify health care providers
-          example: 1234567890
-        credentials:
-          type: string
-          readOnly: true
-          description: Professional qualifications or designations earned by a healthcare provider, such as MD, DO, NP, or RN.
-        license_number:
-          type: string
-          readOnly: true
-          description: A state-issued number that authorizes a healthcare provider to practice in a specific state or field.
-        specialization:
-          type: string
-          readOnly: true
-          description: The specific area of medicine or healthcare in which a provider focuses, such as cardiology, pediatrics, or dermatology.
-    UniversalCreditAPIBulkLookupQuery:
-      type: object
-      properties:
-        queries:
-          type: array
-          items:
-            $ref: '#/components/schemas/UniversalCreditPersonLookupInput'
-          description: Specify the lookup criteria for up to 100 people.
-        profile_list:
-          type: string
-          default: API Bulk Lookup
-          description: Add specified contacts to this profile list.
-        webhook_id:
-          type: integer
-          description: ID of the webhook to post lookup results upon completion.
-    JobHistoryAPICompiledCompany:
-      type: object
-      properties:
-        start_date:
+        major:
           type:
           - string
           - 'null'
-          description: Start date of the work experience
-        end_date:
-          type: string
-          default: Present
-          description: End date of the work experience (Present if experience is current)
-        company:
+          description: Primary field of study of the educational experience
+        school:
           type:
           - string
           - 'null'
-          description: Name of the company
-        company_name:
-          type: string
-          description: Name of the company
-        company_id:
+          description: School/University of the educational experience
+        degree:
+          type:
+          - string
+          - 'null'
+          description: Degree obtained through the educational experience
+        start:
           type:
           - integer
           - 'null'
-          description: RocketReach internal unique company ID
-        company_linkedin_url:
-          type: string
-          readOnly: true
-          description: Linkedin URL of the company
-        company_city:
-          type: string
-          readOnly: true
-          description: City of the company's location
-        company_region:
-          type: string
-          readOnly: true
-          description: Region of the company's location
-        company_country_code:
-          type: string
-          readOnly: true
-          description: Country code of the company's location
-        department:
-          type: string
-          description: Department of the work experience
-        title:
-          type: string
-          description: Job title of the work experience
-        highest_level:
-          type: string
-          description: Highest level of the work experience
-        description:
-          type: string
-          description: Description of the work experience
-        last_updated:
-          type: string
-          format: date-time
-          description: Timestamp of the last update of this work experience
-        sub_department:
+          description: Start date of the educational experience
+        end:
           type:
-          - string
+          - integer
           - 'null'
-          description: Sub-department of the work experience
-        is_current:
-          type: boolean
-          default: false
-          description: True if the experience is the profile's current role, False otherwise
-    ProfilePhoneAPI:
-      type: object
-      properties:
-        number:
-          type: string
-          description: 'The phone number in international format
-
-            - Example: `+1 234-555-6789`'
-          example: +1 234-555-6789
-        e164:
-          type:
-          - string
-          - 'null'
-          description: 'The phone number in E.164 format
-
-            - Example: `+12345556789`'
-          example: '+12345556789'
-        country_code:
-          type:
-          - string
-          - 'null'
-          description: 'The country code associated with the phone number
-
-            - Example: `1` for United States'
-          example: '1'
-        extension:
-          type:
-          - string
-          - 'null'
-          description: 'The phone extension, if applicable
-
-            - Example: `123`'
-          example: '123'
-        type:
-          type: string
-          default: unknown
-          description: 'The type of phone number. Options are `mobile`, `landline`, `work`, `unknown`, `home`, or `fax`.
-
-            - Example: `mobile`'
-          example: mobile
-        validity:
-          type: string
-          default: unknown
-          description: 'Indicates whether a phone number matches a valid numbering pattern for the country/region. Options are valid or unknown. All invalid phones are removed
-
-            - Example: `valid`'
-          example: valid
-        recommended:
-          type: boolean
-          default: false
-          description: 'Indicates whether this is the recommended phone number to use as the best option for connecting with the person.
-
-            - Example: `true`'
-          example: true
-        premium:
-          type: boolean
-          default: false
-          description: '`premium` deprecated'
-          deprecated: true
-          example: true
-        last_checked:
-          type: string
-          format: date-time
-          description: '`last_checked` deprecated'
-          deprecated: true
+          description: End date of the educational experience
     APIUniversalCreditsSearchInput:
       type: object
       properties:
@@ -1450,47 +2348,121 @@ components:
             * `popularity` - popularity
 
             * `score` - score'
-    EducationAPI:
+    ProfileEmailAPI:
       type: object
       properties:
-        major:
-          type:
-          - string
-          - 'null'
-          description: Primary field of study of the educational experience
-        school:
-          type:
-          - string
-          - 'null'
-          description: School/University of the educational experience
-        degree:
-          type:
-          - string
-          - 'null'
-          description: Degree obtained through the educational experience
-        start:
-          type:
-          - integer
-          - 'null'
-          description: Start date of the educational experience
-        end:
-          type:
-          - integer
-          - 'null'
-          description: End date of the educational experience
-    ProfileListAPI:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: RocketReach internal unique profile list ID
-          example: 123456
-        name:
+        email:
           type: string
           readOnly: true
-          description: Name of the profile list
-          example: Example List Name
+          description: 'The email address.
+
+            - Example: `info@rocketreach.co`'
+          example: info@rocketreach.co
+        smtp_valid:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: 'SMTP validation result. Options are `valid`, `invalid`, `accept-all`, or `unknown`.
+
+            - Example: `valid`'
+          example: valid
+        type:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: 'The type of email address. Options are `personal`, `professional`, `disposable`, or `role-based`.
+
+            - Example: `professional`'
+          example: professional
+        last_validation_check:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: 'Timestamp of the last validation check of the email address.
+
+            - Example: `2026-01-01T12:00:00Z`'
+          example: '2026-01-01T12:00:00Z'
+        grade:
+          type: string
+          readOnly: true
+          description: RocketReach internal grade for the email. See <a href="https://knowledgebase.rocketreach.co/hc/en-us/articles/360047771994">Email Grades</a> for details.
+          example: A-
+    TypedDict:
+      type: object
+      properties:
+        npi_number:
+          type: string
+          readOnly: true
+          description: NPI number of the healthcare provider. An NPI is a unique 10-digit number used to identify health care providers
+          example: 1234567890
+        credentials:
+          type: string
+          readOnly: true
+          description: Professional qualifications or designations earned by a healthcare provider, such as MD, DO, NP, or RN.
+        license_number:
+          type: string
+          readOnly: true
+          description: A state-issued number that authorizes a healthcare provider to practice in a specific state or field.
+        specialization:
+          type: string
+          readOnly: true
+          description: The specific area of medicine or healthcare in which a provider focuses, such as cardiology, pediatrics, or dermatology.
+    APIBulkLookupQuery:
+      type: object
+      properties:
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileMatch'
+          description: List of profile lookup queries for between 10 and 100 profiles
+          example: '[''linkedin_url'': ''https://www.linkedin.com/in/benioff''}, etc x10+]'
+        profile_list:
+          type: string
+          default: API Bulk Lookup
+          description: Name of a profile list to add looked up profiles to upon completion
+          example: API Bulk Lookup
+        webhook_id:
+          type: integer
+          description: Webhook ID to post lookup results to upon completion. Find your webhook ID [here](https://rocketreach.co/account?section=nav_gen_api).
+          example: 12345
+    CompiledCompanyAddress:
+      type: object
+      properties:
+        description:
+          type: string
+          readOnly: true
+          description: Description of the company location
+        street:
+          type: string
+          readOnly: true
+          description: Street of the company address
+        city:
+          type: string
+          readOnly: true
+          description: City of the company address
+        region:
+          type: string
+          readOnly: true
+          description: Region of the company address
+        region_code:
+          type: string
+          readOnly: true
+          description: Region code of the company address
+        postal_code:
+          type: string
+          readOnly: true
+          description: Postal code of the company address
+        country:
+          type: string
+          readOnly: true
+          description: Country of the company address
+        country_code:
+          type: string
+          readOnly: true
+          description: Country code of the company address
     APISearchInput:
       type: object
       properties:
@@ -1515,12 +2487,6 @@ components:
           default: relevance
           description: Specifies the ordering of search results. "popularity" matches the default ordering of the Search web app.
           example: popularity
-    OrderByEnum:
-      enum:
-      - relevance
-      - popularity
-      - score
-      type: string
     ProfileMatch:
       type: object
       properties:
@@ -1567,6 +2533,11 @@ components:
 
             - Example: `jamie@rocketreach.co`'
           example: jamie@rocketreach.co
+        phone:
+          type: string
+          description: 'A phone number for the desired profile in either E.164 format or international format.
+
+            - Example: `+15555555555`'
         npi_number:
           type: integer
           description: 'An NPI number for the desired profile (US healthcare professional)
@@ -1598,7 +2569,33 @@ components:
           - 'null'
           additionalProperties: {}
           description: User metadata about the profile, such as external ids, tags, notes, etc.
-    UniversalCreditPersonLookupOutputWithOptionalMetadata:
+    LookupTypeEnum:
+      enum:
+      - standard
+      - premium
+      - premium (feeds disabled)
+      - bulk
+      - phone
+      - enrich
+      type: string
+      description: '* `standard` - standard
+
+        * `premium` - premium
+
+        * `premium (feeds disabled)` - premium (feeds disabled)
+
+        * `bulk` - bulk
+
+        * `phone` - phone
+
+        * `enrich` - enrich'
+    OrderByEnum:
+      enum:
+      - relevance
+      - popularity
+      - score
+      type: string
+    UniversalCreditPersonLookupOutput:
       type: object
       properties:
         profile_list:
@@ -1626,7 +2623,8 @@ components:
           - string
           - 'null'
           readOnly: true
-          description: URL containing this profile's picture (if available).
+          description: profile_pic deprecated
+          deprecated: true
         linkedin_url:
           type:
           - string
@@ -1797,71 +2795,6 @@ components:
             $ref: '#/components/schemas/ProfilePhoneAPI'
           readOnly: true
           description: '[`reveal_phone=true` required or this field will not be returned] List of phone number objects for the profile'
-        metadata:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: User metadata associated with the profile lookup
-    ProfileEmailAPI:
-      type: object
-      properties:
-        email:
-          type: string
-          readOnly: true
-          description: 'The email address.
-
-            - Example: `info@rocketreach.co`'
-          example: info@rocketreach.co
-        smtp_valid:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: 'SMTP validation result. Options are `valid`, `invalid`, `accept-all`, or `unknown`.
-
-            - Example: `valid`'
-          example: valid
-        type:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: 'The type of email address. Options are `personal`, `professional`, `disposable`, or `role-based`.
-
-            - Example: `professional`'
-          example: professional
-        last_validation_check:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: 'Timestamp of the last validation check of the email address.
-
-            - Example: `2026-01-01T12:00:00Z`'
-          example: '2026-01-01T12:00:00Z'
-        grade:
-          type: string
-          readOnly: true
-          description: RocketReach internal grade for the email. See <a href="https://knowledgebase.rocketreach.co/hc/en-us/articles/360047771994">Email Grades</a> for details.
-          example: A-
-    APIBulkLookupQuery:
-      type: object
-      properties:
-        queries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileMatch'
-          description: List of profile lookup queries for between 10 and 100 profiles
-          example: '[''linkedin_url'': ''https://www.linkedin.com/in/benioff''}, etc x10+]'
-        profile_list:
-          type: string
-          default: API Bulk Lookup
-          description: Name of a profile list to add looked up profiles to upon completion
-          example: API Bulk Lookup
-        webhook_id:
-          type: integer
-          description: Webhook ID to post lookup results to upon completion. Find your webhook ID [here](https://rocketreach.co/account?section=nav_gen_api).
-          example: 12345
     PersonQuery:
       type: object
       properties:
@@ -2363,6 +3296,11 @@ components:
             - Example: `[''+15555555555'']`'
           example:
           - '+15555555555'
+        phone_grade:
+          type: array
+          items:
+            type: string
+          description: Include results matching phone_grade.
         previous_company_id:
           type: array
           items:
@@ -2438,264 +3376,6 @@ components:
             - Example: `[''10'']`'
           example:
           - '10'
-    UniversalCreditPersonLookupInput:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: RocketReach internal unique profile ID
-        name:
-          type: string
-          description: Name of the desired profile. Must specify along with `current_employer`
-        current_employer:
-          type: string
-          description: Current employer of the desired profile. Must specify along with `name`
-        title:
-          type: string
-          description: Job title of the desired profile
-        linkedin_ext_url:
-          type: string
-          description: linkedin_ext_url deprecated, please use `linkedin_url`
-          pattern: ''
-          deprecated: true
-        linkedin_url:
-          type: string
-          description: LinkedIn URL of the desired profile
-          pattern: ''
-        email:
-          type: string
-          format: email
-          description: An email address for the desired profile
-        npi_number:
-          type: integer
-          description: An NPI number for the desired profile (US healthcare professional)
-        reveal_phone:
-          type: boolean
-          default: false
-          description: Whether to reveal the phone enrichment data for the desired profile
-        reveal_professional_email:
-          type: boolean
-          default: false
-          description: Whether to reveal the professional email enrichment data for the desired profile
-        reveal_personal_email:
-          type: boolean
-          default: false
-          description: Whether to reveal the personal email enrichment data for the desired profile
-        reveal_detailed_person_enrichment:
-          type: boolean
-          default: false
-          description: Whether to reveal the detailed person enrichment data for the desired profile
-        reveal_healthcare_enrichment:
-          type: boolean
-          default: false
-          description: Whether to reveal the healthcare enrichment data for the desired profile
-        metadata:
-          type:
-          - object
-          - 'null'
-          additionalProperties: {}
-          description: User metadata about the profile, such as external ids, tags, notes, etc.
-    ProfileSearchResultSerializerBase:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: RocketReach internal unique profile ID
-        status:
-          allOf:
-          - $ref: '#/components/schemas/StatusEnum'
-          readOnly: true
-          description: Status of the profile lookup
-        name:
-          type:
-          - string
-          - 'null'
-          maxLength: 128
-          description: Name of the profile
-        profile_pic:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: URL containing this profile's picture (if available).
-        links:
-          type: object
-          additionalProperties: {}
-          description: Social media links for the profile
-        linkedin_url:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: LinkedIn URL of the profile
-        connections:
-          type: integer
-          description: Number of LinkedIn connections for this profile
-        location:
-          type:
-          - string
-          - 'null'
-          maxLength: 256
-          description: Location of the profile
-        city:
-          type:
-          - string
-          - 'null'
-          maxLength: 128
-          description: City of the profile
-        region:
-          type:
-          - string
-          - 'null'
-          maxLength: 3
-          description: Region of the profile
-        country:
-          type: string
-          readOnly: true
-          description: Country code of the profile
-        country_code:
-          type:
-          - string
-          - 'null'
-          maxLength: 2
-          description: Country code of the profile
-        current_title:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Current job title of the profile
-        current_employer:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Current employer of the profile
-        current_employer_domain:
-          type:
-          - string
-          - 'null'
-          description: Domain for the employer of the profile
-        current_employer_website:
-          type:
-          - string
-          - 'null'
-          description: Website for the employer of the profile
-        teaser:
-          type:
-          - object
-          - 'null'
-          properties:
-            emails:
-              type: array
-              items:
-                type: string
-            phones:
-              type: array
-              items:
-                type: object
-                properties:
-                  number:
-                    type: string
-                  is_premium:
-                    type: boolean
-                required:
-                - is_premium
-                - number
-            office_phones:
-              type: array
-              items:
-                type: string
-            preview:
-              type: array
-              items:
-                type: string
-            is_premium_phone_available:
-              type: boolean
-            personal_emails:
-              type: array
-              items:
-                type: string
-            professional_emails:
-              type: array
-              items:
-                type: string
-          readOnly: true
-          description: Preview contact data for the profile
-        birth_year:
-          type: integer
-          description: Year of birth of the profile
-        current_employer_id:
-          type: integer
-          description: RocketReach internal unique company ID
-        current_employer_linkedin_url:
-          type:
-          - string
-          - 'null'
-          description: LinkedIn URL for the employer of the profile
-        region_latitude:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Latitude of the region of the profile
-        region_longitude:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Longitude of the region of the profile
-        suppressed:
-          type: string
-          readOnly: true
-          description: Returns True if this profile is blocked by a suppression list filter
-        npi_data:
-          allOf:
-          - $ref: '#/components/schemas/TypedDict'
-          readOnly: true
-          description: List of NPI data objects for the profile
-        update_time:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Timestamp of the last update for the profile
-          example: '2023-10-01T12:00:00Z'
-    CompiledCompanyAddress:
-      type: object
-      properties:
-        description:
-          type: string
-          readOnly: true
-          description: Description of the company location
-        street:
-          type: string
-          readOnly: true
-          description: Street of the company address
-        city:
-          type: string
-          readOnly: true
-          description: City of the company address
-        region:
-          type: string
-          readOnly: true
-          description: Region of the company address
-        region_code:
-          type: string
-          readOnly: true
-          description: Region code of the company address
-        postal_code:
-          type: string
-          readOnly: true
-          description: Postal code of the company address
-        country:
-          type: string
-          readOnly: true
-          description: Country of the company address
-        country_code:
-          type: string
-          readOnly: true
-          description: Country code of the company address
     CompiledCompanyAPI:
       type: object
       description: Serializes purchased company fields when looked up.
@@ -2797,435 +3477,6 @@ components:
             type: string
           readOnly: true
           description: List of industry keywords for the company
-    ProfileAPISerializerWithCompiledCompany:
-      type: object
-      properties:
-        profile_list:
-          allOf:
-          - $ref: '#/components/schemas/ProfileListAPI'
-          readOnly: true
-          description: Profile List this contact was added to.
-        id:
-          type: integer
-          readOnly: true
-          description: RocketReach internal unique profile ID
-        status:
-          type: string
-          readOnly: true
-          description: Status of the profile lookup. Either "complete", "progress", "searching" or "not queued"
-          example: progress
-        name:
-          type:
-          - string
-          - 'null'
-          maxLength: 128
-          description: Name of the profile
-        profile_pic:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: URL containing this profile's picture (if available).
-        linkedin_url:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: LinkedIn URL of the profile
-        connections:
-          type: integer
-          description: Number of LinkedIn connections for this profile
-        links:
-          type: object
-          additionalProperties: {}
-          description: Social media links for the profile
-        location:
-          type:
-          - string
-          - 'null'
-          maxLength: 256
-          description: Location of the profile
-        current_title:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Current job title of the profile
-        current_employer:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Current employer of the profile
-        current_employer_id:
-          type: integer
-          description: RocketReach internal unique company ID
-        current_employer_domain:
-          type:
-          - string
-          - 'null'
-          description: This person's company's domain name.
-        current_employer_website:
-          type:
-          - string
-          - 'null'
-          description: This person's company's website.
-        current_employer_linkedin_url:
-          type:
-          - string
-          - 'null'
-          description: This person's company's LinkedIn URL.
-        current_employer_industry:
-          type:
-          - string
-          - 'null'
-          description: This person's company's industry.
-        job_history:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobHistoryAPICompiledCompany'
-          description: List of professional experiences for the profile
-        education:
-          type: array
-          items:
-            $ref: '#/components/schemas/EducationAPI'
-          description: List of educational experiences for the profile
-        skills:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of skills for the profile
-        birth_year:
-          type: integer
-          description: Year of birth of the profile
-        region_latitude:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Latitude of the region of the profile
-        region_longitude:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Longitude of the region of the profile
-        city:
-          type:
-          - string
-          - 'null'
-          maxLength: 128
-          description: City of the profile
-        region:
-          type:
-          - string
-          - 'null'
-          maxLength: 3
-          description: Region of the profile
-        country:
-          type: string
-          readOnly: true
-          description: Country of the profile
-        country_code:
-          type:
-          - string
-          - 'null'
-          maxLength: 2
-          description: Country code of the profile
-        npi_data:
-          type: object
-          description: List of NPI data objects for the profile
-          properties:
-            npi_number:
-              type: string
-            credentials:
-              type: string
-            license_number:
-              type: string
-            specialization:
-              type: string
-          readOnly: true
-        tags:
-          type: string
-          readOnly: true
-        return_cached_emails:
-          type: boolean
-          readOnly: true
-          description: Indicates if cached emails were returned in the initial synchronous response. If false, email fields will be null until the lookup is complete.
-        linkedin_url_active:
-          type: boolean
-          description: 'Indicates if the LinkedIn profile exists or is no longer available.
-
-            * `True` = Active (as of last update)
-
-            * `False` = Unavailable (as of last update)'
-          readOnly: true
-        recommended_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Recommended email for the profile
-        recommended_personal_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Recommended personal email for the profile
-        recommended_professional_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Recommended professional email for the profile
-        current_work_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Current work email for the profile
-        current_personal_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Current personal email for the profile
-        emails:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileEmailAPI'
-          readOnly: true
-          description: List of email objects for the profile
-        phones:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfilePhoneAPI'
-          readOnly: true
-          description: List of phone number objects for the profile
-        company:
-          $ref: '#/components/schemas/CompiledCompanyAPI'
-          description: Object representing the employer of the profile
-    LookupTypeEnum:
-      enum:
-      - standard
-      - premium
-      - premium (feeds disabled)
-      - bulk
-      - phone
-      - enrich
-      type: string
-      description: '* `standard` - standard
-
-        * `premium` - premium
-
-        * `premium (feeds disabled)` - premium (feeds disabled)
-
-        * `bulk` - bulk
-
-        * `phone` - phone
-
-        * `enrich` - enrich'
-    UniversalCreditPersonLookupOutput:
-      type: object
-      properties:
-        profile_list:
-          allOf:
-          - $ref: '#/components/schemas/ProfileListAPI'
-          readOnly: true
-          description: Profile List this contact was added to.
-        id:
-          type: integer
-          readOnly: true
-          description: RocketReach internal unique profile ID
-        status:
-          type: string
-          readOnly: true
-          description: Status of the profile lookup. Either "complete", "progress", "searching" or "not queued"
-          example: progress
-        name:
-          type:
-          - string
-          - 'null'
-          maxLength: 128
-          description: Name of the profile
-        profile_pic:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: URL containing this profile's picture (if available).
-        linkedin_url:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: LinkedIn URL of the profile
-        connections:
-          type: integer
-          description: Number of LinkedIn connections for this profile
-        location:
-          type:
-          - string
-          - 'null'
-          maxLength: 256
-          description: Location of the profile
-        current_title:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Current job title of the profile
-        current_employer:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: Current employer of the profile
-        current_employer_id:
-          type: integer
-          description: RocketReach internal unique company ID
-        current_employer_domain:
-          type:
-          - string
-          - 'null'
-          description: This person's company's domain name.
-        current_employer_website:
-          type:
-          - string
-          - 'null'
-          description: This person's company's website.
-        current_employer_linkedin_url:
-          type:
-          - string
-          - 'null'
-          description: This person's company's LinkedIn URL.
-        birth_year:
-          type: string
-          description: Year of birth of the profile
-        region_latitude:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Latitude of the region of the profile
-        region_longitude:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Longitude of the region of the profile
-        city:
-          type:
-          - string
-          - 'null'
-          maxLength: 128
-          description: City of the profile
-        region:
-          type:
-          - string
-          - 'null'
-          maxLength: 3
-          description: Region of the profile
-        country:
-          type: string
-          readOnly: true
-          description: Country of the profile
-        country_code:
-          type:
-          - string
-          - 'null'
-          maxLength: 2
-          description: Country code of the profile
-        return_cached_emails:
-          type: boolean
-          readOnly: true
-          description: Indicates if cached emails were returned in the initial synchronous response. If false, email fields will be null until the lookup is complete.
-        linkedin_url_active:
-          type: boolean
-          description: 'Indicates if the LinkedIn profile exists or is no longer available.
-
-            * `True` = Active (as of last update)
-
-            * `False` = Unavailable (as of last update)'
-          readOnly: true
-        job_history:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobHistoryAPICompiledCompany'
-          description: '[`reveal_detailed_person_enrichment=true` required or this field will not be returned] List of professional experiences for the profile'
-        education:
-          type: array
-          items:
-            $ref: '#/components/schemas/EducationAPI'
-          description: '[`reveal_detailed_person_enrichment=true` required or this field will not be returned] List of educational experiences for the profile'
-        skills:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: '[`reveal_detailed_person_enrichment=true` required or this field will not be returned] List of skills for the profile'
-        links:
-          type: object
-          additionalProperties: {}
-          description: '[`reveal_detailed_person_enrichment=true` required or this field will not be returned] Social media links for the profile'
-        npi_data:
-          type: object
-          description: '[`reveal_healthcare_enrichment=true` required or this field will not be returned] List of NPI data objects for the profile'
-          properties:
-            npi_number:
-              type: string
-            credentials:
-              type: string
-            license_number:
-              type: string
-            specialization:
-              type: string
-          readOnly: true
-        recommended_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: '[`reveal_personal_email OR reveal_professional_email=true` required or this field will not be returned] Recommended email for the profile'
-        emails:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileEmailAPI'
-          readOnly: true
-          description: '[`reveal_personal_email OR reveal_professional_email=true` required or this field will not be returned] List of email objects for the profile'
-        recommended_personal_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: '[`reveal_personal_email=true` required or this field will not be returned] Recommended personal email for the profile'
-        current_personal_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: '[`reveal_personal_email=true` required or this field will not be returned] Current personal email for the profile'
-        recommended_professional_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: '[`reveal_professional_email=true` required or this field will not be returned] Recommended professional email for the profile'
-        current_work_email:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: '[`reveal_professional_email=true` required or this field will not be returned] Current work email for the profile'
-        phones:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfilePhoneAPI'
-          readOnly: true
-          description: '[`reveal_phone=true` required or this field will not be returned] List of phone number objects for the profile'
   securitySchemes:
     RocketReachAPIKey:
       type: apiKey
