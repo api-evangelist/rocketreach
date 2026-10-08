@@ -112,3 +112,33 @@ metering:
     source: https://docs.rocketreach.co/reference/mcp-errors
   balance_endpoint: GET https://api.rocketreach.co/api/v2/universal/account/
   exhaustion_error: HTTP 402 / MCP error_code insufficient_credits with _meta.credit_type
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Essentials
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Pro
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Ultimate
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Custom
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
