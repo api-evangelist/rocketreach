@@ -16,6 +16,37 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: rocketreach-pypi
+  label: PyPI
+  partner: pypi
+  partner_name: PyPI
+  category: official SDK (Python)
+  type: register
+  channel: package-registry
+  evidence: https://pypi.org/project/rocketreach/
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: PyPI (public registry JSON)
+    spec_file: null
+    language: Python
+    packages:
+    - name: rocketreach
+      version: 2.1.8
+      released: '2025-03-26'
+      released_field: upload_time
+      lapsed: false
+      page: https://pypi.org/project/rocketreach/
+      repo_leg: domain:rocketreach.co
+      publisher_leg: email:rocketreach.co
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
 - slug: rocketreach-mcp-registry
   label: MCP Registry
   partner: mcp
@@ -32,7 +63,7 @@
     registered_name: co.rocketreach/mcp
     register_id: co.rocketreach/mcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
 - slug: rocketreach-zapier
@@ -67,7 +98,7 @@
   type: marketplace
   marketplace: pipedream-components
   channel: open-source-node
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/rocketreach
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/rocketreach
   source: edge
   relationship: ipaas-bridge
   contract_reference:
@@ -84,36 +115,5 @@
     actions: true
     sources: false
     builder: Pipedream repo (component)
-  status: not-a-workflow
-  arazzo: null
-- slug: rocketreach-pypi
-  label: PyPI
-  partner: pypi
-  partner_name: PyPI
-  category: official SDK (Python)
-  type: register
-  channel: package-registry
-  evidence: https://pypi.org/project/rocketreach/
-  source: edge
-  relationship: distribution-channel
-  contract_reference:
-    register: PyPI (public registry JSON)
-    spec_file: null
-    language: Python
-    packages:
-    - name: rocketreach
-      version: 2.1.8
-      released: '2025-03-26'
-      released_field: upload_time
-      lapsed: false
-      page: https://pypi.org/project/rocketreach/
-      repo_leg: domain:rocketreach.co
-      publisher_leg: email:rocketreach.co
-      matched_by: domain
-    current: true
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
