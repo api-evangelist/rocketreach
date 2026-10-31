@@ -1,4 +1,4 @@
-# RocketReach (rocketreach)
+# RocketReach
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,178 +66,155 @@
 
 RocketReach is a Seattle-based B2B contact data and sales intelligence provider that maintains a database of 700M+ professional profiles and 60M+ companies and exposes it through a REST API for email, phone, and social-handle discovery plus company firmographics. The platform is used for sales prospecting, recruiting, marketing enrichment, and CRM hydration, with results returned as structured profile and company objects and optional webhook delivery for asynchronous lookups.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/rocketreach/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/rocketreach/refs/heads/main/apis.yml)
+**Areas:** B2B · Contact Data · Email Lookup · Phone Lookup · Sales Intelligence · Lead Generation · People Search · Company Search · Data Enrichment · Prospecting · Recruiting · Webhook
 
-## Scope
+## RocketReach on APIs.io
 
-- **Position:** Provider
-- **Access:** 3rd-Party
+Everything profiled for RocketReach is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/rocketreach/](https://apis.io/providers/rocketreach/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (3)
 
-- B2B
-- Contact Data
-- Email Lookup
-- Phone Lookup
-- Sales Intelligence
-- Lead Generation
-- People Search
-- Company Search
-- Data Enrichment
-- Prospecting
-- Recruiting
-- Webhooks
+- [RocketReach Account API](https://apis.io/apis/rocketreach/rocketreach-account-api/) — Retrieve and manage RocketReach API account details, generate new API keys, and inspect plan, lookup credit balance, export credit balance, and Universal…
+- [RocketReach Company Data API](https://apis.io/apis/rocketreach/rocketreach-company-data-api-api/) — The Company Data API API from RocketReach — 5 operation(s) for company data api.
+- [RocketReach People Data API](https://apis.io/apis/rocketreach/rocketreach-people-data-api-api/) — The People Data API API from RocketReach — 9 operation(s) for people data api.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-25
-- **Modified:** 2026-05-25
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### RocketReach People Lookup API
+Event-driven and webhook contracts.
 
-Look up an individual's email addresses, phone numbers, social handles, and full enriched profile from a name + employer, LinkedIn URL, RocketReach profile id, NPI number, or email. Supports single lookups, bulk lookups (up to 100 queries per request), status polling, combined person+company lookups, and the newer Universal endpoints. Results can be delivered synchronously or via webhook with an RR-Request-ID correlation header.
+- [Rocketreach Webhooks](https://apis.io/asyncapis/rocketreach/rocketreach-webhooks/)
 
-- **Human URL:** [https://docs.rocketreach.co/reference/people-lookup-api](https://docs.rocketreach.co/reference/people-lookup-api)
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Contact Data
-- Email Lookup
-- People
-- Enrichment
-- Webhooks
+- [RocketReach MCP Server](https://apis.io/servers/rocketreach/rocketreach-mcp-server/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://docs.rocketreach.co/reference/people-lookup-api)
-- [Documentation](https://docs.rocketreach.co/reference/bulk-person-lookup-person-lookup-api)
-- [Documentation](https://docs.rocketreach.co/reference/rocketreach-check-person-lookup-status-people-lookup-api)
-- [Documentation](https://docs.rocketreach.co/reference/create_universal_person_lookup)
-- [Documentation](https://docs.rocketreach.co/reference/create_universal_person_bulk_lookup)
-- [Documentation](https://docs.rocketreach.co/reference/create_person_and_company_lookup)
-- [OpenAPI](openapi/rocketreach-people-lookup-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rocketreach-people-lookup-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rocketreach-people-lookup-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### RocketReach People Search API
+- [Rocketreach Agentic Access](https://apis.io/agentic-access/rocketreach/rocketreach-agentic-access/)
 
-Search RocketReach's 700M+ professional profiles using filters such as name, current employer, title, location, skills, industry, and education. Returns paginated lists of profile summaries that can then be passed to the People Lookup API for full contact enrichment.
+#### Collections (7)
 
-- **Human URL:** [https://docs.rocketreach.co/reference/people-search-api](https://docs.rocketreach.co/reference/people-search-api)
+Postman and Open Collection request collections.
 
-#### Tags
+- [RocketReach Account API](https://apis.io/collections/rocketreach/open-rocketreach-account-api/)
+- [RocketReach Account Company Data API API](https://apis.io/collections/rocketreach/open-rocketreach-company-data-api-api/)
+- [RocketReach Company Lookup API](https://apis.io/collections/rocketreach/open-rocketreach-company-lookup-api/)
+- [RocketReach Company Search API](https://apis.io/collections/rocketreach/open-rocketreach-company-search-api/)
+- [RocketReach Account People Data API API](https://apis.io/collections/rocketreach/open-rocketreach-people-data-api-api/)
+- [RocketReach People Lookup API](https://apis.io/collections/rocketreach/open-rocketreach-people-lookup-api/)
+- [RocketReach People Search API](https://apis.io/collections/rocketreach/open-rocketreach-people-search-api/)
 
-- People Search
-- Sales Intelligence
-- Prospecting
+#### Overlays (3)
 
-#### Properties
+OpenAPI overlays, including conversational phrasing for each operation.
 
-- [Documentation](https://docs.rocketreach.co/reference/people-search-api)
-- [Documentation](https://docs.rocketreach.co/reference/create_universal_person_search)
-- [OpenAPI](openapi/rocketreach-people-search-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rocketreach-people-search-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rocketreach-people-search-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Rocketreach Account Api Overlay](https://apis.io/overlays/rocketreach/rocketreach-account-api-overlay/)
+- [Rocketreach Company Data Api Api Overlay](https://apis.io/overlays/rocketreach/rocketreach-company-data-api-api-overlay/)
+- [Rocketreach People Data Api Api Overlay](https://apis.io/overlays/rocketreach/rocketreach-people-data-api-api-overlay/)
 
-### RocketReach Company Lookup API
+#### Security (4)
 
-Retrieve an enriched company profile from a domain, company name, LinkedIn URL, or RocketReach company id. Returns firmographics including headcount, industry, founded year, location, revenue band, technology stack, and key social and contact metadata.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.rocketreach.co/reference/company-lookup-api](https://docs.rocketreach.co/reference/company-lookup-api)
+- [Rocketreach Authentication](https://apis.io/security/rocketreach/rocketreach-authentication/)
+- [Rocketreach Domain Security](https://apis.io/security/rocketreach/rocketreach-domain-security/)
+- [Rocketreach Trust Center](https://apis.io/security/rocketreach/rocketreach-trust-center/)
+- [Rocketreach Vulnerability Disclosure](https://apis.io/security/rocketreach/rocketreach-vulnerability-disclosure/)
 
-#### Tags
+#### OAuth scopes (1)
 
-- Company Data
-- Firmographics
-- Enrichment
+The permissions the API asks for.
 
-#### Properties
+- [Rocketreach Scopes](https://apis.io/scopes/rocketreach/rocketreach-scopes/)
 
-- [Documentation](https://docs.rocketreach.co/reference/company-lookup-api)
-- [Documentation](https://docs.rocketreach.co/reference/create_universal_company_lookup)
-- [OpenAPI](openapi/rocketreach-company-lookup-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rocketreach-company-lookup-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rocketreach-company-lookup-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### RocketReach Company Search API
+Published plans, tiers and prices.
 
-Search RocketReach's company database using firmographic filters such as industry, headcount, revenue, location, and technology stack. Returns paginated company summaries suitable for downstream enrichment via the Company Lookup API.
+- [Rocketreach Plans Pricing](https://apis.io/plans/rocketreach/rocketreach-plans-pricing/)
 
-- **Human URL:** [https://docs.rocketreach.co/reference/company-search-api](https://docs.rocketreach.co/reference/company-search-api)
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Company Search
-- Firmographics
-- Sales Intelligence
+- [Rocketreach Rate Limits](https://apis.io/rate-limits/rocketreach/rocketreach-rate-limits/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.rocketreach.co/reference/company-search-api)
-- [Documentation](https://docs.rocketreach.co/reference/create_universal_company_search)
-- [OpenAPI](openapi/rocketreach-company-search-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rocketreach-company-search-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rocketreach-company-search-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### RocketReach Account API
-
-Retrieve and manage RocketReach API account details, generate new API keys, and inspect plan, lookup credit balance, export credit balance, and Universal Credits usage. Provides both legacy account endpoints and the newer Universal account endpoint.
-
-- **Human URL:** [https://docs.rocketreach.co/reference/rocketreach-api-account](https://docs.rocketreach.co/reference/rocketreach-api-account)
-
-#### Tags
-
-- Account
-- Administration
-- Usage
-
-#### Properties
-
-- [Documentation](https://docs.rocketreach.co/reference/rocketreach-api-account)
-- [Documentation](https://docs.rocketreach.co/reference/rocketreach-api-account-newaccount)
-- [Documentation](https://docs.rocketreach.co/reference/get_universal_account)
-- [OpenAPI](openapi/rocketreach-account-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rocketreach-account-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rocketreach-account-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Portal](https://rocketreach.co)
 - [Website](https://rocketreach.co)
-- [A P I Portal](https://rocketreach.co/api)
 - [Documentation](https://docs.rocketreach.co/)
-- [Documentation](https://docs.rocketreach.co/reference/rocketreach-api)
-- [Getting Started](https://docs.rocketreach.co/reference/rocketreach-api)
-- [Documentation](https://docs.rocketreach.co/reference/universal-credits-overview)
-- [Webhooks](https://docs.rocketreach.co/reference/webhooks)
-- [Rate Limits](https://docs.rocketreach.co/reference/rate-limits)
-- [Errors](https://docs.rocketreach.co/reference/responses-and-errors)
-- [F A Q](https://docs.rocketreach.co/reference/faq)
-- [Pricing](https://rocketreach.co/api)
-- [Sign Up](https://rocketreach.co/signup)
-- [Login](https://rocketreach.co/login)
-- [Support](mailto:api@rocketreach.co)
+- [Getting started](https://docs.rocketreach.co/reference/rocketreach-api)
+- [API reference](https://docs.rocketreach.co/reference/rocketreach-api)
+- [Pricing](https://rocketreach.co/pricing)
+- [Sign up](https://rocketreach.co/signup)
 - [Blog](https://rocketreach.co/blog)
-- [Company](https://rocketreach.co/about)
-- [Careers](https://rocketreach.co/careers)
-- [Press](https://rocketreach.co/press)
-- [Trust Center](https://rocketreach.co/security)
-- [Privacy Policy](https://rocketreach.co/legal/privacy-policy)
-- [Terms of Service](https://rocketreach.co/legal/terms-of-use)
-- [LinkedIn](https://www.linkedin.com/company/rocketreach)
-- [Twitter](https://twitter.com/RocketReach)
-- [Facebook](https://www.facebook.com/rocketreach)
-- [YouTube](https://www.youtube.com/@rocketreach)
-- [Integrations](https://rocketreach.co/integrations/salesforce)
-- [Integrations](https://rocketreach.co/integrations/hubspot)
-- [Integrations](https://rocketreach.co/integrations/zapier)
-- [Integrations](https://chromewebstore.google.com/detail/rocketreach-find-email-ph/oeglkmmgnoojkmdfkpeofkflckjdjbpe)
-- [Features](undefined)
+- [Trust centre](https://trust.rocketreach.co)
+- [Terms of service](https://rocketreach.co/terms)
+- [Privacy policy](https://rocketreach.co/privacy)
+- [GitHub](https://github.com/rocketreach)
+- [Status](https://status.rocketreach.co)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 62.7** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.0 |
+| Contract quality | 60.6 |
+| Contract governance | 18.2 |
+| Operational transparency | 40.8 |
+| Developer ergonomics | 57.1 |
+| Access clarity | 84.2 |
+
+**Agent readiness 57.1** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | yes |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 45.1** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/rocketreach/](https://apis.io/providers/rocketreach/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for RocketReach: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/rocketreach/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
